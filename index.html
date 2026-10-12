@@ -322,6 +322,88 @@ header::after{content:'';position:absolute;right:-20px;bottom:0;width:380px;heig
 .shop-tot-val.hl{color:var(--gold-light);}
 .shop-empty{text-align:center;padding:32px 20px;color:var(--gray-500);font-size:13.5px;background:white;border-radius:var(--radius);box-shadow:var(--shadow);}
 
+/* ── TIMELINE TABLE POR DIA ── */
+.tl-day-table{width:100%;border-collapse:collapse;font-size:12.5px;}
+.tl-day-table thead th{background:var(--ocean);color:white;padding:10px 12px;text-align:left;font-size:10.5px;letter-spacing:1px;text-transform:uppercase;font-weight:700;}
+.tl-day-table tbody tr{border-bottom:1px solid rgba(0,0,0,.05);transition:background .15s;}
+.tl-day-table tbody tr:hover{filter:brightness(.97);}
+.tl-day-table tbody td{padding:10px 12px;vertical-align:top;}
+.tl-dn{font-size:17px;font-weight:900;color:var(--ocean);}
+.tl-dw{font-size:10px;font-weight:700;color:var(--gray-500);text-transform:uppercase;letter-spacing:.5px;margin-top:1px;}
+.tl-hotel-name{font-weight:700;color:#0a2540;font-size:12.5px;}
+.tl-hotel-city{font-size:11px;color:var(--gray-500);margin-top:2px;}
+.tl-tag{display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;border-radius:50px;margin:1px 2px 1px 0;}
+.tl-tag.t-transit{background:rgba(0,119,182,.12);color:var(--ocean-mid);}
+.tl-tag.t-miami{background:rgba(0,95,115,.12);color:#005f73;}
+.tl-tag.t-disney{background:rgba(74,26,122,.12);color:var(--purple);}
+.tl-tag.t-univ{background:rgba(192,57,43,.12);color:var(--red);}
+.tl-tag.t-hotel{background:rgba(244,168,37,.15);color:#7a5d00;}
+.tl-tag.t-compras{background:rgba(26,122,74,.12);color:var(--green);}
+.tl-tag.t-flex{background:rgba(91,127,166,.12);color:var(--gray-500);}
+.tl-act{font-weight:700;color:#0a2540;font-size:12.5px;margin-bottom:3px;}
+.tl-sub{font-size:12px;color:var(--gray-700);margin-top:2px;}
+.tl-dica{font-size:11.5px;color:var(--gray-700);margin-top:4px;}
+.tl-dica b{color:var(--coral);}
+.tr-transit{background:rgba(0,119,182,.03);}
+.tr-miami{background:rgba(0,148,147,.04);}
+.tr-disney{background:rgba(74,26,122,.04);}
+.tr-univ{background:rgba(192,57,43,.04);}
+.tr-muda{background:rgba(244,168,37,.04);}
+.tr-flex{background:rgba(91,127,166,.04);}
+.tr-retorno{background:rgba(2,62,138,.05);}
+/* ── SORT BAR ── */
+.sort-bar{display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
+.sort-bar-lbl{font-size:11px;font-weight:700;color:var(--gray-500);text-transform:uppercase;letter-spacing:.5px;flex-shrink:0;}
+.sort-btn{background:white;border:1.5px solid var(--gray-200);color:var(--gray-500);font-size:11px;font-weight:700;padding:5px 11px;border-radius:20px;cursor:pointer;transition:all .2s;}
+.sort-btn:hover{border-color:var(--ocean-mid);color:var(--ocean-mid);}
+.sort-btn.active{background:var(--ocean);border-color:var(--ocean);color:white;}
+/* ── PENDÊNCIAS FORM ── */
+.add-pend-form{background:white;border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;margin-bottom:18px;border-left:4px solid var(--ocean-mid);}
+.add-pend-form h4{font-size:12px;font-weight:800;color:var(--ocean);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;}
+.apf-grid{display:grid;grid-template-columns:2fr 2fr 1fr;gap:10px;margin-bottom:10px;align-items:end;}
+.apf-group{display:flex;flex-direction:column;gap:4px;}
+.apf-group label{font-size:10.5px;font-weight:700;color:var(--gray-500);text-transform:uppercase;letter-spacing:.5px;}
+.apf-input{width:100%;padding:8px 10px;border:1.5px solid var(--gray-200);border-radius:8px;font-size:12.5px;font-family:inherit;color:#0a2540;transition:border-color .2s;}
+.apf-input:focus{outline:none;border-color:var(--ocean-mid);}
+.apf-btn{background:var(--ocean);color:white;border:none;padding:9px 18px;border-radius:8px;font-size:12.5px;font-weight:800;cursor:pointer;width:100%;transition:background .2s;}
+.apf-btn:hover{background:var(--ocean-mid);}
+/* Botão lixeira nas pendências customizadas */
+.pi-del{background:none;border:none;cursor:pointer;font-size:13px;opacity:.35;padding:4px 6px;border-radius:5px;transition:opacity .2s;flex-shrink:0;}
+.pi-del:hover{opacity:.9;background:rgba(192,57,43,.10);}
+/* Local custom input */
+.shop-custom-input{margin-top:5px;display:none;}
+/* Guia de Seguros */
+.guia-hdr{background:linear-gradient(135deg,#1a2a4a,#2d5a8b);}
+.guia-step{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-bottom:14px;}
+.guia-step-hdr{padding:14px 18px;display:flex;align-items:center;gap:12px;}
+.guia-step-hdr.blue{background:linear-gradient(135deg,var(--ocean),var(--ocean-mid));}
+.guia-step-hdr.green{background:linear-gradient(135deg,#1a3a1a,#2d6a2d);}
+.guia-step-hdr.red{background:linear-gradient(135deg,#6b1a1a,#c0392b);}
+.guia-step-num{font-size:14px;font-weight:900;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.guia-step-hdr h3{font-size:14px;font-weight:800;color:white;}
+.guia-step-hdr p{font-size:11px;color:rgba(255,255,255,.65);margin-top:2px;}
+.guia-body{padding:16px 18px;}
+.guia-item{display:flex;gap:10px;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--gray-100);}
+.guia-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.guia-icon{font-size:18px;flex-shrink:0;margin-top:1px;}
+.guia-content h4{font-size:13px;font-weight:800;color:#0a2540;margin-bottom:3px;}
+.guia-content p{font-size:12.5px;color:var(--gray-700);line-height:1.55;}
+.tag-r{display:inline-block;background:rgba(224,92,62,.12);border:1px solid rgba(224,92,62,.30);color:var(--coral);font-size:10px;font-weight:800;padding:2px 7px;border-radius:4px;margin-right:4px;}
+.tag-a{display:inline-block;background:rgba(26,122,74,.10);border:1px solid rgba(26,122,74,.25);color:var(--green);font-size:10px;font-weight:800;padding:2px 7px;border-radius:4px;margin-right:4px;}
+.tag-w{display:inline-block;background:rgba(244,168,37,.15);border:1px solid rgba(244,168,37,.40);color:#7a5d00;font-size:10px;font-weight:800;padding:2px 7px;border-radius:4px;margin-right:4px;}
+.guia-emerg{background:linear-gradient(135deg,#c0392b,#e74c3c);border-radius:var(--radius);padding:16px 18px;color:white;margin-bottom:14px;}
+.guia-emerg h4{font-size:14px;font-weight:800;margin-bottom:10px;}
+.guia-phones{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:9px;margin-top:10px;}
+.guia-phone{background:rgba(255,255,255,.12);border-radius:8px;padding:9px 12px;}
+.guia-phone-lbl{font-size:10px;font-weight:800;color:rgba(255,255,255,.65);text-transform:uppercase;letter-spacing:.5px;}
+.guia-phone-num{font-size:13.5px;font-weight:800;color:var(--gold-light);margin-top:2px;}
+.guia-diff-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:14px;}
+.guia-diff-card{background:var(--off-white);border-radius:10px;padding:14px;}
+.guia-diff-card h4{font-size:13px;font-weight:800;color:var(--ocean);margin-bottom:4px;}
+.guia-diff-card .val{font-size:20px;font-weight:900;color:var(--coral);}
+.guia-diff-card p{font-size:11.5px;color:var(--gray-700);margin-top:4px;}
+.guia-sep{font-size:12px;font-weight:800;color:var(--ocean);text-transform:uppercase;letter-spacing:1px;margin:20px 0 12px;display:flex;align-items:center;gap:8px;}
+.guia-sep::after{content:'';flex:1;height:1px;background:var(--gray-200);}
 /* ── RESPONSIVE ── */
 @media(max-width:768px){
   .header-inner{padding:20px 16px;}
@@ -337,6 +419,9 @@ header::after{content:'';position:absolute;right:-20px;bottom:0;width:380px;heig
   .shop-totals{grid-template-columns:1fr 1fr;}
   .shop-item{flex-wrap:wrap;}
   .shop-item-prices{min-width:100%;flex-direction:row;gap:12px;}
+  .apf-grid{grid-template-columns:1fr;}
+  .guia-phones{grid-template-columns:1fr 1fr;}
+  .guia-diff-grid{grid-template-columns:1fr;}
 }
 @media print{.tab-wrapper,.btn-export{display:none!important;}}
 </style>
@@ -389,6 +474,7 @@ header::after{content:'';position:absolute;right:-20px;bottom:0;width:380px;heig
   <button class="tab-btn" onclick="switchTab('full',this)">📋 Roteiro</button>
   <button class="tab-btn" onclick="switchTab('vip',this)">🛋️ Salas VIP</button>
   <button class="tab-btn" onclick="switchTab('docs',this)">🛡️ Docs &amp; Seguro</button>
+  <button class="tab-btn" onclick="switchTab('guia',this)">📖 Guia Seguros</button>
   <button class="tab-btn" onclick="switchTab('compras',this)">🛒 Compras</button>
   <button class="tab-btn" id="pend-tab-btn" onclick="switchTab('pendencias',this)">⏳ Pendências</button>
 </nav>
@@ -402,6 +488,7 @@ header::after{content:'';position:absolute;right:-20px;bottom:0;width:380px;heig
   <button onclick="switchTabMobile('full')">📋 Roteiro</button>
   <button onclick="switchTabMobile('vip')">🛋️ Salas VIP</button>
   <button onclick="switchTabMobile('docs')">🛡️ Docs &amp; Seguro</button>
+  <button onclick="switchTabMobile('guia')">📖 Guia Seguros</button>
   <button onclick="switchTabMobile('compras')">🛒 Compras</button>
   <button onclick="switchTabMobile('pendencias')">⏳ Pendências</button>
 </div>
@@ -420,21 +507,28 @@ header::after{content:'';position:absolute;right:-20px;bottom:0;width:380px;heig
 </div>
 <div class="overview-grid">
 <div class="card" style="grid-column:1/-1;">
-  <div class="card-title"><span class="dot"></span>Linha do Tempo</div>
+  <div class="card-title"><span class="dot"></span>Linha do Tempo — 1 dia por linha <span style="font-weight:400;color:var(--gray-500);font-size:10.5px;text-transform:none;letter-spacing:0;">&nbsp;· Atividades a confirmar</span></div>
   <div style="overflow-x:auto;">
-  <table class="flight-table">
-    <thead><tr><th>Período</th><th>Etapa</th><th>Local</th><th>Detalhe</th></tr></thead>
+  <table class="tl-day-table">
+    <thead><tr><th style="width:80px;">Data</th><th style="width:170px;">🏨 Hotel &amp; Cidade</th><th>🗺️ Roteiro / Atividade</th><th style="width:34%;">💡 Destaques &amp; Dicas</th></tr></thead>
     <tbody>
-      <tr><td><strong>07/11 (Sáb)</strong></td><td>✈️ Deslocamento Ida</td><td>IZA → VCP → FLL</td><td>Loc. <strong>GLUBWW</strong> · AD 2631 + AD 8704</td></tr>
-      <tr><td><strong>08–11/11</strong></td><td>🌴 Miami</td><td>YVE Hotel Miami</td><td>RCI #00017 · 146 Biscayne Blvd · Resort fee $25/noite</td></tr>
-      <tr><td><strong>11/11 (Qua)</strong></td><td>🚗 Transfer Miami→Orlando</td><td>Holiday Inn Kissimmee</td><td>AVIS CX-50 · Retirada 08:30 · Drive ~4h</td></tr>
-      <tr><td><strong>11–15/11</strong></td><td>🏡 Holiday Inn Orlando</td><td>Orange Lake East Village</td><td>RCI #00011 · 4 noites · 2 quartos + cozinha</td></tr>
-      <tr><td><strong>12–16/11</strong></td><td>🏰 Disney (4 parques)</td><td>Walt Disney World</td><td>Ingresso #PGPF87221952 · válido até 17/11</td></tr>
-      <tr><td><strong>15/11 (Dom)</strong></td><td>🔄 Mudança de hotel</td><td>Sheraton Vistana</td><td>Checkout 10h · Check-in 16h · Descanso + Compras</td></tr>
-      <tr><td><strong>15–22/11</strong></td><td>🌿 Sheraton Vistana</td><td>8800 Vistana Centre Drive</td><td>RCI #00013 · 7 noites · 2 quartos + cozinha</td></tr>
-      <tr><td><strong>17–21/11</strong></td><td>🎢 Universal (3 parques)</td><td>Universal Orlando Resort</td><td>Ingresso #17465599909 · válido até 24/11</td></tr>
-      <tr><td><strong>22/11 (Dom)</strong></td><td>✈️ Retorno ao Brasil</td><td>MCO → CNF</td><td>Loc. <strong>JQWRXX</strong> · AD 8731 · 21:30 · Terminal C</td></tr>
-      <tr><td><strong>23/11 (Seg)</strong></td><td>🏠 Chegada BH</td><td>Confins → Juiz de Fora</td><td>Chegada CNF 08:05 · Ônibus CNF → JF</td></tr>
+      <tr class="tr-transit"><td><div class="tl-dn">07/11</div><div class="tl-dw">Sábado</div></td><td><div class="tl-hotel-name">— Em trânsito</div><div class="tl-hotel-city">Brasil → EUA</div></td><td><span class="tl-tag t-transit">✈️ Voo</span><br><div class="tl-act">Embarque IZA 15:05 → VCP → FLL</div><div class="tl-sub">AD 2631 (IZA→VCP) + AD 8704 (VCP→FLL 23:05)</div></td><td><div class="tl-dica">Chegar IZA até 11h05. Conexão VCP 6h25 — usar Sala VIP. Embarcar VCP antes das 22:30.</div></td></tr>
+      <tr class="tr-miami"><td><div class="tl-dn">08/11</div><div class="tl-dw">Domingo</div></td><td><div class="tl-hotel-name">YVE Hotel Miami</div><div class="tl-hotel-city">Downtown Miami · RCI #00017</div></td><td><span class="tl-tag t-transit">✈️ Chegada</span> <span class="tl-tag t-miami">🌴 Miami</span><br><div class="tl-act">Chegada FLL 05:55 → Explorar → Check-in 16h</div><div class="tl-sub">Bayside · South Beach · Wynwood · Brickell (a definir)</div></td><td><div class="tl-dica">Check-in só às 16h — ligar YVE p/ bagagens. Uber FLL→Miami ~USD 45. Resort fee USD 25/noite.</div></td></tr>
+      <tr class="tr-miami"><td><div class="tl-dn">09/11</div><div class="tl-dw">Segunda</div></td><td><div class="tl-hotel-name">YVE Hotel Miami</div><div class="tl-hotel-city">Downtown Miami</div></td><td><span class="tl-tag t-miami">🌴 Miami</span><br><div class="tl-act">Wynwood Walls + Design District</div><div class="tl-sub">Arte de rua · KYU almoço · Brickell (a definir)</div></td><td><div class="tl-dica">Uber ~10 min do YVE até Wynwood. Jantar: Coya Miami · Zuma · Little Havana (a definir).</div></td></tr>
+      <tr class="tr-miami"><td><div class="tl-dn">10/11</div><div class="tl-dw">Terça</div></td><td><div class="tl-hotel-name">YVE Hotel Miami</div><div class="tl-hotel-city">Downtown Miami</div></td><td><span class="tl-tag t-miami">🌴 Miami</span><br><div class="tl-act">South Beach + Ocean Drive</div><div class="tl-sub">Praia · Art Deco · Lincoln Road · Joe's Stone Crab (a definir)</div></td><td><div class="tl-dica">Última noite em Miami — jantar especial à beira-mar. Coconut Grove ou Bayside. Check-out amanhã 11h.</div></td></tr>
+      <tr class="tr-muda"><td><div class="tl-dn">11/11</div><div class="tl-dw">Quarta</div></td><td><div class="tl-hotel-name">Holiday Inn Orange Lake</div><div class="tl-hotel-city">Kissimmee · RCI #00011</div></td><td><span class="tl-tag t-transit">🚗 Transfer</span> <span class="tl-tag t-hotel">🏡 Check-in</span><br><div class="tl-act">Retirada AVIS 08:30 · Drive Miami→Orlando ~4h</div><div class="tl-sub">Check-out YVE 11h · Florida Turnpike · Almoço na estrada · Check-in ~16h</div></td><td><div class="tl-dica">Documentos: CNH física + passaporte + cartão físico p/ caução AVIS. Depósito USD 115 no check-in.</div></td></tr>
+      <tr class="tr-disney"><td><div class="tl-dn">12/11</div><div class="tl-dw">Quinta</div></td><td><div class="tl-hotel-name">Holiday Inn Orange Lake</div><div class="tl-hotel-city">Kissimmee</div></td><td><span class="tl-tag t-disney">🏰 Disney Parque 1/4</span><br><div class="tl-act">🎬 Hollywood Studios</div><div class="tl-sub">Star Wars Galaxy's Edge · Tower of Terror · Slinky Dog</div></td><td><div class="tl-dica"><b>⚠️</b> Chegar na abertura para Rise of Resistance. Fantasmic! à noite. Lightning Lane recomendado.</div></td></tr>
+      <tr class="tr-disney"><td><div class="tl-dn">13/11</div><div class="tl-dw">Sexta</div></td><td><div class="tl-hotel-name">Holiday Inn Orange Lake</div><div class="tl-hotel-city">Kissimmee</div></td><td><span class="tl-tag t-disney">🏰 Disney Parque 2/4</span><br><div class="tl-act">🌍 EPCOT — Gastronomia</div><div class="tl-sub">World Showcase · Guardians of the Galaxy · Remy's</div></td><td><div class="tl-dica">Parque mais casal-friendly! La Hacienda (México) · Teppan Edo (Japão) · Rose &amp; Crown (UK).</div></td></tr>
+      <tr class="tr-disney"><td><div class="tl-dn">14/11</div><div class="tl-dw">Sábado</div></td><td><div class="tl-hotel-name">Holiday Inn Orange Lake</div><div class="tl-hotel-city">Kissimmee</div></td><td><span class="tl-tag t-disney">🏰 Disney Parque 3/4</span><br><div class="tl-act">🦁 Animal Kingdom</div><div class="tl-sub">Flight of Passage · Kilimanjaro Safari · Everest</div></td><td><div class="tl-dica">Chegar cedo — animais mais ativos pela manhã. Flight of Passage: fila 1–2h, prioridade máxima!</div></td></tr>
+      <tr class="tr-muda"><td><div class="tl-dn">15/11</div><div class="tl-dw">Domingo</div></td><td><div class="tl-hotel-name">Sheraton Vistana Resort</div><div class="tl-hotel-city">Orlando · RCI #00013</div></td><td><span class="tl-tag t-hotel">🔄 Mudança</span> <span class="tl-tag t-compras">🛍️ Compras</span><br><div class="tl-act">Check-out Holiday Inn 10h → Outlets → Sheraton 16h</div><div class="tl-sub">Premium Outlets International · Florida Mall (a definir)</div></td><td><div class="tl-dica">Descanso e compras. Sheraton tem 7 piscinas + jacuzzi + cozinha completa. Dia leve para repor energias.</div></td></tr>
+      <tr class="tr-disney"><td><div class="tl-dn">16/11</div><div class="tl-dw">Segunda</div></td><td><div class="tl-hotel-name">Sheraton Vistana</div><div class="tl-hotel-city">Orlando</div></td><td><span class="tl-tag t-disney">🏰 Disney Parque 4/4</span><br><div class="tl-act">🏰 Magic Kingdom</div><div class="tl-sub">TRON · Seven Dwarfs · Haunted Mansion · Fogos</div></td><td><div class="tl-dica"><b>⚠️ ÚLTIMO DIA VÁLIDO DO INGRESSO DISNEY (expira 17/11).</b> Ficar até fechar! Fogos Enchantment imperdíveis.</div></td></tr>
+      <tr class="tr-univ"><td><div class="tl-dn">17/11</div><div class="tl-dw">Terça</div></td><td><div class="tl-hotel-name">Sheraton Vistana</div><div class="tl-hotel-city">Orlando</div></td><td><span class="tl-tag t-univ">🎢 Universal Dia 1/4</span><br><div class="tl-act">🗺️ Islands of Adventure</div><div class="tl-sub">Hagrid's Magical Creatures · Hogsmeade · Hulk</div></td><td><div class="tl-dica">Hagrid's: fila 2–3h, chegar na abertura! Butterbeer em Hogsmeade. Não coberto pelo Express Pass.</div></td></tr>
+      <tr class="tr-univ"><td><div class="tl-dn">18/11</div><div class="tl-dw">Quarta</div></td><td><div class="tl-hotel-name">Sheraton Vistana</div><div class="tl-hotel-city">Orlando</div></td><td><span class="tl-tag t-univ">🎢 Universal Dia 2/4</span><br><div class="tl-act">🎬 Universal Studios Florida</div><div class="tl-sub">Diagon Alley · Hogwarts Express · Rip Ride Rockit</div></td><td><div class="tl-dica">Usar Hogwarts Express para viajar entre USF e IOA — experiência única incluída no ingresso!</div></td></tr>
+      <tr class="tr-flex"><td><div class="tl-dn">19/11</div><div class="tl-dw">Quinta</div></td><td><div class="tl-hotel-name">Sheraton Vistana</div><div class="tl-hotel-city">Orlando</div></td><td><span class="tl-tag t-compras">🛍️ Compras</span><br><div class="tl-act">Últimas Compras + Organização de Malas</div><div class="tl-sub">Premium Outlets · Disney Springs · Mall at Millenia (a definir)</div></td><td><div class="tl-dica">Verificar peso das malas. Lavanderia disponível no Sheraton. Cozinha completa para jantar em casa.</div></td></tr>
+      <tr class="tr-univ"><td><div class="tl-dn">20/11</div><div class="tl-dw">Sexta</div></td><td><div class="tl-hotel-name">Sheraton Vistana</div><div class="tl-hotel-city">Orlando</div></td><td><span class="tl-tag t-univ">🎢 Universal Dia 3/4 ⭐ NOVO</span><br><div class="tl-act">🌌 Epic Universe</div><div class="tl-sub">Ministry of Magic (HP) · Super Nintendo World · Dragon Isle</div></td><td><div class="tl-dica">Parque novo (2025) — filas menores em novembro. Reservar dia inteiro. Celestial Park incrível à noite!</div></td></tr>
+      <tr class="tr-flex"><td><div class="tl-dn">21/11</div><div class="tl-dw">Sábado</div></td><td><div class="tl-hotel-name">Sheraton Vistana</div><div class="tl-hotel-city">Orlando</div></td><td><span class="tl-tag t-univ">🎢 Universal Dia 4/4</span> <span class="tl-tag t-flex">🔄 Flex</span><br><div class="tl-act">Repetição Universal ou Dia Livre (a definir)</div><div class="tl-sub">Parque favorito · CityWalk · Piscinas Sheraton · Jantar especial</div></td><td><div class="tl-dica">Dia mais flexível da viagem. 7 piscinas + jacuzzi no Sheraton. Último dia para curtir Orlando!</div></td></tr>
+      <tr class="tr-retorno"><td><div class="tl-dn">22/11</div><div class="tl-dw">Domingo</div></td><td><div class="tl-hotel-name">— Partida</div><div class="tl-hotel-city">MCO → Brasil</div></td><td><span class="tl-tag t-hotel">🔄 Check-out</span> <span class="tl-tag t-transit">✈️ Volta</span><br><div class="tl-act">Check-out 10h · Devolução carro ~17h · Embarque 21:30</div><div class="tl-sub">Disney Springs (sem ingresso) · Almoço especial · Terminal C MCO</div></td><td><div class="tl-dica"><b>⚠️</b> Voo AD 8731 JQWRXX — apresentar no Terminal C até 17:30 (4h antes). Devolução AVIS Rental Car Return.</div></td></tr>
+      <tr class="tr-transit"><td><div class="tl-dn">23/11</div><div class="tl-dw">Segunda</div></td><td><div class="tl-hotel-name">— Chegada Brasil</div><div class="tl-hotel-city">CNF → Juiz de Fora</div></td><td><span class="tl-tag t-transit">✈️ Chegada CNF 08:05</span><br><div class="tl-act">Imigração · Bagagens · Alfândega · Ônibus CNF→JF</div><div class="tl-sub">App Aduana · Ônibus CNF→JF a comprar</div></td><td><div class="tl-dica">🏠 Bem-vindos ao Brasil! Isenção USD 1.000/pessoa. App Aduana (Receita Federal) antes de aterrissar.</div></td></tr>
     </tbody>
   </table>
   </div>
@@ -463,7 +557,7 @@ header::after{content:'';position:absolute;right:-20px;bottom:0;width:380px;heig
     <li class="warn">Seguro Assist Card cobre <strong>07/11 a 23/11</strong> — vigência correta para toda a viagem. ✅</li>
     <li class="warn">Ingressos Disney válidos até <strong>17/11</strong> — 4 parques devem ser usados entre 11–17/11. Último planejado: 16/11. ✅</li>
     <li class="warn">Check-out Sheraton às <strong>10h00 em 22/11</strong> — voo às 21:30. ~11h30 de janela. Planejar o dia.</li>
-    <li>Holiday Inn: Depósito <strong>USD 115</strong> + taxa limpeza <strong>USD 134,06</strong> no check-in (cartão físico obrigatório).</li>
+    <li>Holiday Inn: Depósito <strong>USD 115</strong> + se atentar a cobrança indevida de taxa limpeza <strong>USD 134,06</strong> no check-in para reservas menores que 7 dias.</li>
     <li>YVE Hotel: Resort fee <strong>USD 25/noite</strong> → USD 75 total por 3 noites.</li>
     <li>Nos EUA: <strong>nunca ir a hospital sem contatar Assist Card antes.</strong> WhatsApp: <strong>+54 9 11 2703 9665</strong></li>
     <li class="warn">Check-in Azul: apresentar-se com <strong>4h de antecedência</strong> em todos os voos internacionais.</li>
@@ -869,6 +963,124 @@ header::after{content:'';position:absolute;right:-20px;bottom:0;width:380px;heig
 </div>
 
 <!-- ═══════════════════════════════════════
+     TAB: GUIA DE SEGUROS
+═══════════════════════════════════════ -->
+<div id="tab-guia" class="tab-panel">
+<div class="day-header guia-hdr">
+  <div class="day-header-left"><h2>📖 Guia de Uso — Seguros de Viagem &amp; Carro</h2><p>Assist Card AC 500 MUNDO + Seguro do Cartão para Locação AVIS</p></div>
+  <div class="weather-badge">🛡️ <span>Guia prático passo a passo</span></div>
+</div>
+
+<!-- ASSIST CARD -->
+<div class="guia-sep">🛡️ PARTE 1 — ASSIST CARD AC 500 MUNDO</div>
+
+<div class="card">
+  <div class="card-title"><span class="dot"></span>🌟 Principais Diferenciais</div>
+  <div class="guia-diff-grid">
+    <div class="guia-diff-card"><h4>🏥 Blindagem Médica Massiva</h4><div class="val">USD 500.000</div><p>Um dos maiores tetos do mercado para despesas médicas, hospitalares, cirúrgicas e odontológicas nos EUA.</p></div>
+    <div class="guia-diff-card"><h4>✈️ Regresso Sanitário Elite</h4><div class="val">USD 150.000</div><p>Maior limite de repatriação em UTI aérea internacional — segurança total contra custos catastróficos.</p></div>
+    <div class="guia-diff-card"><h4>🚑 Traslado Médico Local</h4><div class="val">USD 15.000</div><p>Cobertura ampla para ambulâncias terrestres e deslocamentos de urgência nos EUA.</p></div>
+    <div class="guia-diff-card"><h4>💊 Farmácia Robusta</h4><div class="val">USD 1.500</div><p>Reembolso de medicamentos prescritos em pronto-socorros americanos como CVS e Walgreens.</p></div>
+  </div>
+</div>
+
+<div class="guia-step">
+  <div class="guia-step-hdr blue"><div class="guia-step-num" style="background:var(--gold);color:var(--ocean);">1</div><div><h3>Antes de Viajar — Preparação</h3><p>Organize antes de sair de casa</p></div></div>
+  <div class="guia-body">
+    <div class="guia-item"><div class="guia-icon">📱</div><div class="guia-content"><h4>Salve a Apólice nos dois celulares</h4><p>Baixe o PDF do bilhete de seguro no celular de Gabriel e de Patricia. Tenha offline — sem precisar de internet.</p></div></div>
+    <div class="guia-item"><div class="guia-icon">👨‍👩‍👧</div><div class="guia-content"><h4>Compartilhe com um Familiar</h4><p>Envie uma cópia da apólice para um familiar no Brasil — número da apólice e todos os contatos de emergência.</p></div></div>
+    <div class="guia-item"><div class="guia-icon">📲</div><div class="guia-content"><h4>Instale o App Assist Card</h4><p>Disponível na App Store e Google Play. Faça login com os dados da apólice para acesso à telemedicina e chat 24h em português.</p></div></div>
+    <div class="guia-item"><div class="guia-icon">📞</div><div class="guia-content"><h4>Salve os Contatos de Emergência na Agenda</h4><p>WhatsApp: <strong>+54 9 11 2703 9665</strong> · EUA Toll Free: <strong>1-800-874-2223</strong> · EUA Direto: <strong>+1 (305) 424-1250</strong></p></div></div>
+  </div>
+</div>
+
+<div class="guia-step">
+  <div class="guia-step-hdr blue"><div class="guia-step-num" style="background:var(--gold);color:var(--ocean);">2</div><div><h3>Aeroporto &amp; Voo — Bagagens e Atrasos</h3><p>Atenção: extravio, danos ou atrasos acima de 6h</p></div></div>
+  <div class="guia-body">
+    <div class="guia-item"><div class="guia-icon">🧳</div><div class="guia-content"><h4>Não saia da esteira sem o PIR</h4><p>Se a mala não aparecer ou chegar danificada, vá imediatamente ao balcão da companhia aérea e exija o <strong>PIR (Property Irregularity Report)</strong>. <strong>Sem este documento, a seguradora não pode indenizar.</strong></p></div></div>
+    <div class="guia-item"><div class="guia-icon">📱</div><div class="guia-content"><h4>Acione a Assist Card em até 24h</h4><p>Abra o app ou envie mensagem via WhatsApp para registrar o extravio e ativar o sistema de rastreio <em>(Find My Bag)</em>.</p></div></div>
+    <div class="guia-item"><div class="guia-icon">🧾</div><div class="guia-content"><h4>Guarde os Comprovantes</h4><p>Mantenha os bilhetes de despacho e comprovantes de despesas emergenciais (itens de primeira necessidade) caso fique sem a mala.</p></div></div>
+  </div>
+</div>
+
+<div class="guia-step">
+  <div class="guia-step-hdr blue"><div class="guia-step-num" style="background:var(--gold);color:var(--ocean);">3</div><div><h3>Nos EUA — Emergências Médicas, Farmácia e Telemedicina</h3><p>🚨 NUNCA vá a hospital por conta própria sem avisar a Assist Card antes</p></div></div>
+  <div class="guia-body">
+    <div class="guia-item"><div class="guia-icon">🤒</div><div class="guia-content"><h4>Casos Leves / Moderados — Use Telemedicina 24h</h4><p><em>Gripe, dor de garganta, mal-estar leve:</em> Use a <strong>Telemedicina 24h</strong> direto pelo app Assist Card. Médico atende em português por vídeo e envia receita eletrônica para farmácia mais próxima (CVS ou Walgreens).</p></div></div>
+    <div class="guia-item"><div class="guia-icon">🚨</div><div class="guia-content"><h4>Urgências Presenciais — Contate ANTES de ir</h4><p><em>Fraturas, cortes profundos, dores agudas:</em> <strong>Não vá ao pronto-socorro sem antes contatar a central.</strong> Ligue ou acione via WhatsApp para receber direcionamento a clínica credenciada e obter a <strong>GOP (Garantia de Pagamento)</strong>.</p></div></div>
+    <div class="guia-item"><div class="guia-icon">🏥</div><div class="guia-content"><h4>No Atendimento — Sem Desembolso</h4><p>Apresente passaporte + número da apólice. O atendimento será coberto pelo limite de USD 500.000. A GOP garante pagamento direto ao hospital.</p></div></div>
+    <div class="guia-item"><div class="guia-icon">💊</div><div class="guia-content"><h4>Medicamentos na Farmácia</h4><p>Pague os remédios na farmácia. Guarde o <strong>receipt original (nota fiscal)</strong> e a receita médica. Reembolso via app após a viagem (até USD 1.500).</p></div></div>
+  </div>
+</div>
+
+<div class="guia-step">
+  <div class="guia-step-hdr blue"><div class="guia-step-num" style="background:var(--gold);color:var(--ocean);">4</div><div><h3>Retorno e Pós-Viagem — Reembolsos</h3><p>Solicitar dentro do prazo após voltar</p></div></div>
+  <div class="guia-body">
+    <div class="guia-item"><div class="guia-icon">📱</div><div class="guia-content"><h4>Passo a passo para reembolso</h4><p>1. Acesse o <strong>App Assist Card</strong> ou portal my.assistcard.com<br>2. Vá na seção <strong>Reembolsos</strong><br>3. Anexe digitalmente: notas fiscais originais, receitas médicas, laudos e formulário preenchido<br>4. Acompanhe o crédito na conta bancária cadastrada no Brasil.</p></div></div>
+  </div>
+</div>
+
+<div class="guia-emerg">
+  <h4>📞 Canais Oficiais Assist Card — 24h em Português</h4>
+  <div class="guia-phones">
+    <div class="guia-phone"><div class="guia-phone-lbl">📱 WhatsApp (mais rápido)</div><div class="guia-phone-num">+54 9 11 2703 9665</div></div>
+    <div class="guia-phone"><div class="guia-phone-lbl">📞 EUA Toll Free</div><div class="guia-phone-num">1-800-874-2223</div></div>
+    <div class="guia-phone"><div class="guia-phone-lbl">📞 EUA Alternativo</div><div class="guia-phone-num">1-866-701-8962</div></div>
+    <div class="guia-phone"><div class="guia-phone-lbl">📞 EUA Direto</div><div class="guia-phone-num">+1 (305) 424-1250</div></div>
+    <div class="guia-phone"><div class="guia-phone-lbl">📞 Brasil (emergência)</div><div class="guia-phone-num">+55 11 3191-8699</div></div>
+    <div class="guia-phone"><div class="guia-phone-lbl">📱 App</div><div class="guia-phone-num">Assist Card (App Store / Play)</div></div>
+  </div>
+</div>
+
+<!-- SEGURO CARRO -->
+<div class="guia-sep">🚗 PARTE 2 — SEGURO DO CARRO ALUGADO (CARTÃO DE CRÉDITO)</div>
+
+<div class="guia-step">
+  <div class="guia-step-hdr green"><div class="guia-step-num" style="background:var(--green);color:white;">1</div><div><h3>Na Cotação e Reserva</h3><p>Verificações importantes (já realizadas)</p></div></div>
+  <div class="guia-body">
+    <div class="guia-item"><div class="guia-icon">💳</div><div class="guia-content"><h4>Cartão Correto — Amex TPC ou C6 Carbon</h4><p>Ambos oferecem CDW/LDW. O Amex TPC costuma oferecer status Hertz Gold Plus ou similar, garantindo upgrade e balcão exclusivo. A reserva AVIS foi feita no Amex ✅</p></div></div>
+    <div class="guia-item"><div class="guia-icon">⚠️</div><div class="guia-content"><h4>Exclusões dos Cartões</h4><p>Não alugue vans de mais de 8 lugares ou carros de luxo extremo (Ferrari/Lamborghini) — os cartões brasileiros não cobrem nesses casos.</p></div></div>
+  </div>
+</div>
+
+<div class="guia-step">
+  <div class="guia-step-hdr green"><div class="guia-step-num" style="background:var(--green);color:white;">2</div><div><h3>No Balcão da AVIS — O Que Recusar e Aceitar</h3><p>⚠️ Decisão crítica na retirada do carro em 11/11</p></div></div>
+  <div class="guia-body">
+    <div class="guia-item"><div class="guia-icon">❌</div><div class="guia-content"><h4><span class="tag-r">RECUSAR</span> CDW / LDW (Collision Damage Waiver)</h4><p>É obrigatório <strong>recusar</strong> para ativar o seguro do cartão de crédito. Se aceitar pago no balcão, o cartão não cobre mais. <em>Nota: o pacote ALL INCLUSIVE LIGHT já inclui LDW — verifique com a AVIS na retirada como isso se aplica.</em></p></div></div>
+    <div class="guia-item"><div class="guia-icon">✅</div><div class="guia-content"><h4><span class="tag-a">ACEITAR</span> LIS / TPL / SLI (Responsabilidade Civil contra Terceiros)</h4><p>Os cartões brasileiros <strong>NÃO cobrem</strong> danos a terceiros. Aceitar sempre o seguro de responsabilidade civil contra terceiros.</p></div></div>
+    <div class="guia-item"><div class="guia-icon">📹</div><div class="guia-content"><h4><span class="tag-w">ATENÇÃO</span> Vistoria — Grave vídeo 360° antes de sair</h4><p>Grave um vídeo de 360° do carro antes de sair da vaga, focando em rodas, para-brisas e riscos na lataria. Isso protege contra cobranças indevidas na devolução em 22/11.</p></div></div>
+  </div>
+</div>
+
+<div class="guia-step">
+  <div class="guia-step-hdr red"><div class="guia-step-num" style="background:white;color:var(--red);">3</div><div><h3>Em Caso de Sinistro — Como Fazer o Police Report</h3><p>Documento essencial — sem ele o reembolso do cartão é negado</p></div></div>
+  <div class="guia-body">
+    <div class="guia-item"><div class="guia-icon">📍</div><div class="guia-content"><h4>Passo 1 — Identificar a Jurisdição e Chamar a Polícia</h4><p>
+      <strong>Rodovias (I-4, Turnpike):</strong> Florida Highway Patrol — disque <strong>*FHP (*347)</strong><br>
+      <strong>Miami Beach:</strong> Miami Beach Police (não-emergência) — <strong>+1 (305) 673-7900</strong><br>
+      <strong>Orlando / Orange County:</strong> Orange County Sheriff — <strong>+1 (407) 836-4357</strong> ou Orlando PD — <strong>+1 (407) 246-2421</strong><br>
+      <strong>Emergência com feridos:</strong> sempre disque <strong>911</strong>.
+    </p></div></div>
+    <div class="guia-item"><div class="guia-icon">🚔</div><div class="guia-content"><h4>Passo 2 — Atendimento no Local</h4><p>Aguarde a viatura. O oficial coletará passaporte, CNH e documentação do veículo. Se for em estacionamento privado e a polícia não comparecer, vá pessoalmente à delegacia mais próxima para registrar o boletim.</p></div></div>
+    <div class="guia-item"><div class="guia-icon">🔢</div><div class="guia-content"><h4>Passo 3 — Colete o Case Number</h4><p>O oficial fornecerá um canhoto com o <strong>Case Number</strong> + nome do oficial + departamento. Este número é o documento exigido pela bandeira do cartão. O relatório completo pode ser solicitado posteriormente online.</p></div></div>
+    <div class="guia-item"><div class="guia-icon">📋</div><div class="guia-content"><h4>Passo 4 — Abertura do Sinistro no Cartão</h4><p><strong>Não repare o veículo por conta própria.</strong> Permita que a locadora cobre no cartão. Depois abra o sinistro no portal da bandeira (mycardbenefits.com para Visa/MC ou portal AXA para Amex) anexando:<br>• Contrato de locação AVIS<br>• Case Number do Police Report<br>• Fotos dos danos<br>• Fatura do cartão com a cobrança</p></div></div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title"><span class="dot"></span>📞 Contatos de Emergência — Carro</div>
+  <table class="info-table">
+    <tr><td>🚨 Emergência (feridos)</td><td><strong>911</strong></td></tr>
+    <tr><td>Florida Highway Patrol (rodovias)</td><td><strong>*FHP</strong> (*347)</td></tr>
+    <tr><td>Miami Beach Police (não-emerg.)</td><td><strong>+1 (305) 673-7900</strong></td></tr>
+    <tr><td>Orange County Sheriff (Orlando)</td><td><strong>+1 (407) 836-4357</strong></td></tr>
+    <tr><td>Orlando Police Dept.</td><td><strong>+1 (407) 246-2421</strong></td></tr>
+    <tr><td>Orange Viagens (agência)</td><td>daniella@orangeviagens.com.br · (15) 3042-2089</td></tr>
+  </table>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════
      TAB: COMPRAS (FIREBASE DINÂMICO)
 ═══════════════════════════════════════ -->
 <div id="tab-compras" class="tab-panel">
@@ -895,25 +1107,41 @@ header::after{content:'';position:absolute;right:-20px;bottom:0;width:380px;heig
         <input type="text" id="nome-adulto" class="shop-input" placeholder="Ex: Nike Air Max, Perfume...">
       </div>
       <div class="shop-form-group">
-        <label>Local</label>
-        <select id="local-adulto" class="shop-input">
-          <option value="">📍 Selecione</option>
-          <option>Premium Outlets International</option>
-          <option>Florida Mall</option>
-          <option>Disney Springs</option>
-          <option>Magic Kingdom (loja)</option>
-          <option>EPCOT (loja)</option>
-          <option>Hollywood Studios (loja)</option>
-          <option>Animal Kingdom (loja)</option>
-          <option>Universal CityWalk</option>
-          <option>Epic Universe (loja)</option>
-          <option>Target</option>
-          <option>Walmart</option>
-          <option>South Beach / Miami</option>
-          <option>Wynwood / Brickell</option>
-          <option>Amazon US</option>
-          <option>Outros</option>
+        <label>Local de Compra</label>
+        <select id="local-adulto" class="shop-input" onchange="handleLocalChange('adulto')">
+          <option value="">📍 Selecione o local</option>
+          <optgroup label="🌴 Miami">
+            <option>South Beach / Ocean Drive — Miami</option>
+            <option>Wynwood / Design District — Miami</option>
+            <option>Brickell City Centre — Miami</option>
+            <option>Bayside Marketplace — Miami</option>
+            <option>Lincoln Road Mall — Miami</option>
+          </optgroup>
+          <optgroup label="🏰 Orlando — Disney">
+            <option>Disney Springs — Orlando</option>
+            <option>Magic Kingdom (loja) — Orlando</option>
+            <option>EPCOT (loja) — Orlando</option>
+            <option>Hollywood Studios (loja) — Orlando</option>
+            <option>Animal Kingdom (loja) — Orlando</option>
+          </optgroup>
+          <optgroup label="🎢 Orlando — Universal">
+            <option>Universal CityWalk — Orlando</option>
+            <option>Epic Universe (loja) — Orlando</option>
+            <option>Islands of Adventure (loja) — Orlando</option>
+          </optgroup>
+          <optgroup label="🛍️ Orlando — Shopping">
+            <option>Premium Outlets International — Orlando</option>
+            <option>Florida Mall — Orlando</option>
+            <option>Mall at Millenia — Orlando</option>
+          </optgroup>
+          <optgroup label="🛒 Gerais (EUA)">
+            <option>Target</option>
+            <option>Walmart</option>
+            <option>Amazon US</option>
+          </optgroup>
+          <option value="outros">✏️ Outro (digitar abaixo)</option>
         </select>
+        <input type="text" id="local-adulto-custom" class="shop-input shop-custom-input" placeholder="Digite o local...">
       </div>
       <div class="shop-form-group">
         <label>Data Prevista</label>
@@ -943,6 +1171,13 @@ header::after{content:'';position:absolute;right:-20px;bottom:0;width:380px;heig
     </div>
     <button class="shop-add-btn" onclick="addItem('adulto')">➕ Adicionar à Lista</button>
   </div>
+  <div class="sort-bar">
+    <span class="sort-bar-lbl">Ordenar:</span>
+    <button class="sort-btn active" id="sort-adulto-ts" onclick="setSort('adulto','ts')">📅 Adição</button>
+    <button class="sort-btn" id="sort-adulto-data" onclick="setSort('adulto','data')">🗓️ Por data</button>
+    <button class="sort-btn" id="sort-adulto-preco" onclick="setSort('adulto','preco')">💵 Preço ↑</button>
+    <button class="sort-btn" id="sort-adulto-preco-desc" onclick="setSort('adulto','preco-desc')">💵 Preço ↓</button>
+  </div>
   <div class="shop-items-wrap" id="list-adulto">
     <div class="shop-empty">Nenhum item ainda. Adicione acima! 👆</div>
   </div>
@@ -964,24 +1199,38 @@ header::after{content:'';position:absolute;right:-20px;bottom:0;width:380px;heig
         <input type="text" id="nome-bebe" class="shop-input" placeholder="Ex: Carrinho, Body, Mamadeira...">
       </div>
       <div class="shop-form-group">
-        <label>Local</label>
-        <select id="local-bebe" class="shop-input">
-          <option value="">📍 Selecione</option>
-          <option>Buy Buy Baby</option>
-          <option>Target</option>
-          <option>Walmart</option>
-          <option>Amazon US</option>
-          <option>Premium Outlets International</option>
-          <option>Florida Mall</option>
-          <option>Disney Springs</option>
-          <option>Magic Kingdom (loja)</option>
-          <option>EPCOT (loja)</option>
-          <option>Hollywood Studios (loja)</option>
-          <option>Animal Kingdom (loja)</option>
-          <option>Universal CityWalk</option>
-          <option>Epic Universe (loja)</option>
-          <option>Outros</option>
+        <label>Local de Compra</label>
+        <select id="local-bebe" class="shop-input" onchange="handleLocalChange('bebe')">
+          <option value="">📍 Selecione o local</option>
+          <optgroup label="🌴 Miami">
+            <option>Bayside Marketplace — Miami</option>
+            <option>Brickell City Centre — Miami</option>
+          </optgroup>
+          <optgroup label="🏰 Orlando — Disney">
+            <option>Disney Springs — Orlando</option>
+            <option>Magic Kingdom (loja) — Orlando</option>
+            <option>EPCOT (loja) — Orlando</option>
+            <option>Hollywood Studios (loja) — Orlando</option>
+            <option>Animal Kingdom (loja) — Orlando</option>
+          </optgroup>
+          <optgroup label="🎢 Orlando — Universal">
+            <option>Universal CityWalk — Orlando</option>
+            <option>Epic Universe (loja) — Orlando</option>
+          </optgroup>
+          <optgroup label="🛍️ Orlando — Shopping">
+            <option>Premium Outlets International — Orlando</option>
+            <option>Florida Mall — Orlando</option>
+            <option>Mall at Millenia — Orlando</option>
+          </optgroup>
+          <optgroup label="🛒 Lojas Especializadas">
+            <option>Buy Buy Baby</option>
+            <option>Target</option>
+            <option>Walmart</option>
+            <option>Amazon US</option>
+          </optgroup>
+          <option value="outros">✏️ Outro (digitar abaixo)</option>
         </select>
+        <input type="text" id="local-bebe-custom" class="shop-input shop-custom-input" placeholder="Digite o local...">
       </div>
       <div class="shop-form-group">
         <label>Data Prevista</label>
@@ -1011,6 +1260,13 @@ header::after{content:'';position:absolute;right:-20px;bottom:0;width:380px;heig
     </div>
     <button class="shop-add-btn" onclick="addItem('bebe')">➕ Adicionar à Lista</button>
   </div>
+  <div class="sort-bar">
+    <span class="sort-bar-lbl">Ordenar:</span>
+    <button class="sort-btn active" id="sort-bebe-ts" onclick="setSort('bebe','ts')">📅 Adição</button>
+    <button class="sort-btn" id="sort-bebe-data" onclick="setSort('bebe','data')">🗓️ Por data</button>
+    <button class="sort-btn" id="sort-bebe-preco" onclick="setSort('bebe','preco')">💵 Preço ↑</button>
+    <button class="sort-btn" id="sort-bebe-preco-desc" onclick="setSort('bebe','preco-desc')">💵 Preço ↓</button>
+  </div>
   <div class="shop-items-wrap" id="list-bebe">
     <div class="shop-empty">Nenhum item ainda. Adicione acima! 👆</div>
   </div>
@@ -1036,6 +1292,25 @@ header::after{content:'';position:absolute;right:-20px;bottom:0;width:380px;heig
     <div class="pend-counter" id="pend-counter">Carregando...</div>
   </div>
   <div class="weather-badge">📋 <span>Marque como concluído!</span></div>
+</div>
+
+<!-- Formulário nova pendência -->
+<div class="add-pend-form">
+  <h4>➕ Adicionar Nova Pendência</h4>
+  <div class="apf-grid">
+    <div class="apf-group"><label>Nome (campo principal)</label><input type="text" id="apf-nome" class="apf-input" placeholder="Ex: Comprar protetor solar 50+..."></div>
+    <div class="apf-group"><label>Detalhe (aparece em cinza)</label><input type="text" id="apf-detalhe" class="apf-input" placeholder="Ex: SPF 50+ · Amazon ou Target..."></div>
+    <div class="apf-group"><label>Prioridade</label>
+      <select id="apf-prioridade" class="apf-input">
+        <option value="red-urgente">🔴 Urgente</option>
+        <option value="red-alta">🔴 Alta</option>
+        <option value="yellow" selected>🟡 Média</option>
+        <option value="blue">🔵 Baixa</option>
+        <option value="green">✅ Concluído</option>
+      </select>
+    </div>
+  </div>
+  <button class="apf-btn" onclick="addCustomPendencia()">➕ Adicionar Pendência</button>
 </div>
 
 <div style="color:var(--coral);font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin:0 0 10px;display:flex;align-items:center;gap:8px;">🔴 Alta Prioridade</div>
@@ -1085,7 +1360,7 @@ db.ref('.info/connected').on('value', snap => {
 });
 
 // ═══════════════════════════════════════════
-//  PENDÊNCIAS — DEFINIÇÃO E CHECKBOXES
+//  PENDÊNCIAS — DEFINIÇÃO, CHECKBOXES E CUSTOM
 // ═══════════════════════════════════════════
 const PENDENCIAS = [
   // Alta
@@ -1145,35 +1420,45 @@ const PENDENCIAS = [
     sub:'17465599909-2TRDC · App Universal Orlando · ✅ CONCLUÍDO', done:true },
 ];
 
-// Renderizar itens de pendência
-function renderPendencias() {
+// Mapa de prioridade para customizadas
+const PRIO_MAP = {
+  'red-urgente':{grp:'red',badge:'🔴 Urgente',badgeCls:'pib-red'},
+  'red-alta':{grp:'red',badge:'🔴 Alta',badgeCls:'pib-red'},
+  'yellow':{grp:'yellow',badge:'🟡 Média',badgeCls:'pib-yellow'},
+  'blue':{grp:'blue',badge:'🔵 Baixa',badgeCls:'pib-blue'},
+  'green':{grp:'green',badge:'✅ Concluído',badgeCls:'pib-green'},
+};
+let cachedCbData={}, cachedCustomData={};
+
+function renderPendencias(cbData, customData) {
   const groups = { red:[], yellow:[], blue:[], green:[] };
-  PENDENCIAS.forEach(p => groups[p.grp].push(p));
+  PENDENCIAS.forEach(p => {
+    const isDone = p.id in cbData ? cbData[p.id] : p.done;
+    groups[p.grp].push({...p, isDone, isCustom:false});
+  });
+  Object.entries(customData||{}).forEach(([id,p]) => {
+    const prio = PRIO_MAP[p.prioridade] || PRIO_MAP['yellow'];
+    const isDone = id in cbData ? cbData[id] : false;
+    groups[prio.grp].push({id, titulo:p.nome, sub:p.detalhe||'', isDone, badge:prio.badge, badgeCls:prio.badgeCls, isCustom:true});
+  });
   Object.keys(groups).forEach(grp => {
     const el = document.getElementById('pend-list-' + grp);
     if(!el) return;
     el.innerHTML = groups[grp].map(p => `
-      <div class="pending-item" id="pi-${p.id}" data-default="${p.done}">
-        <div class="pi-cb-wrap">
-          <input type="checkbox" data-id="${p.id}" onchange="togglePendencia(this)">
-        </div>
-        <div class="pi-content">
-          <div class="pi-title">${p.titulo}</div>
-          <div class="pi-sub">${p.sub}</div>
-        </div>
+      <div class="pending-item ${p.isDone?'checked':''}" id="pi-${p.id}">
+        <div class="pi-cb-wrap"><input type="checkbox" data-id="${p.id}" ${p.isDone?'checked':''} onchange="togglePendencia(this)"></div>
+        <div class="pi-content"><div class="pi-title">${p.titulo}</div>${p.sub?`<div class="pi-sub">${p.sub}</div>`:''}</div>
         <span class="pi-badge ${p.badgeCls}">${p.badge}</span>
-      </div>
-    `).join('');
+        ${p.isCustom?`<button class="pi-del" onclick="delCustomPendencia('${p.id}')" title="Remover">🗑️</button>`:''}
+      </div>`).join('');
   });
+  updatePendCounter();
 }
-renderPendencias();
 
-// Atualizar contador e barra de progresso
 function updatePendCounter() {
   const all = document.querySelectorAll('.pi-cb-wrap input[type="checkbox"]');
-  const done = document.querySelectorAll('.pi-cb-wrap input[type="checkbox"]:checked');
+  const doneCount = document.querySelectorAll('.pi-cb-wrap input[type="checkbox"]:checked').length;
   const total = all.length;
-  const doneCount = done.length;
   const pct = total > 0 ? (doneCount/total*100) : 0;
   const counter = document.getElementById('pend-counter');
   const bar = document.getElementById('pend-progress');
@@ -1183,22 +1468,30 @@ function updatePendCounter() {
   if(tab) tab.textContent = `⏳ Pendências (${doneCount}/${total})`;
 }
 
-// Ouvir mudanças no Firebase (tempo real)
 db.ref('pendencias').on('value', snap => {
-  const data = snap.val() || {};
-  document.querySelectorAll('.pi-cb-wrap input[type="checkbox"]').forEach(cb => {
-    const id = cb.dataset.id;
-    const defVal = cb.closest('.pending-item').dataset.default === 'true';
-    const isDone = id in data ? data[id] : defVal;
-    cb.checked = isDone;
-    cb.closest('.pending-item').classList.toggle('checked', isDone);
-  });
-  updatePendCounter();
+  cachedCbData = snap.val() || {};
+  renderPendencias(cachedCbData, cachedCustomData);
 });
-
-// Toggle ao clicar no checkbox
+db.ref('pendencias_custom').on('value', snap => {
+  cachedCustomData = snap.val() || {};
+  renderPendencias(cachedCbData, cachedCustomData);
+});
 function togglePendencia(cb) {
   db.ref('pendencias/' + cb.dataset.id).set(cb.checked);
+}
+function addCustomPendencia() {
+  const nome = document.getElementById('apf-nome').value.trim();
+  if(!nome){ document.getElementById('apf-nome').focus(); return; }
+  const detalhe = document.getElementById('apf-detalhe').value.trim();
+  const prioridade = document.getElementById('apf-prioridade').value;
+  db.ref('pendencias_custom').push({nome, detalhe, prioridade, ts:Date.now()});
+  document.getElementById('apf-nome').value = '';
+  document.getElementById('apf-detalhe').value = '';
+  document.getElementById('apf-prioridade').value = 'yellow';
+  document.getElementById('apf-nome').focus();
+}
+function delCustomPendencia(id) {
+  if(confirm('Remover esta pendência?')) db.ref('pendencias_custom/'+id).remove();
 }
 
 // ═══════════════════════════════════════════
@@ -1209,17 +1502,56 @@ function switchShopTab(tab) {
   document.querySelectorAll('.shop-panel').forEach(p => p.classList.toggle('active', p.dataset.panel === tab));
 }
 
+// Local "Outro" com campo custom
+function handleLocalChange(cat) {
+  const sel = document.getElementById('local-' + cat);
+  const custom = document.getElementById('local-' + cat + '-custom');
+  if(sel && custom) {
+    if(sel.value === 'outros') { custom.style.display='block'; custom.focus(); }
+    else { custom.style.display='none'; custom.value=''; }
+  }
+}
+function getLocalValue(cat) {
+  const sel = document.getElementById('local-' + cat);
+  const custom = document.getElementById('local-' + cat + '-custom');
+  if(sel && sel.value === 'outros') return (custom && custom.value.trim()) || 'Outro';
+  return sel ? sel.value : '';
+}
+
+// Ordenação das compras
+const shopSortState = {adulto:'ts', bebe:'ts'};
+const shopCacheData = {adulto:{}, bebe:{}};
+const DATE_ORDER = ['08/11','09/11','10/11','11/11','12/11','13/11','14/11','15/11','16/11','17/11','18/11','19/11','20/11','21/11','22/11'];
+function dateRank(d) { if(!d) return 99; const dd=d.substring(0,5); const i=DATE_ORDER.indexOf(dd); return i>=0?i:99; }
+function setSort(cat, mode) {
+  shopSortState[cat] = mode;
+  document.querySelectorAll(`[id^="sort-${cat}-"]`).forEach(b=>b.classList.remove('active'));
+  const btn = document.getElementById('sort-'+cat+'-'+mode);
+  if(btn) btn.classList.add('active');
+  if(shopCacheData[cat]) renderList(cat, shopCacheData[cat]);
+}
+function sortEntries(entries, mode) {
+  const e = [...entries];
+  if(mode==='ts') e.sort((a,b)=>(a[1].ts||0)-(b[1].ts||0));
+  else if(mode==='data') e.sort((a,b)=>dateRank(a[1].data)-dateRank(b[1].data));
+  else if(mode==='preco') e.sort((a,b)=>(a[1].estimado||0)-(b[1].estimado||0));
+  else if(mode==='preco-desc') e.sort((a,b)=>(b[1].estimado||0)-(a[1].estimado||0));
+  return e;
+}
+
 function addItem(cat) {
   const nomeEl = document.getElementById('nome-' + cat);
   const nome = nomeEl ? nomeEl.value.trim() : '';
   if(!nome){ nomeEl && nomeEl.focus(); return; }
-  const local = document.getElementById('local-' + cat).value;
+  const local = getLocalValue(cat);
   const data  = document.getElementById('data-' + cat).value;
   const est   = parseFloat(document.getElementById('estimado-' + cat).value) || 0;
   db.ref('compras/' + cat).push({ nome, local, data, estimado:est, real:null, comprado:false, ts:Date.now() });
   nomeEl.value = '';
   document.getElementById('estimado-' + cat).value = '';
   document.getElementById('local-' + cat).value = '';
+  const customEl = document.getElementById('local-' + cat + '-custom');
+  if(customEl){ customEl.style.display='none'; customEl.value=''; }
   document.getElementById('data-' + cat).value = '';
   nomeEl.focus();
 }
@@ -1240,21 +1572,17 @@ function fmtUSD(v) {
 }
 
 function renderList(cat, data) {
+  shopCacheData[cat] = data;
   const container = document.getElementById('list-' + cat);
   const countTab  = document.getElementById('count-' + cat);
-  const entries = Object.entries(data || {});
-
-  // Atualizar contador da sub-aba
+  let entries = Object.entries(data || {});
   if(countTab) countTab.textContent = entries.length > 0 ? '(' + entries.length + ')' : '';
-
   if(entries.length === 0){
     container.innerHTML = '<div class="shop-empty">Nenhum item ainda. Adicione acima! 👆</div>';
     updateTotals(cat, {});
     return;
   }
-
-  // Ordenar por timestamp
-  entries.sort((a,b) => (a[1].ts||0) - (b[1].ts||0));
+  entries = sortEntries(entries, shopSortState[cat] || 'ts');
 
   container.innerHTML = entries.map(([id, item]) => `
     <div class="shop-item ${item.comprado ? 'comprado' : ''}">
@@ -1365,11 +1693,15 @@ function exportPDF(){
   },300);
 }
 
-// Suporte a Enter no campo nome para adicionar item
+// Enter nos campos
 ['adulto','bebe'].forEach(cat => {
   const el = document.getElementById('nome-' + cat);
   if(el) el.addEventListener('keypress', e => { if(e.key === 'Enter') addItem(cat); });
+  const cust = document.getElementById('local-' + cat + '-custom');
+  if(cust) cust.addEventListener('keypress', e => { if(e.key === 'Enter') addItem(cat); });
 });
+const apfNome = document.getElementById('apf-nome');
+if(apfNome) apfNome.addEventListener('keypress', e => { if(e.key === 'Enter') addCustomPendencia(); });
 </script>
 </body>
 </html>
