@@ -1,0 +1,1375 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Miami &amp; Orlando 2026 — Gabriel &amp; Patricia</title>
+
+<!-- Firebase Compat SDK (deve vir antes de qualquer uso do Firebase) -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --ocean:#023E8A;--ocean-mid:#0077B6;--ocean-light:#48CAE4;
+  --coral:#E05C3E;--gold:#F4A825;--gold-light:#F9C74F;
+  --white:#fff;--off-white:#F0F8FF;
+  --gray-100:#DFF0FA;--gray-200:#B8D8EE;--gray-500:#5B7FA6;--gray-700:#2D4A6A;
+  --green:#1A7A4A;--purple:#7B2D8B;--red:#C0392B;
+  --radius:12px;--shadow:0 4px 24px rgba(2,62,138,.12);--transition:.25s ease;
+}
+body{font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,Arial,sans-serif;background:var(--off-white);color:#0a2540;min-height:100vh;}
+
+/* ── HEADER ── */
+header{background:linear-gradient(135deg,var(--ocean) 0%,var(--ocean-mid) 55%,var(--ocean-light) 100%);position:relative;overflow:hidden;}
+header::after{content:'';position:absolute;right:-20px;bottom:0;width:380px;height:100%;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 380 200'%3E%3Ccircle cx='320' cy='60' r='80' fill='rgba(255,255,255,.04)'/%3E%3Ccircle cx='260' cy='170' r='50' fill='rgba(255,255,255,.04)'/%3E%3Cpath d='M200,100 Q280,40 360,80' stroke='rgba(244,168,37,.25)' stroke-width='3' fill='none'/%3E%3C/svg%3E") right bottom/contain no-repeat;pointer-events:none;}
+.header-inner{max-width:1200px;margin:0 auto;padding:28px 40px 24px;position:relative;z-index:1;}
+.header-top{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;margin-bottom:14px;}
+.header-brand{color:rgba(255,255,255,.80);font-size:14px;font-weight:700;}
+.header-brand span{color:var(--gold-light);}
+.header-meta{text-align:right;}
+.header-meta .label{color:rgba(255,255,255,.45);font-size:11px;letter-spacing:1px;text-transform:uppercase;}
+.header-meta .value{color:var(--gold-light);font-size:14px;font-weight:700;}
+.header-title h1{font-size:40px;font-weight:900;color:var(--white);letter-spacing:-.5px;line-height:1.1;}
+.header-title h1 span{color:var(--gold-light);}
+.header-title .subtitle{color:rgba(255,255,255,.65);font-size:15px;margin-top:6px;}
+.header-chips{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap;}
+.chip{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);color:rgba(255,255,255,.90);font-size:12px;padding:5px 14px;border-radius:50px;display:inline-flex;align-items:center;gap:5px;}
+.chip.gold{background:rgba(244,168,37,.22);border-color:rgba(244,168,37,.45);color:var(--gold-light);}
+.chip.coral{background:rgba(224,92,62,.25);border-color:rgba(224,92,62,.50);color:#ffb3a3;}
+.chip.purple{background:rgba(123,45,139,.25);border-color:rgba(123,45,139,.50);color:#e0b3f0;}
+
+/* Firebase status */
+.fb-bar{display:flex;align-items:center;gap:6px;margin-top:10px;}
+.fb-dot{width:8px;height:8px;border-radius:50%;background:#ff6b6b;flex-shrink:0;transition:background .5s;}
+.fb-dot.on{background:#4ade80;animation:fbpulse 2s infinite;}
+@keyframes fbpulse{0%,100%{opacity:1;}50%{opacity:.5;}}
+.fb-txt{font-size:11px;color:rgba(255,255,255,.45);}
+
+/* ── TABS ── */
+.tab-wrapper{background:var(--ocean);position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.3);}
+.tab-nav{max-width:1200px;margin:0 auto;display:flex;overflow-x:auto;scrollbar-width:none;padding:0 10px;}
+.tab-nav::-webkit-scrollbar{display:none;}
+.tab-btn{background:none;border:none;cursor:pointer;color:rgba(255,255,255,.55);font-size:11.5px;font-weight:600;padding:14px 10px;white-space:nowrap;border-bottom:3px solid transparent;transition:var(--transition);display:flex;align-items:center;gap:4px;}
+.tab-btn:hover{color:rgba(255,255,255,.85);}
+.tab-btn.active{color:var(--gold-light);border-bottom-color:var(--gold-light);}
+.mobile-menu-btn{display:none;background:rgba(244,168,37,.15)!important;color:var(--gold-light)!important;border-bottom-color:transparent!important;border-radius:6px 6px 0 0;}
+.mobile-menu-btn.open-state{background:rgba(244,168,37,.28)!important;}
+@media(max-width:900px){.mobile-menu-btn{display:flex;}}
+.mobile-menu-dropdown{position:absolute;top:100%;left:0;right:0;z-index:200;background:var(--ocean-mid);border-top:1px solid rgba(255,255,255,.1);box-shadow:0 8px 24px rgba(0,0,0,.4);display:none;grid-template-columns:1fr 1fr;}
+.mobile-menu-dropdown.open{display:grid;}
+.mobile-menu-dropdown button{background:none;border:none;border-bottom:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.80);font-size:13px;font-weight:600;padding:13px 16px;text-align:left;cursor:pointer;display:flex;align-items:center;gap:8px;}
+.mobile-menu-dropdown button:hover{background:rgba(255,255,255,.08);}
+.mobile-menu-dropdown button:nth-child(odd){border-right:1px solid rgba(255,255,255,.08);}
+
+/* ── MAIN ── */
+.main{max-width:1200px;margin:0 auto;padding:30px 20px 60px;}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;animation:fadeIn .3s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── CARDS ── */
+.card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;margin-bottom:20px;}
+.card-title{font-size:13px;font-weight:800;color:var(--ocean);letter-spacing:1px;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+.card-title .dot{width:8px;height:8px;border-radius:50%;background:var(--gold);flex-shrink:0;}
+.section-title{font-size:20px;font-weight:800;color:var(--ocean);display:flex;align-items:center;gap:10px;margin:28px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--gray-100);}
+.overview-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;}
+
+/* ── TABLES ── */
+.info-table{width:100%;border-collapse:collapse;}
+.info-table tr{border-bottom:1px solid var(--gray-100);}
+.info-table tr:last-child{border-bottom:none;}
+.info-table td{padding:9px 0;font-size:13.5px;vertical-align:top;}
+.info-table td:first-child{font-weight:700;color:var(--ocean-mid);width:42%;padding-right:12px;}
+.info-table td:last-child{color:var(--gray-700);}
+.flight-table{width:100%;border-collapse:collapse;font-size:13px;}
+.flight-table thead tr{background:var(--ocean);}
+.flight-table thead th{padding:10px 14px;text-align:left;font-size:11px;letter-spacing:1px;text-transform:uppercase;font-weight:600;color:white;}
+.flight-table tbody tr{border-bottom:1px solid var(--gray-100);}
+.flight-table tbody tr:hover{background:var(--off-white);}
+.flight-table tbody td{padding:11px 14px;color:#0a2540;}
+.transport-name{font-weight:700;}
+.transport-sub{color:var(--gray-500);font-size:11.5px;}
+.seat-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:800;padding:2px 8px;border-radius:50px;margin-top:3px;}
+.seat-badge.pending{background:rgba(107,132,168,.10);border:1px solid rgba(107,132,168,.30);color:var(--gray-500);}
+.seat-badge.ok{background:rgba(26,122,74,.09);border:1px solid rgba(26,122,74,.25);color:var(--green);}
+.connection-row{background:rgba(72,202,228,.07)!important;}
+.connection-row td{color:var(--ocean-mid)!important;font-style:italic;font-size:12px;padding:7px 14px!important;}
+
+/* ── DAY HEADER ── */
+.day-header{background:linear-gradient(135deg,var(--ocean) 0%,var(--ocean-mid) 100%);border-radius:var(--radius);padding:22px 28px;margin-bottom:22px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;}
+.day-header.miami{background:linear-gradient(135deg,#005f73 0%,#0a9396 100%);}
+.day-header.disney{background:linear-gradient(135deg,#4a1a7a 0%,#7b2d8b 100%);}
+.day-header.universal{background:linear-gradient(135deg,#8b1a1a 0%,#c0392b 100%);}
+.day-header.retorno{background:linear-gradient(135deg,#023E8A 0%,#48CAE4 100%);}
+.day-header.lounge{background:linear-gradient(135deg,#2d6a4f 0%,#40916c 100%);}
+.day-header.pendencias{background:linear-gradient(135deg,#3d405b 0%,#565b7e 100%);}
+.day-header.compras-hdr{background:linear-gradient(135deg,#1a4a2e 0%,#2d8653 100%);}
+.day-header-left h2{font-size:22px;font-weight:800;color:var(--white);}
+.day-header-left p{color:rgba(255,255,255,.65);font-size:14px;margin-top:4px;}
+.weather-badge{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:50px;padding:7px 16px;color:var(--white);font-size:13px;display:flex;align-items:center;gap:8px;}
+
+/* ── TIMELINE ── */
+.period-label{font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--ocean-mid);margin:22px 0 12px;display:flex;align-items:center;gap:8px;}
+.period-label::after{content:'';flex:1;height:1px;background:var(--gray-200);}
+.timeline{position:relative;padding-left:28px;}
+.timeline::before{content:'';position:absolute;left:10px;top:0;bottom:0;width:2px;background:var(--gray-200);border-radius:2px;}
+.timeline-item{position:relative;margin-bottom:14px;background:var(--white);border-radius:var(--radius);box-shadow:0 2px 10px rgba(2,62,138,.07);padding:14px 18px 12px 18px;border-left:3px solid var(--ocean-light);}
+.timeline-item::before{content:'';position:absolute;left:-31px;top:17px;width:12px;height:12px;border-radius:50%;background:var(--ocean-light);border:2px solid var(--white);box-shadow:0 0 0 2px var(--ocean-light);}
+.timeline-item.food{border-left-color:var(--coral);}
+.timeline-item.food::before{background:var(--coral);box-shadow:0 0 0 2px var(--coral);}
+.timeline-item.transport{border-left-color:var(--gray-500);}
+.timeline-item.transport::before{background:var(--gray-500);box-shadow:0 0 0 2px var(--gray-500);}
+.timeline-item.park-disney{border-left-color:var(--purple);}
+.timeline-item.park-disney::before{background:var(--purple);box-shadow:0 0 0 2px var(--purple);}
+.timeline-item.park-universal{border-left-color:var(--red);}
+.timeline-item.park-universal::before{background:var(--red);box-shadow:0 0 0 2px var(--red);}
+.timeline-item.hotel{border-left-color:var(--gold);}
+.timeline-item.hotel::before{background:var(--gold);box-shadow:0 0 0 2px var(--gold);}
+.tl-time{font-size:11px;font-weight:800;color:var(--ocean-mid);letter-spacing:.5px;}
+.tl-title{font-size:14px;font-weight:700;color:#0a2540;margin:3px 0 6px;}
+.tl-body{font-size:12.5px;color:var(--gray-700);}
+.tl-row{display:flex;align-items:flex-start;gap:6px;margin-top:5px;font-size:12.5px;}
+.tl-row .tl-label{font-weight:700;color:var(--ocean-mid);min-width:90px;flex-shrink:0;}
+.tl-row .tl-val{color:var(--gray-700);}
+
+/* ── DAY SUMMARY ── */
+.day-summary{background:var(--ocean);border-radius:var(--radius);padding:16px 22px;margin-top:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.sum-label{color:rgba(255,255,255,.55);font-size:11px;letter-spacing:1px;text-transform:uppercase;}
+.sum-val{color:var(--white);font-size:16px;font-weight:800;}
+.sum-item{text-align:center;}
+.sum-item.total{border-left:1px solid rgba(255,255,255,.15);padding-left:22px;}
+.sum-item.total .sum-val{color:var(--gold-light);font-size:20px;}
+
+/* ── CHECKLIST ── */
+.checklist{list-style:none;}
+.checklist li{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--gray-100);font-size:13.5px;color:var(--gray-700);}
+.checklist li:last-child{border-bottom:none;}
+.checklist li::before{content:'✓';color:var(--white);background:var(--ocean-mid);font-size:10px;font-weight:900;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.checklist li.warn::before{background:var(--gold);color:var(--ocean);content:'!';}
+.checklist li.alert::before{background:var(--coral);color:white;content:'⚠';}
+
+/* ── PARK CARDS ── */
+.park-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-bottom:20px;}
+.park-card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;}
+.park-card-hdr{padding:16px 18px;color:var(--white);}
+.disney-mk{background:linear-gradient(135deg,#1e3c72,#2a5298);}
+.disney-ep{background:linear-gradient(135deg,#134e5e,#71b280);}
+.disney-hs{background:linear-gradient(135deg,#7b0000,#c62a2a);}
+.disney-ak{background:linear-gradient(135deg,#14452f,#2d7d2a);}
+.univ-ioa{background:linear-gradient(135deg,#8b1a1a,#c0392b);}
+.univ-usf{background:linear-gradient(135deg,#4a1a7a,#7b2d8b);}
+.univ-epic{background:linear-gradient(135deg,#0d0d2b,#1a1a4e);}
+.park-card-hdr h3{font-size:15px;font-weight:800;}
+.park-card-hdr .park-date{font-size:12px;color:rgba(255,255,255,.75);margin-top:3px;}
+.park-card-hdr .park-emoji{font-size:30px;float:right;margin-top:-4px;}
+.park-card-body{padding:14px 18px;}
+.park-tip{display:flex;gap:8px;align-items:flex-start;font-size:12.5px;color:var(--gray-700);margin-bottom:7px;padding-bottom:7px;border-bottom:1px solid var(--gray-100);}
+.park-tip:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.park-tip-icon{font-size:13px;flex-shrink:0;margin-top:1px;}
+.disney-badge{display:inline-block;background:rgba(74,26,122,.10);border:1px solid rgba(74,26,122,.25);color:var(--purple);font-size:11px;font-weight:700;padding:2px 8px;border-radius:50px;margin-bottom:6px;}
+.universal-badge{display:inline-block;background:rgba(192,57,43,.10);border:1px solid rgba(192,57,43,.25);color:var(--red);font-size:11px;font-weight:700;padding:2px 8px;border-radius:50px;margin-bottom:6px;}
+
+/* ── STAT GRID ── */
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:20px;}
+.stat-card{background:var(--white);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);border-top:4px solid var(--ocean-mid);}
+.stat-card.coral{border-top-color:var(--coral);}
+.stat-card.gold{border-top-color:var(--gold);}
+.stat-card.purple{border-top-color:var(--purple);}
+.stat-card.green{border-top-color:var(--green);}
+.stat-label{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gray-500);}
+.stat-val{font-size:26px;font-weight:900;color:var(--ocean);margin-top:5px;}
+.stat-note{font-size:11.5px;color:var(--gray-500);margin-top:4px;}
+
+/* ── ALERTS ── */
+.alert-box{border-radius:10px;padding:13px 16px;margin-bottom:14px;font-size:13px;display:flex;align-items:flex-start;gap:10px;}
+.alert-warn{background:rgba(244,168,37,.10);border:1px solid rgba(244,168,37,.35);color:#7a5d00;}
+.alert-info{background:rgba(0,119,182,.08);border:1px solid rgba(0,119,182,.25);color:var(--ocean-mid);}
+.alert-danger{background:rgba(224,92,62,.10);border:1px solid rgba(224,92,62,.30);color:var(--coral);}
+.alert-ok{background:rgba(26,122,74,.08);border:1px solid rgba(26,122,74,.25);color:var(--green);}
+
+/* ── VIP LOUNGES ── */
+.lounge-section{margin-bottom:26px;}
+.lounge-hdr{background:linear-gradient(135deg,var(--ocean),var(--ocean-mid));color:var(--white);padding:14px 20px;border-radius:var(--radius) var(--radius) 0 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+.lounge-hdr h3{font-size:15px;font-weight:800;}
+.lounge-hdr .lh-info{color:rgba(255,255,255,.60);font-size:12.5px;}
+.lounge-body{background:var(--white);border-radius:0 0 var(--radius) var(--radius);box-shadow:var(--shadow);}
+.lounge-row{display:flex;border-bottom:1px solid var(--gray-100);}
+.lounge-row:last-child{border-bottom:none;}
+.lounge-label{width:120px;flex-shrink:0;padding:12px 14px;background:var(--off-white);border-right:2px solid var(--gray-100);font-size:11px;font-weight:800;color:var(--ocean-mid);text-transform:uppercase;display:flex;align-items:center;}
+.lounge-content{flex:1;padding:12px 16px;font-size:13px;color:var(--gray-700);}
+.lounge-content strong{color:var(--ocean);}
+.lb{display:inline-block;padding:2px 8px;border-radius:50px;font-size:11px;font-weight:700;margin:2px 3px 2px 0;}
+.lb-pp{background:rgba(91,127,166,.10);border:1px solid rgba(91,127,166,.30);color:#3b5278;}
+.lb-lk{background:rgba(0,119,182,.10);border:1px solid rgba(0,119,182,.30);color:var(--ocean-mid);}
+.lb-dp{background:rgba(74,26,122,.10);border:1px solid rgba(74,26,122,.30);color:var(--purple);}
+.lb-amex{background:rgba(2,62,138,.10);border:1px solid rgba(2,62,138,.25);color:var(--ocean);}
+.lb-ok{background:rgba(26,122,74,.09);border:1px solid rgba(26,122,74,.25);color:var(--green);}
+.lb-warn{background:rgba(224,92,62,.10);border:1px solid rgba(224,92,62,.30);color:var(--coral);}
+.lb-na{background:rgba(91,127,166,.08);border:1px solid rgba(91,127,166,.20);color:var(--gray-500);}
+
+/* ── INSURANCE ── */
+.ins-card{background:linear-gradient(135deg,var(--ocean),var(--ocean-mid));color:var(--white);border-radius:var(--radius);padding:24px;}
+.ins-section{margin-top:18px;border-top:1px solid rgba(255,255,255,.15);padding-top:16px;}
+.ins-title{font-size:11px;color:rgba(255,255,255,.45);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;}
+.ins-coverages{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:8px;}
+.ins-cov{font-size:12px;color:rgba(255,255,255,.70);display:flex;gap:6px;}
+.ins-cov::before{content:'✓';color:#6ee8a8;font-weight:900;flex-shrink:0;}
+.ins-emergency{margin-top:12px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.20);border-radius:8px;padding:10px 14px;}
+.ins-emergency .em-title{color:var(--gold-light);font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;}
+.ins-emergency .em-content{font-size:12.5px;color:rgba(255,255,255,.85);}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;}
+.contact-item .c-label{color:rgba(255,255,255,.45);font-size:11px;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;}
+.contact-item .c-val{font-size:13.5px;font-weight:600;color:var(--gold-light);}
+.contact-item .c-val a{color:var(--gold-light);text-decoration:none;}
+
+/* ── FULL SCHEDULE ── */
+.export-bar{background:linear-gradient(135deg,var(--ocean),var(--ocean-mid));border-radius:var(--radius);padding:18px 26px;margin-bottom:18px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.export-bar h3{color:var(--white);font-size:16px;font-weight:800;}
+.export-bar p{color:rgba(255,255,255,.65);font-size:12.5px;margin-top:3px;}
+.btn-export{background:var(--gold);color:var(--ocean);border:none;font-size:13px;font-weight:800;padding:10px 22px;border-radius:8px;cursor:pointer;display:flex;align-items:center;gap:8px;transition:var(--transition);}
+.btn-export:hover{background:var(--gold-light);}
+.sched-wrap{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-bottom:16px;}
+.sched-table{width:100%;border-collapse:collapse;font-size:13px;}
+.sched-head th{background:var(--ocean);color:var(--white);padding:10px 14px;text-align:left;font-size:11px;letter-spacing:1px;text-transform:uppercase;font-weight:700;}
+.day-group-header td{background:linear-gradient(90deg,var(--ocean-mid),var(--ocean-light));padding:10px 14px;color:var(--white);}
+.dgh-date{font-weight:900;font-size:13px;margin-right:10px;}
+.dgh-day{font-size:11px;color:rgba(255,255,255,.65);margin-right:10px;text-transform:uppercase;letter-spacing:1px;}
+.dgh-title{font-weight:700;font-size:13px;}
+.sched-row td{padding:9px 14px;border-bottom:1px solid rgba(0,0,0,.04);font-size:12.5px;}
+.sched-time{font-weight:700;}
+.sched-legend{display:flex;flex-wrap:wrap;gap:12px;padding:12px 18px;background:var(--off-white);border-top:1px solid var(--gray-100);}
+.leg-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--gray-700);}
+.leg-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;}
+
+/* ═══════════════════════════
+   PENDÊNCIAS — CHECKBOXES
+═══════════════════════════ */
+.pend-progress-bar-wrap{background:rgba(255,255,255,.15);border-radius:50px;height:6px;margin-top:8px;overflow:hidden;}
+.pend-progress-bar{background:var(--gold-light);height:100%;border-radius:50px;transition:width .5s ease;}
+.pend-counter{font-size:12px;color:rgba(255,255,255,.65);margin-top:5px;}
+
+.pending-group-title{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin:20px 0 10px;display:flex;align-items:center;gap:8px;}
+.pending-list{display:grid;gap:8px;}
+.pending-item{background:var(--white);border-radius:10px;padding:12px 16px;box-shadow:0 2px 8px rgba(2,62,138,.07);display:flex;align-items:center;gap:12px;transition:opacity .3s,background .3s;}
+.pending-item.checked{opacity:.50;background:#f8f8f8;}
+.pending-item.checked .pi-title{text-decoration:line-through;color:var(--gray-500);}
+
+/* Custom checkbox */
+.pi-cb-wrap{flex-shrink:0;}
+.pi-cb-wrap input[type="checkbox"]{appearance:none;-webkit-appearance:none;width:22px;height:22px;border:2px solid var(--gray-200);border-radius:6px;cursor:pointer;position:relative;transition:all .2s;background:white;}
+.pi-cb-wrap input[type="checkbox"]:checked{background:var(--green);border-color:var(--green);}
+.pi-cb-wrap input[type="checkbox"]:checked::after{content:'✓';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:white;font-size:13px;font-weight:900;}
+.pi-cb-wrap input[type="checkbox"]:hover{border-color:var(--ocean-mid);}
+
+.pi-content{flex:1;min-width:0;}
+.pi-title{font-size:13.5px;font-weight:700;color:#0a2540;}
+.pi-sub{font-size:12px;color:var(--gray-500);margin-top:2px;}
+.pi-badge{font-size:11px;font-weight:800;padding:3px 10px;border-radius:50px;flex-shrink:0;white-space:nowrap;}
+.pib-red{background:rgba(224,92,62,.12);color:var(--coral);}
+.pib-yellow{background:rgba(244,168,37,.12);color:#8a6d0a;}
+.pib-blue{background:rgba(0,119,182,.12);color:var(--ocean-mid);}
+.pib-green{background:rgba(26,122,74,.12);color:var(--green);}
+.pib-gray{background:rgba(91,127,166,.12);color:var(--gray-500);}
+
+/* ═══════════════════════════
+   COMPRAS — SHOPPING LIST
+═══════════════════════════ */
+.shop-subtabs{display:flex;gap:10px;margin-bottom:20px;}
+.shop-subtab{padding:10px 28px;border-radius:10px;border:2px solid var(--gray-200);background:white;cursor:pointer;font-weight:700;font-size:14px;transition:var(--transition);color:var(--gray-500);display:flex;align-items:center;gap:8px;}
+.shop-subtab.active{background:var(--ocean);color:white;border-color:var(--ocean);}
+.shop-subtab:not(.active):hover{border-color:var(--ocean-mid);color:var(--ocean-mid);}
+.shop-panel{display:none;}
+.shop-panel.active{display:block;animation:fadeIn .3s ease;}
+
+.shop-form{background:white;border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-bottom:16px;}
+.shop-form h4{font-size:13px;font-weight:800;color:var(--ocean);letter-spacing:1px;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:6px;}
+.shop-form-grid{display:grid;grid-template-columns:2fr 1.5fr 1.5fr 1fr;gap:10px;margin-bottom:10px;align-items:end;}
+.shop-form-group{display:flex;flex-direction:column;gap:4px;}
+.shop-form-group label{font-size:11px;font-weight:700;color:var(--gray-500);text-transform:uppercase;letter-spacing:.5px;}
+.shop-input{width:100%;padding:9px 12px;border:1.5px solid var(--gray-200);border-radius:8px;font-size:13px;font-family:inherit;color:#0a2540;background:white;transition:border-color .2s;}
+.shop-input:focus{outline:none;border-color:var(--ocean-mid);}
+.shop-add-btn{background:var(--ocean);color:white;border:none;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:800;cursor:pointer;width:100%;transition:background .2s;display:flex;align-items:center;justify-content:center;gap:6px;}
+.shop-add-btn:hover{background:var(--ocean-mid);}
+
+.shop-items-wrap{margin-bottom:8px;}
+.shop-item{background:white;border-radius:var(--radius);box-shadow:0 2px 8px rgba(2,62,138,.06);padding:13px 16px;display:flex;align-items:center;gap:12px;margin-bottom:8px;border-left:3px solid var(--ocean-light);transition:all .25s;}
+.shop-item.comprado{border-left-color:var(--green);background:rgba(26,122,74,.03);}
+.shop-check-box{flex-shrink:0;}
+.shop-check-box input[type="checkbox"]{appearance:none;-webkit-appearance:none;width:20px;height:20px;border:2px solid var(--gray-200);border-radius:6px;cursor:pointer;position:relative;transition:all .2s;background:white;}
+.shop-check-box input[type="checkbox"]:checked{background:var(--green);border-color:var(--green);}
+.shop-check-box input[type="checkbox"]:checked::after{content:'✓';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:white;font-size:11px;font-weight:900;}
+.shop-item-info{flex:1;min-width:0;}
+.shop-item-nome{font-weight:700;font-size:13.5px;color:#0a2540;}
+.shop-item-nome.riscado{text-decoration:line-through;color:var(--gray-500);}
+.shop-item-meta{font-size:11.5px;color:var(--gray-500);margin-top:3px;}
+.shop-item-prices{display:flex;flex-direction:column;gap:4px;min-width:140px;}
+.shop-price-label{font-size:10px;color:var(--gray-500);text-transform:uppercase;letter-spacing:.5px;}
+.shop-price-est{font-size:13px;font-weight:700;color:var(--ocean-mid);}
+.shop-real-wrap{display:flex;align-items:center;gap:4px;}
+.shop-real-wrap span{font-size:11px;color:var(--gray-500);}
+.real-input{width:76px;padding:4px 8px;border:1.5px solid var(--gray-200);border-radius:6px;font-size:12px;font-family:inherit;color:#0a2540;background:white;}
+.real-input:focus{outline:none;border-color:var(--green);}
+.shop-del{background:none;border:none;cursor:pointer;font-size:16px;padding:6px;border-radius:6px;transition:background .2s;opacity:.5;flex-shrink:0;}
+.shop-del:hover{background:rgba(192,57,43,.10);opacity:1;}
+
+.shop-totals{background:var(--ocean);border-radius:var(--radius);padding:16px 22px;margin-top:12px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.shop-tot-item{text-align:center;}
+.shop-tot-label{color:rgba(255,255,255,.55);font-size:10px;letter-spacing:1px;text-transform:uppercase;}
+.shop-tot-val{color:var(--white);font-size:17px;font-weight:800;margin-top:4px;}
+.shop-tot-val.hl{color:var(--gold-light);}
+.shop-empty{text-align:center;padding:32px 20px;color:var(--gray-500);font-size:13.5px;background:white;border-radius:var(--radius);box-shadow:var(--shadow);}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .header-inner{padding:20px 16px;}
+  .header-title h1{font-size:28px;}
+  .main{padding:16px 12px 40px;}
+  .day-header{padding:16px 18px;}
+  .day-header-left h2{font-size:19px;}
+  .overview-grid,.stat-grid{grid-template-columns:1fr;}
+  .contact-grid,.ins-coverages{grid-template-columns:1fr;}
+  .park-grid{grid-template-columns:1fr;}
+  header::after{width:200px;}
+  .shop-form-grid{grid-template-columns:1fr 1fr;}
+  .shop-totals{grid-template-columns:1fr 1fr;}
+  .shop-item{flex-wrap:wrap;}
+  .shop-item-prices{min-width:100%;flex-direction:row;gap:12px;}
+}
+@media print{.tab-wrapper,.btn-export{display:none!important;}}
+</style>
+</head>
+<body>
+
+<!-- ═══════ HEADER ═══════ -->
+<header>
+<div class="header-inner">
+  <div class="header-top">
+    <div>
+      <div class="header-brand">🌴 Férias em Casal · <span>Miami &amp; Orlando</span></div>
+      <div style="color:rgba(255,255,255,.45);font-size:11.5px;margin-top:2px;">Gabriel Stigert &amp; Patricia Trindade</div>
+      <div class="fb-bar"><div class="fb-dot" id="fb-dot"></div><span class="fb-txt" id="fb-txt">Conectando ao Firebase...</span></div>
+    </div>
+    <div class="header-meta">
+      <div class="label">Período</div>
+      <div class="value">07 a 23 de Novembro de 2026</div>
+      <div style="color:rgba(255,255,255,.40);font-size:11px;margin-top:2px;">17 dias · Flórida, EUA</div>
+    </div>
+  </div>
+  <div class="header-title">
+    <h1>Miami &amp; <span>Orlando</span></h1>
+    <p class="subtitle">Flórida · Estados Unidos &nbsp;·&nbsp; 07 a 23 de novembro de 2026</p>
+  </div>
+  <div class="header-chips">
+    <span class="chip">✈️ Azul GLUBWW (Ida)</span>
+    <span class="chip">✈️ Azul JQWRXX (Volta)</span>
+    <span class="chip">🌴 YVE Miami · 08–11/11</span>
+    <span class="chip">🏡 Holiday Inn · 11–15/11</span>
+    <span class="chip">🌿 Sheraton Vistana · 15–22/11</span>
+    <span class="chip gold">🚗 AVIS Mazda CX-50 AWD</span>
+    <span class="chip purple">🏰 Disney 4 Parques</span>
+    <span class="chip coral">🎢 Universal 3 Parques</span>
+    <span class="chip">🛡️ Assist Card AC 500</span>
+  </div>
+</div>
+</header>
+
+<!-- ═══════ TAB NAV ═══════ -->
+<div class="tab-wrapper" style="position:relative;">
+<nav class="tab-nav">
+  <button class="tab-btn mobile-menu-btn" id="mobileMenuBtn" onclick="toggleMobileMenu(event)">☰ Menu</button>
+  <button class="tab-btn active" onclick="switchTab('overview',this)">🗺️ Visão Geral</button>
+  <button class="tab-btn" onclick="switchTab('voos',this)">✈️ Voos</button>
+  <button class="tab-btn" onclick="switchTab('miami',this)">🌴 Miami</button>
+  <button class="tab-btn" onclick="switchTab('disney',this)">🏰 Disney</button>
+  <button class="tab-btn" onclick="switchTab('universal',this)">🎢 Universal</button>
+  <button class="tab-btn" onclick="switchTab('retorno',this)">🏁 Retorno</button>
+  <button class="tab-btn" onclick="switchTab('full',this)">📋 Roteiro</button>
+  <button class="tab-btn" onclick="switchTab('vip',this)">🛋️ Salas VIP</button>
+  <button class="tab-btn" onclick="switchTab('docs',this)">🛡️ Docs &amp; Seguro</button>
+  <button class="tab-btn" onclick="switchTab('compras',this)">🛒 Compras</button>
+  <button class="tab-btn" id="pend-tab-btn" onclick="switchTab('pendencias',this)">⏳ Pendências</button>
+</nav>
+<div id="mobileMenu" class="mobile-menu-dropdown">
+  <button onclick="switchTabMobile('overview')">🗺️ Visão Geral</button>
+  <button onclick="switchTabMobile('voos')">✈️ Voos</button>
+  <button onclick="switchTabMobile('miami')">🌴 Miami</button>
+  <button onclick="switchTabMobile('disney')">🏰 Disney</button>
+  <button onclick="switchTabMobile('universal')">🎢 Universal</button>
+  <button onclick="switchTabMobile('retorno')">🏁 Retorno</button>
+  <button onclick="switchTabMobile('full')">📋 Roteiro</button>
+  <button onclick="switchTabMobile('vip')">🛋️ Salas VIP</button>
+  <button onclick="switchTabMobile('docs')">🛡️ Docs &amp; Seguro</button>
+  <button onclick="switchTabMobile('compras')">🛒 Compras</button>
+  <button onclick="switchTabMobile('pendencias')">⏳ Pendências</button>
+</div>
+</div>
+
+<main class="main">
+
+<!-- ═══ TAB: VISÃO GERAL ═══ -->
+<div id="tab-overview" class="tab-panel active">
+<div class="stat-grid">
+  <div class="stat-card"><div class="stat-label">📅 Duração</div><div class="stat-val">17</div><div class="stat-note">dias · 07 a 23/11/2026</div></div>
+  <div class="stat-card coral"><div class="stat-label">🌴 Miami</div><div class="stat-val">3</div><div class="stat-note">noites · YVE Hotel</div></div>
+  <div class="stat-card gold"><div class="stat-label">🏰 Disney</div><div class="stat-val">4</div><div class="stat-note">parques · até 17/11</div></div>
+  <div class="stat-card purple"><div class="stat-label">🎢 Universal</div><div class="stat-val">3</div><div class="stat-note">parques + 1 flex</div></div>
+  <div class="stat-card green"><div class="stat-label">🌿 Orlando</div><div class="stat-val">11</div><div class="stat-note">noites · 2 resorts</div></div>
+</div>
+<div class="overview-grid">
+<div class="card" style="grid-column:1/-1;">
+  <div class="card-title"><span class="dot"></span>Linha do Tempo</div>
+  <div style="overflow-x:auto;">
+  <table class="flight-table">
+    <thead><tr><th>Período</th><th>Etapa</th><th>Local</th><th>Detalhe</th></tr></thead>
+    <tbody>
+      <tr><td><strong>07/11 (Sáb)</strong></td><td>✈️ Deslocamento Ida</td><td>IZA → VCP → FLL</td><td>Loc. <strong>GLUBWW</strong> · AD 2631 + AD 8704</td></tr>
+      <tr><td><strong>08–11/11</strong></td><td>🌴 Miami</td><td>YVE Hotel Miami</td><td>RCI #00017 · 146 Biscayne Blvd · Resort fee $25/noite</td></tr>
+      <tr><td><strong>11/11 (Qua)</strong></td><td>🚗 Transfer Miami→Orlando</td><td>Holiday Inn Kissimmee</td><td>AVIS CX-50 · Retirada 08:30 · Drive ~4h</td></tr>
+      <tr><td><strong>11–15/11</strong></td><td>🏡 Holiday Inn Orlando</td><td>Orange Lake East Village</td><td>RCI #00011 · 4 noites · 2 quartos + cozinha</td></tr>
+      <tr><td><strong>12–16/11</strong></td><td>🏰 Disney (4 parques)</td><td>Walt Disney World</td><td>Ingresso #PGPF87221952 · válido até 17/11</td></tr>
+      <tr><td><strong>15/11 (Dom)</strong></td><td>🔄 Mudança de hotel</td><td>Sheraton Vistana</td><td>Checkout 10h · Check-in 16h · Descanso + Compras</td></tr>
+      <tr><td><strong>15–22/11</strong></td><td>🌿 Sheraton Vistana</td><td>8800 Vistana Centre Drive</td><td>RCI #00013 · 7 noites · 2 quartos + cozinha</td></tr>
+      <tr><td><strong>17–21/11</strong></td><td>🎢 Universal (3 parques)</td><td>Universal Orlando Resort</td><td>Ingresso #17465599909 · válido até 24/11</td></tr>
+      <tr><td><strong>22/11 (Dom)</strong></td><td>✈️ Retorno ao Brasil</td><td>MCO → CNF</td><td>Loc. <strong>JQWRXX</strong> · AD 8731 · 21:30 · Terminal C</td></tr>
+      <tr><td><strong>23/11 (Seg)</strong></td><td>🏠 Chegada BH</td><td>Confins → Juiz de Fora</td><td>Chegada CNF 08:05 · Ônibus CNF → JF</td></tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+<div class="card">
+  <div class="card-title"><span class="dot"></span>Hotéis</div>
+  <table class="info-table">
+    <tr><td>🌴 YVE Miami</td><td>08/11 16h → 11/11 11h<br><span style="font-size:12px;color:var(--gray-500);">(305) 358-4555 · RCI #00017</span></td></tr>
+    <tr><td>🏡 Holiday Inn</td><td>11/11 16h → 15/11 10h<br><span style="font-size:12px;color:var(--gray-500);">(407) 477-7025 · RCI #00011</span></td></tr>
+    <tr><td>🌿 Sheraton Vistana</td><td>15/11 16h → 22/11 10h<br><span style="font-size:12px;color:var(--gray-500);">(407) 239-3100 · RCI #00013</span></td></tr>
+  </table>
+</div>
+<div class="card">
+  <div class="card-title"><span class="dot"></span>Carro &amp; Ingressos</div>
+  <table class="info-table">
+    <tr><td>🚗 Veículo</td><td>Mazda CX-50 AWD · AVIS<br><span style="font-size:12px;color:var(--gray-500);">Loc. BC2M2S-52845833-13607625</span></td></tr>
+    <tr><td>📍 Retirada</td><td>11/11 às 08:30 · Miami Centro<br><span style="font-size:12px;color:var(--gray-500);">99 SE 2nd Street</span></td></tr>
+    <tr><td>📍 Devolução</td><td>22/11 às ~17:00 · MCO Airport</td></tr>
+    <tr><td>🏰 Disney</td><td>4-Day Base Ticket · PGPF87221952<br><span style="font-size:12px;color:var(--green);">✅ Vinculado no My Disney Experience</span></td></tr>
+    <tr><td>🎢 Universal</td><td>3-Park 14 Days · 17465599909<br><span style="font-size:12px;color:var(--green);">✅ Vinculado no app Universal</span></td></tr>
+  </table>
+</div>
+<div class="card" style="grid-column:1/-1;">
+  <div class="card-title"><span class="dot"></span>Alertas e Pontos de Atenção</div>
+  <ul class="checklist">
+    <li class="warn">Seguro Assist Card cobre <strong>07/11 a 23/11</strong> — vigência correta para toda a viagem. ✅</li>
+    <li class="warn">Ingressos Disney válidos até <strong>17/11</strong> — 4 parques devem ser usados entre 11–17/11. Último planejado: 16/11. ✅</li>
+    <li class="warn">Check-out Sheraton às <strong>10h00 em 22/11</strong> — voo às 21:30. ~11h30 de janela. Planejar o dia.</li>
+    <li>Holiday Inn: Depósito <strong>USD 115</strong> + taxa limpeza <strong>USD 134,06</strong> no check-in (cartão físico obrigatório).</li>
+    <li>YVE Hotel: Resort fee <strong>USD 25/noite</strong> → USD 75 total por 3 noites.</li>
+    <li>Nos EUA: <strong>nunca ir a hospital sem contatar Assist Card antes.</strong> WhatsApp: <strong>+54 9 11 2703 9665</strong></li>
+    <li class="warn">Check-in Azul: apresentar-se com <strong>4h de antecedência</strong> em todos os voos internacionais.</li>
+  </ul>
+</div>
+</div>
+</div>
+
+<!-- ═══ TAB: VOOS ═══ -->
+<div id="tab-voos" class="tab-panel">
+<div class="card">
+  <div class="card-title"><span class="dot"></span>Itinerário de Ida — Reserva GLUBWW</div>
+  <div style="overflow-x:auto;">
+  <table class="flight-table">
+    <thead><tr><th>Voo</th><th>Origem</th><th>Destino</th><th>Assentos</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><div class="transport-name">✈️ Azul AD 2631</div><div class="transport-sub">ATR 72-600 · Tarifa TE</div></td>
+        <td><strong>IZA — Juiz de Fora</strong><br><span style="font-size:12px;color:var(--gray-500);">Sáb 07/11 · <strong>15:05</strong></span></td>
+        <td><strong>VCP — Viracopos</strong><br><span style="font-size:12px;color:var(--gray-500);">Sáb 07/11 · <strong>16:40</strong></span></td>
+        <td><span class="seat-badge ok">💺 12C — Gabriel</span><br><span class="seat-badge ok">💺 12D — Patricia</span></td>
+      </tr>
+      <tr class="connection-row"><td colspan="4">🔗 <em>Conexão VCP — 6h25min · Oportunidade de Sala VIP</em></td></tr>
+      <tr>
+        <td><div class="transport-name">✈️ Azul AD 8704</div><div class="transport-sub">Airbus A330-200 · Tarifa TE</div></td>
+        <td><strong>VCP — Viracopos</strong><br><span style="font-size:12px;color:var(--gray-500);">Sáb 07/11 · <strong>23:05</strong></span></td>
+        <td><strong>FLL — Fort Lauderdale</strong><br><span style="font-size:12px;color:var(--gray-500);">Dom 08/11 · <strong>05:55</strong></span></td>
+        <td><span class="seat-badge pending">⏳ A selecionar</span><br><span style="font-size:11px;color:var(--gray-500);">Sugestão: D+E · fileiras 20–30</span></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <div style="margin-top:12px;padding:10px 14px;background:var(--off-white);border-radius:8px;font-size:12.5px;color:var(--gray-700);">
+    🧳 Gabriel — 3 bagagens · Patricia — 2 bagagens · Confirmados no site Azul ✅
+  </div>
+</div>
+<div class="card">
+  <div class="card-title"><span class="dot"></span>Itinerário de Volta — Reserva JQWRXX</div>
+  <div class="alert-box alert-warn">⚠️ <strong>Horário alterado pela Azul:</strong> voo sai às <strong>21:30</strong> (era 22:30). Terminal C · MCO. Devolução carro planejada ~17:00.</div>
+  <div style="overflow-x:auto;">
+  <table class="flight-table">
+    <thead><tr><th>Voo</th><th>Origem</th><th>Destino</th><th>Assentos</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><div class="transport-name">✈️ Azul AD 8731</div><div class="transport-sub">Airbus A330-200 · Tarifa ZK · Voo Direto</div></td>
+        <td><strong>MCO — Orlando</strong><br><span style="font-size:12px;color:var(--gray-500);">Dom 22/11 · <strong>21:30</strong> · Terminal C</span></td>
+        <td><strong>CNF — Confins / BH</strong><br><span style="font-size:12px;color:var(--gray-500);">Seg 23/11 · <strong>08:05</strong></span></td>
+        <td><span class="seat-badge pending">⏳ A selecionar</span><br><span style="font-size:11px;color:var(--gray-500);">Sugestão: D+E · fileiras 20–30</span></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <div style="margin-top:12px;padding:10px 14px;background:var(--off-white);border-radius:8px;font-size:12.5px;color:var(--gray-700);">
+    🧳 Gabriel — 3 bagagens · Patricia — 2 bagagens · Voo ~10h30 · Levar agasalho de cabine.
+  </div>
+</div>
+<div class="card">
+  <div class="card-title"><span class="dot"></span>Datas Críticas de Check-in</div>
+  <table class="info-table">
+    <tr><td>AD 2631 (IZA)</td><td>Chegar ao IZA até <strong>11h05</strong> (4h antes de 15:05)</td></tr>
+    <tr><td>AD 8704 (VCP)</td><td>Já checked-in via VCP. Embarcar antes das <strong>22:30</strong></td></tr>
+    <tr><td>AD 8731 (MCO)</td><td>Chegar ao Terminal C até <strong>17:30</strong> (4h antes de 21:30)</td></tr>
+    <tr><td>App Azul</td><td>Check-in online disponível 48h antes de cada voo</td></tr>
+  </table>
+</div>
+</div>
+
+<!-- ═══ TAB: MIAMI ═══ -->
+<div id="tab-miami" class="tab-panel">
+<div class="day-header miami">
+  <div class="day-header-left"><h2>🌴 Miami · 08 a 11 de Novembro</h2><p>YVE Hotel Miami · 3 noites · Downtown Miami · Sem carro alugado</p></div>
+  <div class="weather-badge">☀️ <span>28°C–32°C · Ensolarado</span></div>
+</div>
+<div class="alert-box alert-info">ℹ️ <strong>Roteiro Miami em construção.</strong> O YVE fica no Downtown, próximo ao Bayside, Brickell e a 15–20 min de Uber do South Beach.</div>
+<div class="alert-box alert-warn">⏰ <strong>Chegada antecipada:</strong> Voo chega às <strong>05:55</strong>. Check-in só às <strong>16:00</strong>. Pendência: ligar para YVE — (305) 358-4555.</div>
+
+<h3 style="font-size:16px;font-weight:800;color:var(--ocean);margin:20px 0 12px;">☀️ Dia 08/11 — Chegada Miami</h3>
+<div class="timeline">
+  <div class="timeline-item transport"><div class="tl-time">05:55</div><div class="tl-title">✈️ Chegada FLL · Imigração &amp; Alfândega</div><div class="tl-body">Fila "Non-US Residents" · Retirada de bagagem · Alfândega · Tempo: 60–90 min.</div></div>
+  <div class="timeline-item transport"><div class="tl-time">07:30</div><div class="tl-title">🚗 Uber FLL → Downtown Miami</div><div class="tl-body">~30 km · 30–40 min · Uber ~USD 40–55.</div></div>
+  <div class="timeline-item food"><div class="tl-time">08:30</div><div class="tl-title">☕ Café da manhã Downtown</div><div class="tl-body">Sugestão: Panther Coffee · Coyo Taco · cafés no Brickell.</div></div>
+  <div class="timeline-item"><div class="tl-time">10:00–15:30</div><div class="tl-title">🌊 Explorar Miami (a definir)</div><div class="tl-body">Sugestões: Bayside Marketplace · South Beach · Wynwood · Brickell City Centre.</div></div>
+  <div class="timeline-item hotel"><div class="tl-time">16:00</div><div class="tl-title">🏨 Check-in YVE Hotel Miami</div><div class="tl-row"><span class="tl-label">Endereço:</span><span class="tl-val">146 Biscayne Blvd, Miami, FL 33132</span></div><div class="tl-row"><span class="tl-label">RCI:</span><span class="tl-val">#00017 · Resort fee: USD 25/noite</span></div></div>
+  <div class="timeline-item food"><div class="tl-time">19:00</div><div class="tl-title">🍽️ Jantar (a definir)</div><div class="tl-body">Sugestões: Bayside Marketplace · Area 31 · La Mar by Gastón Acurio.</div></div>
+</div>
+
+<h3 style="font-size:16px;font-weight:800;color:var(--ocean);margin:24px 0 12px;">🎨 Dia 09/11 — Miami Cultural (Sugestão)</h3>
+<div class="timeline">
+  <div class="timeline-item"><div class="tl-time">10:00</div><div class="tl-title">🎨 Wynwood Walls + Design District</div><div class="tl-body">Arte de rua icônica · Uber ~10 min do YVE.</div></div>
+  <div class="timeline-item food"><div class="tl-time">12:30</div><div class="tl-title">🥗 Almoço no Wynwood</div><div class="tl-body">KYU · Coyo Taco · Kush Wynwood.</div></div>
+  <div class="timeline-item"><div class="tl-time">15:00</div><div class="tl-title">🛍️ Brickell City Centre</div><div class="tl-body">Compras e exploração · Lojas e galerias.</div></div>
+  <div class="timeline-item food"><div class="tl-time">19:30</div><div class="tl-title">🌮 Jantar (a definir)</div><div class="tl-body">Coya Miami · Zuma · Little Havana.</div></div>
+</div>
+
+<h3 style="font-size:16px;font-weight:800;color:var(--ocean);margin:24px 0 12px;">🏖️ Dia 10/11 — Praia (Sugestão)</h3>
+<div class="timeline">
+  <div class="timeline-item"><div class="tl-time">10:00</div><div class="tl-title">🏖️ South Beach / Ocean Drive</div><div class="tl-body">Praia icônica · Art Deco · Uber ~15 min do YVE.</div></div>
+  <div class="timeline-item food"><div class="tl-time">13:00</div><div class="tl-title">🦀 Almoço em South Beach</div><div class="tl-body">Joe's Stone Crab · News Cafe · Mango's Tropical.</div></div>
+  <div class="timeline-item food"><div class="tl-time">19:30</div><div class="tl-title">🍽️ Última noite em Miami</div><div class="tl-body">Jantar especial à beira-mar · Bayside ou Coconut Grove.</div></div>
+</div>
+
+<h3 style="font-size:16px;font-weight:800;color:var(--ocean);margin:24px 0 12px;">🚗 Dia 11/11 — Transfer Miami → Orlando</h3>
+<div class="timeline">
+  <div class="timeline-item transport"><div class="tl-time">08:30</div><div class="tl-title">🚗 Retirada do carro · AVIS Miami</div><div class="tl-row"><span class="tl-label">Endereço:</span><span class="tl-val">99 SE 2nd Street, Miami (próximo ao YVE ✅)</span></div><div class="tl-row"><span class="tl-label">Documentos:</span><span class="tl-val">CNH física + Passaporte + Cartão de crédito</span></div></div>
+  <div class="timeline-item hotel"><div class="tl-time">11:00</div><div class="tl-title">🏨 Check-out YVE Miami</div></div>
+  <div class="timeline-item transport"><div class="tl-time">11:15</div><div class="tl-title">🛣️ Drive Miami → Kissimmee (~4h)</div><div class="tl-body">~360 km · Florida Turnpike · Parada para almoço na estrada.</div></div>
+  <div class="timeline-item hotel"><div class="tl-time">~16:00</div><div class="tl-title">🏡 Check-in Holiday Inn Orange Lake</div><div class="tl-row"><span class="tl-label">Endereço:</span><span class="tl-val">8505 W Irlo Bronson Mem Hwy, Kissimmee, FL 34747</span></div><div class="tl-row"><span class="tl-label">Atenção:</span><span class="tl-val">Depósito USD 115 + USD 134,06 limpeza no check-in</span></div></div>
+</div>
+</div>
+
+<!-- ═══ TAB: DISNEY ═══ -->
+<div id="tab-disney" class="tab-panel">
+<div class="day-header disney">
+  <div class="day-header-left"><h2>🏰 Disney · 12 a 16 de Novembro</h2><p>4-Day Base Ticket · PGPF87221952 · Válido até 17/11 · ✅ Vinculado no MDE</p></div>
+  <div class="weather-badge">☀️ <span>27°C–31°C · Baixa temporada</span></div>
+</div>
+<div class="alert-box alert-ok">✅ <strong>Sem reserva de datas necessária.</strong> Desde jan/2024 a Disney eliminou o Park Pass para date-based tickets. Apresente o ingresso no app MDE na entrada.</div>
+<div class="alert-box alert-warn">⚠️ <strong>Base Ticket sem Park Hopper:</strong> 1 parque por dia. Upgrade possível pelo app MDE.</div>
+
+<div class="park-grid">
+  <div class="park-card"><div class="park-card-hdr disney-hs"><div><div class="disney-badge">Parque 1</div><h3>Hollywood Studios</h3><div class="park-date">📅 Quinta, 12/11/2026</div></div><span class="park-card-hdr park-emoji">🎬</span></div><div class="park-card-body"><div class="park-tip"><span class="park-tip-icon">⭐</span><span><strong>Star Wars: Galaxy's Edge</strong> — Millennium Falcon + Rise of Resistance (chegar cedo!)</span></div><div class="park-tip"><span class="park-tip-icon">🎢</span><span>Tower of Terror · Rock'n' Roller · Slinky Dog Dash</span></div><div class="park-tip"><span class="park-tip-icon">🍽️</span><span>Oga's Cantina · Sci-Fi Dine-In Theater</span></div><div class="park-tip"><span class="park-tip-icon">💡</span><span>Chegar na abertura para pegar brinquedos concorridos. Verificar Fantasmic!</span></div></div></div>
+  <div class="park-card"><div class="park-card-hdr disney-ep"><div><div class="disney-badge">Parque 2</div><h3>EPCOT · Gastronomia</h3><div class="park-date">📅 Sexta, 13/11/2026</div></div><span class="park-card-hdr park-emoji">🌍</span></div><div class="park-card-body"><div class="park-tip"><span class="park-tip-icon">🍷</span><span><strong>World Showcase</strong> — 11 países com gastronomia autêntica</span></div><div class="park-tip"><span class="park-tip-icon">🎢</span><span>Guardians of the Galaxy · Remy's Ratatouille · Test Track</span></div><div class="park-tip"><span class="park-tip-icon">🍽️</span><span>La Hacienda (México) · Teppan Edo (Japão) · Rose &amp; Crown (UK)</span></div><div class="park-tip"><span class="park-tip-icon">💡</span><span>EPCOT é o mais tranquilo e casal-friendly. Muito caminhável, excelente para gastronomia!</span></div></div></div>
+  <div class="park-card"><div class="park-card-hdr disney-ak"><div><div class="disney-badge">Parque 3</div><h3>Animal Kingdom</h3><div class="park-date">📅 Sábado, 14/11/2026</div></div><span class="park-card-hdr park-emoji">🦁</span></div><div class="park-card-body"><div class="park-tip"><span class="park-tip-icon">⭐</span><span><strong>Pandora — World of Avatar</strong> · Flight of Passage (melhor brinquedo da Disney!)</span></div><div class="park-tip"><span class="park-tip-icon">🎢</span><span>Expedition Everest · Kilimanjaro Safari · Na'vi River Journey</span></div><div class="park-tip"><span class="park-tip-icon">🌅</span><span>Chegar cedo — animais mais ativos pela manhã no Safari</span></div><div class="park-tip"><span class="park-tip-icon">💡</span><span>Flight of Passage: fila de 1–2h. Prioridade máxima na abertura!</span></div></div></div>
+  <div class="park-card"><div class="park-card-hdr disney-mk"><div><div class="disney-badge">Parque 4</div><h3>Magic Kingdom</h3><div class="park-date">📅 Segunda, 16/11/2026</div></div><span class="park-card-hdr park-emoji">🏰</span></div><div class="park-card-body"><div class="park-tip"><span class="park-tip-icon">⭐</span><span><strong>TRON Lightcycle Run</strong> · Seven Dwarfs · Space Mountain</span></div><div class="park-tip"><span class="park-tip-icon">🎢</span><span>Haunted Mansion · Pirates of Caribbean · Splash Mountain</span></div><div class="park-tip"><span class="park-tip-icon">🎆</span><span>Desfile + Fogos à noite (Enchantment) — não perder!</span></div><div class="park-tip"><span class="park-tip-icon">💡</span><span>Parque mais concorrido. Lightning Lane muito recomendado. Ficar até fechar!</span></div></div></div>
+</div>
+
+<div class="card">
+  <div class="card-title"><span class="dot"></span>Lightning Lane — Fura-Filas (A Decidir)</div>
+  <table class="info-table">
+    <tr><td>Multi Pass</td><td>3 atrações agendadas + mais ao longo do dia · ~USD 15–35/pessoa/dia · Inclui fotos</td></tr>
+    <tr><td>Single Pass</td><td>1 atração premium (TRON, Guardians) · ~USD 10–20/atração · Máx 2/dia</td></tr>
+    <tr><td>Premier Pass</td><td>Entrada ilimitada em todas as LL do parque · ~USD 120+/pessoa · Sem agendar horários</td></tr>
+    <tr><td>Quando comprar</td><td>Abre às 07h00 do dia da visita (não hospedados em hotel Disney)</td></tr>
+    <tr><td>Mais útil em</td><td>Magic Kingdom (16/11) e Hollywood Studios (12/11)</td></tr>
+  </table>
+</div>
+
+<div class="card">
+  <div class="card-title"><span class="dot"></span>Dia 15/11 — Mudança de Hotel + Descanso + Compras</div>
+  <div class="timeline" style="margin-top:8px;">
+    <div class="timeline-item transport"><div class="tl-time">10:00</div><div class="tl-title">🚗 Check-out Holiday Inn</div></div>
+    <div class="timeline-item"><div class="tl-time">10:00–15:00</div><div class="tl-title">🛍️ Compras · Premium Outlets / Florida Mall</div><div class="tl-body">International Drive · 15–20 min do Holiday Inn.</div></div>
+    <div class="timeline-item hotel"><div class="tl-time">16:00</div><div class="tl-title">🌿 Check-in Sheraton Vistana Resort</div><div class="tl-row"><span class="tl-label">Endereço:</span><span class="tl-val">8800 Vistana Centre Drive, Orlando, FL 32821</span></div><div class="tl-row"><span class="tl-label">Diferenciais:</span><span class="tl-val">7 piscinas · Jacuzzi · Cozinha completa · 2 quartos</span></div></div>
+  </div>
+</div>
+</div>
+
+<!-- ═══ TAB: UNIVERSAL ═══ -->
+<div id="tab-universal" class="tab-panel">
+<div class="day-header universal">
+  <div class="day-header-left"><h2>🎢 Universal · 17 a 21 de Novembro</h2><p>3-Park Adventure Ticket · 17465599909-2TRDC · Válido 11/11 a 24/11 · ✅ Vinculado</p></div>
+  <div class="weather-badge">⛅ <span>26°C–30°C · Novembro agradável</span></div>
+</div>
+<div class="alert-box alert-ok">✅ <strong>3 parques incluídos:</strong> Universal Studios Florida · Islands of Adventure · Epic Universe (NOVO 2025!)</div>
+
+<div class="park-grid">
+  <div class="park-card"><div class="park-card-hdr univ-ioa"><div><div class="universal-badge">Universal · Dia 1</div><h3>Islands of Adventure</h3><div class="park-date">📅 Terça, 17/11/2026</div></div></div><div class="park-card-body"><div class="park-tip"><span class="park-tip-icon">⭐</span><span><strong>Harry Potter (Hogsmeade)</strong> — Hagrid's Magical Creatures (melhor brinquedo!)</span></div><div class="park-tip"><span class="park-tip-icon">🎢</span><span>Hulk · Doctor Doom · VelociCoaster</span></div><div class="park-tip"><span class="park-tip-icon">🍺</span><span>Butterbeer em Hogsmeade · Three Broomsticks</span></div><div class="park-tip"><span class="park-tip-icon">💡</span><span>Hagrid's: fila 2–3h. Chegar na abertura!</span></div></div></div>
+  <div class="park-card"><div class="park-card-hdr univ-usf"><div><div class="universal-badge">Universal · Dia 2</div><h3>Universal Studios Florida</h3><div class="park-date">📅 Quarta, 18/11/2026</div></div></div><div class="park-card-body"><div class="park-tip"><span class="park-tip-icon">⭐</span><span><strong>Harry Potter (Diagon Alley)</strong> · Escape from Gringotts · Hogwarts Express</span></div><div class="park-tip"><span class="park-tip-icon">🎢</span><span>Hollywood Rip Ride Rockit · Revenge of the Mummy · MIB</span></div><div class="park-tip"><span class="park-tip-icon">💡</span><span>Hogwarts Express: viagem entre IOA e USF — experiência única!</span></div></div></div>
+  <div class="park-card"><div class="park-card-hdr univ-epic"><div><div class="universal-badge">Universal · Dia 3 ⭐ NOVO!</div><h3>Epic Universe</h3><div class="park-date">📅 Sexta, 20/11/2026</div></div></div><div class="park-card-body"><div class="park-tip"><span class="park-tip-icon">⭐</span><span><strong>Ministry of Magic (HP Paris)</strong> · Mundo de Harry Potter anos 90</span></div><div class="park-tip"><span class="park-tip-icon">🧙</span><span><strong>Super Nintendo World</strong> · Mario Kart · DK Mountain Mines</span></div><div class="park-tip"><span class="park-tip-icon">🌟</span><span>How to Train Your Dragon · Universal Monsters · Celestial Park</span></div><div class="park-tip"><span class="park-tip-icon">💡</span><span>Parque novo — filas menores em novembro. Dia inteiro!</span></div></div></div>
+  <div class="park-card"><div class="park-card-hdr" style="background:linear-gradient(135deg,#1a3560,#2a4a7f);"><div><div class="universal-badge">Universal · Dia 4</div><h3>Repetição / Dia Flexível</h3><div class="park-date">📅 Sábado, 21/11/2026</div></div></div><div class="park-card-body"><div class="park-tip"><span class="park-tip-icon">🔄</span><span>Repetir o parque favorito · Brinquedos que ficaram na fila</span></div><div class="park-tip"><span class="park-tip-icon">🛍️</span><span>Alternativa: CityWalk (sem ingresso) · Compras de souvenirs</span></div><div class="park-tip"><span class="park-tip-icon">😴</span><span>Ou dia de descanso nas 7 piscinas do Sheraton Vistana!</span></div></div></div>
+</div>
+
+<div class="card">
+  <div class="card-title"><span class="dot"></span>Express Pass Universal — Fura-Filas (A Decidir)</div>
+  <table class="info-table">
+    <tr><td>Express Pass</td><td>Fila rápida na maioria das atrações · 1 vez por atração · ~USD 80–200/pessoa/dia</td></tr>
+    <tr><td>Express Unlimited</td><td>Igual com repetições ilimitadas · ~USD 100–250/pessoa/dia</td></tr>
+    <tr><td>Novembro</td><td>Baixa/média temporada — filas menores. Avaliar no dia.</td></tr>
+    <tr><td>Hagrid's</td><td>❌ Não coberto pelo Express Pass — virtual queue próprio</td></tr>
+  </table>
+</div>
+
+<div class="card">
+  <div class="card-title"><span class="dot"></span>Dia 19/11 — Compras + Organização de Malas</div>
+  <div class="timeline" style="margin-top:8px;">
+    <div class="timeline-item"><div class="tl-time">10:00</div><div class="tl-title">🛍️ Últimas Compras em Orlando</div><div class="tl-body">Premium Outlets · Disney Springs · Mall at Millenia · Florida Mall.</div></div>
+    <div class="timeline-item"><div class="tl-time">16:00</div><div class="tl-title">🧳 Organização das Malas no Sheraton</div><div class="tl-body">Verificar peso · Separar itens · Lavanderia disponível no resort.</div></div>
+  </div>
+</div>
+</div>
+
+<!-- ═══ TAB: RETORNO ═══ -->
+<div id="tab-retorno" class="tab-panel">
+<div class="day-header retorno">
+  <div class="day-header-left"><h2>🏁 Retorno ao Brasil · 22–23/11</h2><p>Check-out Sheraton · Devolução AVIS MCO · Voo AD 8731 · 21:30</p></div>
+  <div class="weather-badge">🌙 <span>Voo noturno · ~10h30</span></div>
+</div>
+<div class="alert-box alert-warn">⚠️ Check-out Sheraton às <strong>10:00</strong> · Voo às <strong>21:30</strong> Terminal C · Apresentar-se até <strong>17:30</strong> (4h antes).</div>
+
+<div class="period-label">☀️ Dia 22/11 (Dom)</div>
+<div class="timeline">
+  <div class="timeline-item hotel"><div class="tl-time">10:00</div><div class="tl-title">🌿 Check-out Sheraton Vistana</div><div class="tl-body">Verificar todos os cômodos e cozinha.</div></div>
+  <div class="timeline-item"><div class="tl-time">10:00–16:00</div><div class="tl-title">🌟 Último dia em Orlando (a definir)</div><div class="tl-body">Disney Springs sem ingresso · Compras de última hora · Almoço especial.</div></div>
+  <div class="timeline-item transport"><div class="tl-time">~17:00</div><div class="tl-title">🚗 Devolução AVIS · MCO Airport</div><div class="tl-body">Seguir sinalização "Rental Car Return" · Shuttle até o terminal.</div></div>
+  <div class="timeline-item transport"><div class="tl-time">17:30</div><div class="tl-title">✈️ Check-in · Terminal C · MCO</div><div class="tl-body">Despacho de bagagens · Segurança TSA · Jantar no aeroporto.</div></div>
+  <div class="timeline-item transport"><div class="tl-time">21:30</div><div class="tl-title">✈️ Embarque AD 8731 MCO → CNF</div><div class="tl-body">A330-200 · Direto · ~10h30 · Chegada CNF 08:05 (+1 dia).</div></div>
+</div>
+
+<div class="period-label">🌅 Dia 23/11 (Seg)</div>
+<div class="timeline">
+  <div class="timeline-item transport"><div class="tl-time">08:05</div><div class="tl-title">✈️ Chegada CNF · Confins / BH</div><div class="tl-body">Imigração · Bagagens · Alfândega · App Aduana.</div></div>
+  <div class="timeline-item transport"><div class="tl-time">~09:30</div><div class="tl-title">🚌 Ônibus CNF → Juiz de Fora</div><div class="tl-body">⏳ Pendência: comprar passagem com antecedência.</div></div>
+</div>
+
+<div class="card" style="margin-top:16px;">
+  <div class="card-title"><span class="dot"></span>Isenção Alfandegária — Retorno ao Brasil</div>
+  <table class="info-table">
+    <tr><td>Isenção por pessoa</td><td><strong>USD 1.000</strong> em mercadorias adquiridas no exterior</td></tr>
+    <tr><td>Eletrônicos</td><td>1 unidade de cada item por pessoa, dentro do limite</td></tr>
+    <tr><td>Declaração</td><td>App <strong>"Aduana"</strong> da Receita Federal — declarar antes de aterrissar</td></tr>
+  </table>
+</div>
+</div>
+
+<!-- ═══ TAB: ROTEIRO COMPLETO ═══ -->
+<div id="tab-full" class="tab-panel">
+<div class="export-bar">
+  <div><h3>📋 Roteiro Completo — Miami &amp; Orlando 2026</h3><p>07 a 23 de novembro · Gabriel &amp; Patricia · Azul GLUBWW / JQWRXX</p></div>
+  <button class="btn-export" onclick="exportPDF()">📄 Exportar PDF</button>
+</div>
+<div id="pdf-content">
+<div class="sched-wrap">
+<table class="sched-table">
+<thead><tr class="sched-head"><th style="width:70px;">DATA</th><th style="width:80px;">DIA</th><th style="width:80px;">HORÁRIO</th><th>ATIVIDADE</th><th style="width:30%;">DETALHE</th></tr></thead>
+<tbody>
+<tr class="day-group-header"><td colspan="5"><span class="dgh-date">07/11</span><span class="dgh-day">SÁBADO</span><span class="dgh-title">✈️ Deslocamento Ida · IZA → VCP → FLL</span></td></tr>
+<tr class="sched-row" style="background:#e8f0fb;border-left:3px solid #0077B6;"><td>07/11</td><td>Sábado</td><td class="sched-time">15:05</td><td>✈️ Embarque IZA (Azul AD 2631) · Assentos 12C e 12D</td><td style="font-size:12px;color:#555;">ATR 72-600 · GLUBWW</td></tr>
+<tr class="sched-row" style="background:#e8f0fb;border-left:3px solid #0077B6;"><td></td><td></td><td class="sched-time">16:40</td><td>✈️ Chegada VCP — Conexão 6h25 · Oportunidade Sala VIP</td><td style="font-size:12px;color:#555;">Priority Pass / LoungeKey em VCP</td></tr>
+<tr class="sched-row" style="background:#e8f0fb;border-left:3px solid #0077B6;"><td></td><td></td><td class="sched-time">23:05</td><td>✈️ Embarque VCP (Azul AD 8704) → Fort Lauderdale</td><td style="font-size:12px;color:#555;">A330-200 · Assentos a selecionar</td></tr>
+<tr class="day-group-header"><td colspan="5"><span class="dgh-date">08/11</span><span class="dgh-day">DOMINGO</span><span class="dgh-title">🌴 Chegada Miami · Check-in YVE Hotel</span></td></tr>
+<tr class="sched-row" style="background:#e8f0fb;border-left:3px solid #0077B6;"><td>08/11</td><td>Domingo</td><td class="sched-time">05:55</td><td>✈️ Chegada FLL · Imigração + Alfândega + Bagagem</td><td style="font-size:12px;color:#555;">~90 min · Uber para Miami</td></tr>
+<tr class="sched-row" style="background:#e6f9f0;border-left:3px solid #1A7A4A;"><td></td><td></td><td class="sched-time">10:00</td><td>🌊 Miami Livre — South Beach / Wynwood / Bayside</td><td style="font-size:12px;color:#555;">Roteiro a definir</td></tr>
+<tr class="sched-row" style="background:#fef3db;border-left:3px solid #F4A825;"><td></td><td></td><td class="sched-time">16:00</td><td>🏨 Check-in YVE Hotel Miami</td><td style="font-size:12px;color:#555;">146 Biscayne Blvd · (305) 358-4555 · RCI #00017</td></tr>
+<tr class="day-group-header"><td colspan="5"><span class="dgh-date">09/11</span><span class="dgh-day">SEGUNDA</span><span class="dgh-title">🎨 Miami · Wynwood + Design District</span></td></tr>
+<tr class="sched-row" style="background:#e6f9f0;border-left:3px solid #1A7A4A;"><td>09/11</td><td>Segunda</td><td class="sched-time">Todo o dia</td><td>🎨 Wynwood Walls + Design District + Compras</td><td style="font-size:12px;color:#555;">Roteiro a definir</td></tr>
+<tr class="day-group-header"><td colspan="5"><span class="dgh-date">10/11</span><span class="dgh-day">TERÇA</span><span class="dgh-title">🏖️ Miami · South Beach + Passeio</span></td></tr>
+<tr class="sched-row" style="background:#e6f9f0;border-left:3px solid #1A7A4A;"><td>10/11</td><td>Terça</td><td class="sched-time">Todo o dia</td><td>🏖️ South Beach / Bayside / Lincoln Road</td><td style="font-size:12px;color:#555;">Roteiro a definir</td></tr>
+<tr class="day-group-header"><td colspan="5"><span class="dgh-date">11/11</span><span class="dgh-day">QUARTA</span><span class="dgh-title">🚗 Transfer Miami → Orlando · Check-in Holiday Inn</span></td></tr>
+<tr class="sched-row" style="background:#f0f3f8;border-left:3px solid #5B7FA6;"><td>11/11</td><td>Quarta</td><td class="sched-time">08:30</td><td>🚗 Retirada AVIS · 99 SE 2nd Street, Miami</td><td style="font-size:12px;color:#555;">Mazda CX-50 AWD · BC2M2S-52845833-13607625</td></tr>
+<tr class="sched-row" style="background:#fef3db;border-left:3px solid #F4A825;"><td></td><td></td><td class="sched-time">11:00</td><td>🏨 Check-out YVE Hotel Miami</td><td style="font-size:12px;color:#555;">Prazo até 11:00</td></tr>
+<tr class="sched-row" style="background:#f0f3f8;border-left:3px solid #5B7FA6;"><td></td><td></td><td class="sched-time">11:15</td><td>🛣️ Drive Miami → Kissimmee (~4h · Florida Turnpike)</td><td style="font-size:12px;color:#555;">~360 km · Parada para almoço</td></tr>
+<tr class="sched-row" style="background:#fef3db;border-left:3px solid #F4A825;"><td></td><td></td><td class="sched-time">16:00</td><td>🏡 Check-in Holiday Inn Orange Lake East Village</td><td style="font-size:12px;color:#555;">Kissimmee · RCI #00011 · Depósito USD 115</td></tr>
+<tr class="day-group-header"><td colspan="5"><span class="dgh-date">12/11</span><span class="dgh-day">QUINTA</span><span class="dgh-title">🎬 Disney Hollywood Studios · Parque 1/4</span></td></tr>
+<tr class="sched-row" style="background:#f0e6fb;border-left:3px solid #7B2D8B;"><td>12/11</td><td>Quinta</td><td class="sched-time">Todo o dia</td><td>🎬 Disney Hollywood Studios</td><td style="font-size:12px;color:#555;">Star Wars Galaxy's Edge · Tower of Terror · Fantasmic!</td></tr>
+<tr class="day-group-header"><td colspan="5"><span class="dgh-date">13/11</span><span class="dgh-day">SEXTA</span><span class="dgh-title">🌍 Disney EPCOT · Gastronomia · Parque 2/4</span></td></tr>
+<tr class="sched-row" style="background:#f0e6fb;border-left:3px solid #7B2D8B;"><td>13/11</td><td>Sexta</td><td class="sched-time">Todo o dia</td><td>🌍 Disney EPCOT · Festival Gastronomia</td><td style="font-size:12px;color:#555;">World Showcase · Guardians of the Galaxy</td></tr>
+<tr class="day-group-header"><td colspan="5"><span class="dgh-date">14/11</span><span class="dgh-day">SÁBADO</span><span class="dgh-title">🦁 Disney Animal Kingdom · Parque 3/4</span></td></tr>
+<tr class="sched-row" style="background:#f0e6fb;border-left:3px solid #7B2D8B;"><td>14/11</td><td>Sábado</td><td class="sched-time">Todo o dia</td><td>🦁 Disney Animal Kingdom</td><td style="font-size:12px;color:#555;">Flight of Passage · Kilimanjaro Safari (chegar cedo!)</td></tr>
+<tr class="day-group-header"><td colspan="5"><span class="dgh-date">15/11</span><span class="dgh-day">DOMINGO</span><span class="dgh-title">🔄 Mudança de Hotel + Descanso + Compras</span></td></tr>
+<tr class="sched-row" style="background:#fef3db;border-left:3px solid #F4A825;"><td>15/11</td><td>Domingo</td><td class="sched-time">10:00</td><td>🏡 Check-out Holiday Inn · Compras outlets</td><td style="font-size:12px;color:#555;">Premium Outlets / Florida Mall</td></tr>
+<tr class="sched-row" style="background:#fef3db;border-left:3px solid #F4A825;"><td></td><td></td><td class="sched-time">16:00</td><td>🌿 Check-in Sheraton Vistana Resort</td><td style="font-size:12px;color:#555;">8800 Vistana Centre Drive · RCI #00013</td></tr>
+<tr class="day-group-header"><td colspan="5"><span class="dgh-date">16/11</span><span class="dgh-day">SEGUNDA</span><span class="dgh-title">🏰 Disney Magic Kingdom · Parque 4/4 — ⚠️ ÚLTIMO DIA VÁLIDO: 17/11</span></td></tr>
+<tr class="sched-row" style="background:#f0e6fb;border-left:3px solid #7B2D8B;"><td>16/11</td><td>Segunda</td><td class="sched-time">Todo o dia</td><td>🏰 Disney Magic Kingdom</td><td style="font-size:12px;color:#555;">TRON · Seven Dwarfs · Fogos à noite · Ficar até fechar!</td></tr>
+<tr class="day-group-header"><td colspan="5"><span class="dgh-date">17/11</span><span class="dgh-day">TERÇA</span><span class="dgh-title">🗺️ Universal Islands of Adventure · Universal Dia 1/4</span></td></tr>
+<tr class="sched-row" style="background:#fde8e6;border-left:3px solid #C0392B;"><td>17/11</td><td>Terça</td><td class="sched-time">Todo o dia</td><td>🗺️ Universal Islands of Adventure</td><td style="font-size:12px;color:#555;">Hagrid's (prioridade!) · Hogsmeade · Hulk</td></tr>
+<tr class="day-group-header"><td colspan="5"><span class="dgh-date">18/11</span><span class="dgh-day">QUARTA</span><span class="dgh-title">🎬 Universal Studios Florida · Universal Dia 2/4</span></td></tr>
+<tr class="sched-row" style="background:#fde8e6;border-left:3px solid #C0392B;"><td>18/11</td><td>Quarta</td><td class="sched-time">Todo o dia</td><td>🎬 Universal Studios Florida</td><td style="font-size:12px;color:#555;">Diagon Alley · Hogwarts Express · Hollywood Rip Ride</td></tr>
+<tr class="day-group-header"><td colspan="5"><span class="dgh-date">19/11</span><span class="dgh-day">QUINTA</span><span class="dgh-title">🛍️ Últimas Compras + Organização das Malas</span></td></tr>
+<tr class="sched-row" style="background:#e6f9f0;border-left:3px solid #1A7A4A;"><td>19/11</td><td>Quinta</td><td class="sched-time">Todo o dia</td><td>🛍️ Compras · Premium Outlets / Disney Springs</td><td style="font-size:12px;color:#555;">Souvenirs · Presentes · Verificar peso das malas</td></tr>
+<tr class="day-group-header"><td colspan="5"><span class="dgh-date">20/11</span><span class="dgh-day">SEXTA</span><span class="dgh-title">🌌 Universal Epic Universe ⭐ NOVO! · Universal Dia 3/4</span></td></tr>
+<tr class="sched-row" style="background:#fde8e6;border-left:3px solid #C0392B;"><td>20/11</td><td>Sexta</td><td class="sched-time">Todo o dia</td><td>🌌 Universal Epic Universe</td><td style="font-size:12px;color:#555;">Ministry of Magic · Super Nintendo World · Dragon Isle</td></tr>
+<tr class="day-group-header"><td colspan="5"><span class="dgh-date">21/11</span><span class="dgh-day">SÁBADO</span><span class="dgh-title">🔄 Universal Repetição / Dia Flexível · Universal Dia 4/4</span></td></tr>
+<tr class="sched-row" style="background:#fde8e6;border-left:3px solid #C0392B;"><td>21/11</td><td>Sábado</td><td class="sched-time">Flexível</td><td>🔄 Universal Repetição · ou Descanso no Sheraton</td><td style="font-size:12px;color:#555;">CityWalk · Piscinas do Sheraton</td></tr>
+<tr class="day-group-header"><td colspan="5"><span class="dgh-date">22/11</span><span class="dgh-day">DOMINGO</span><span class="dgh-title">🏁 Check-out · Devolução Carro · Embarque MCO</span></td></tr>
+<tr class="sched-row" style="background:#fef3db;border-left:3px solid #F4A825;"><td>22/11</td><td>Domingo</td><td class="sched-time">10:00</td><td>🌿 Check-out Sheraton · Último dia livre</td><td style="font-size:12px;color:#555;">Disney Springs · Almoço especial</td></tr>
+<tr class="sched-row" style="background:#f0f3f8;border-left:3px solid #5B7FA6;"><td></td><td></td><td class="sched-time">~17:00</td><td>🚗 Devolução AVIS — MCO Airport</td><td style="font-size:12px;color:#555;">Rental Car Return · Shuttle até o terminal</td></tr>
+<tr class="sched-row" style="background:#e8f0fb;border-left:3px solid #0077B6;"><td></td><td></td><td class="sched-time">21:30</td><td>✈️ Embarque MCO (Azul AD 8731) → CNF</td><td style="font-size:12px;color:#555;">Terminal C · A330-200 · JQWRXX</td></tr>
+<tr class="day-group-header"><td colspan="5"><span class="dgh-date">23/11</span><span class="dgh-day">SEGUNDA</span><span class="dgh-title">🏠 Chegada Brasil · CNF → Juiz de Fora</span></td></tr>
+<tr class="sched-row" style="background:#e8f0fb;border-left:3px solid #0077B6;"><td>23/11</td><td>Segunda</td><td class="sched-time">08:05</td><td>✈️ Chegada CNF · Imigração + Bagagem + Alfândega</td><td style="font-size:12px;color:#555;">App Aduana · Ônibus CNF → JF</td></tr>
+</tbody>
+</table>
+<div class="sched-legend">
+  <span class="leg-item"><span class="leg-dot" style="background:#0077B6;"></span>Voo/Transporte</span>
+  <span class="leg-item"><span class="leg-dot" style="background:#7B2D8B;"></span>Disney</span>
+  <span class="leg-item"><span class="leg-dot" style="background:#C0392B;"></span>Universal</span>
+  <span class="leg-item"><span class="leg-dot" style="background:#F4A825;"></span>Hotel</span>
+  <span class="leg-item"><span class="leg-dot" style="background:#1A7A4A;"></span>Lazer/Compras</span>
+  <span class="leg-item"><span class="leg-dot" style="background:#5B7FA6;"></span>Carro/Logística</span>
+</div>
+</div>
+</div>
+</div>
+
+<!-- ═══ TAB: SALAS VIP ═══ -->
+<div id="tab-vip" class="tab-panel">
+<div class="day-header lounge"><div class="day-header-left"><h2>🛋️ Estratégia de Salas VIP</h2><p>Cartões · Aeroportos · Acessos por trecho</p></div><div class="weather-badge">💳 <span>Amex TPC · C6 Carbon · Caixa Elo · Itaú · XP</span></div></div>
+
+<div class="card">
+  <div class="card-title"><span class="dot"></span>Cartões &amp; Redes</div>
+  <table class="info-table">
+    <tr><td>Bradesco Amex TPC</td><td>Amex Global Lounge Collection · Centurion Lounges · Acesso ilimitado</td></tr>
+    <tr><td>C6 Carbon (Black)</td><td><strong>LoungeKey</strong> · Ampla rede internacional</td></tr>
+    <tr><td>Caixa Elo Nanquim</td><td><strong>Priority Pass</strong> · Maior rede mundial de salas VIP</td></tr>
+    <tr><td>Itaú Personnalité Visa Infinite</td><td><strong>DragonPass</strong> / Visa Airport Companion · Visitas limitadas</td></tr>
+    <tr><td>XP Visa Infinite</td><td><strong>DragonPass</strong> / Visa Airport Companion · Visitas limitadas</td></tr>
+    <tr><td>Nubank</td><td>Sem benefício de sala VIP</td></tr>
+  </table>
+</div>
+
+<div class="lounge-section">
+  <div class="lounge-hdr"><h3>✈️ IZA — Aeroporto JF · Juiz de Fora</h3><span class="lh-info">Embarque · 07/11 · 15:05</span></div>
+  <div class="lounge-body">
+    <div class="lounge-row"><div class="lounge-label">Sala VIP</div><div class="lounge-content"><span class="lb lb-na">Não disponível</span> Aeroporto regional — sem salas VIP.</div></div>
+    <div class="lounge-row"><div class="lounge-label">Estratégia</div><div class="lounge-content">Chegar relaxado com tempo. Voo curto 1h35 — tomar café antes da longa viagem.</div></div>
+  </div>
+</div>
+
+<div class="lounge-section">
+  <div class="lounge-hdr"><h3>✈️ VCP — Viracopos · Campinas</h3><span class="lh-info">Conexão 6h25 · 16:40–23:05</span></div>
+  <div class="lounge-body">
+    <div class="lounge-row"><div class="lounge-label">Salas</div><div class="lounge-content"><strong>Advantage VIP Lounge</strong> (T1, 24h) <span class="lb lb-pp">Priority Pass</span> ⭐ 4.8/5<br><strong>Ambaar Club</strong> (T1) <span class="lb lb-pp">Priority Pass</span> <span class="lb lb-lk">LoungeKey</span><br><strong>The Lounge Viracopos</strong> (T1, 24h) <span class="lb lb-pp">Priority Pass</span></div></div>
+    <div class="lounge-row"><div class="lounge-label">Seus Cartões</div><div class="lounge-content"><span class="lb lb-pp">Caixa Elo Nanquim</span> → Priority Pass (Advantage, Ambaar, The Lounge)<br><span class="lb lb-lk">C6 Carbon</span> → LoungeKey (Ambaar Club)</div></div>
+    <div class="lounge-row"><div class="lounge-label">⚠️ Atenção</div><div class="lounge-content"><span class="lb lb-warn">Fechado</span> Azul Lounge Internacional encerrou em 24/07/2026. Salas são domésticas — verificar acesso antes do controle de passaportes.</div></div>
+  </div>
+</div>
+
+<div class="lounge-section">
+  <div class="lounge-hdr"><h3>✈️ FLL — Fort Lauderdale · Chegada</h3><span class="lh-info">Chegada · 08/11 · 05:55</span></div>
+  <div class="lounge-body">
+    <div class="lounge-row"><div class="lounge-label">Situação</div><div class="lounge-content"><span class="lb lb-warn">Sem acesso prático</span> Após customs (~07:00) você estará na área pública (landside). Salas VIP ficam airside — inacessíveis após chegada.</div></div>
+    <div class="lounge-row"><div class="lounge-label">Estratégia</div><div class="lounge-content">✅ Ir direto para Miami. South Beach café + praia matinal — muito melhor que aguardar sala VIP fechada. Check-in YVE às 16:00 = ~9h de exploração!</div></div>
+  </div>
+</div>
+
+<div class="lounge-section">
+  <div class="lounge-hdr"><h3>✈️ MCO — Orlando International · Embarque</h3><span class="lh-info">Embarque · 22/11 · 21:30 · Terminal C</span></div>
+  <div class="lounge-body">
+    <div class="lounge-row"><div class="lounge-label">Terminal C</div><div class="lounge-content">Azul opera pelo <strong>Terminal C</strong> no MCO. Verificar disponibilidade de salas neste terminal específico.</div></div>
+    <div class="lounge-row"><div class="lounge-label">Seus Cartões</div><div class="lounge-content"><span class="lb lb-pp">Caixa Elo Nanquim</span> Priority Pass · <span class="lb lb-lk">C6 Carbon</span> LoungeKey · Verificar no app antes de ir ao aeroporto.</div></div>
+    <div class="lounge-row"><div class="lounge-label">Estratégia</div><div class="lounge-content">Voo noturno de ~10h30 — prioridade é <strong>jantar bem</strong> antes de embarcar. MCO tem bons restaurantes airside. Chegar até 17:30.</div></div>
+  </div>
+</div>
+</div>
+
+<!-- ═══ TAB: DOCS & SEGURO ═══ -->
+<div id="tab-docs" class="tab-panel">
+<div class="day-header" style="background:linear-gradient(135deg,#0a3d5c,#1565c0);">
+  <div class="day-header-left"><h2>🛡️ Documentos &amp; Seguro Viagem</h2><p>Assist Card AC 500 MUNDO · AVIS · Contatos de Emergência</p></div>
+</div>
+
+<div class="ins-card">
+  <div style="font-size:13px;color:rgba(255,255,255,.50);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">Seguro Viagem</div>
+  <div style="font-size:22px;font-weight:900;">Assist Card AC 500 MUNDO</div>
+  <div style="color:rgba(255,255,255,.55);font-size:13px;margin-bottom:4px;">Com Cobertura COVID-19 · Starr Companies · Vigência: 07/11 a 23/11/2026</div>
+  <div class="contact-grid">
+    <div class="contact-item"><div class="c-label">Gabriel Stigert</div><div class="c-val">Apólice 550 34450588<br><span style="font-size:12px;color:rgba(255,255,255,.55);">Doc. 10791179621</span></div></div>
+    <div class="contact-item"><div class="c-label">Patricia Trindade</div><div class="c-val">Apólice 550 34450587<br><span style="font-size:12px;color:rgba(255,255,255,.55);">Doc. 10497468646</span></div></div>
+  </div>
+  <div class="ins-section">
+    <div class="ins-title">🛡️ Coberturas (EUA — Resto do Mundo)</div>
+    <div class="ins-coverages">
+      <div class="ins-cov">Médica/Hospitalar: <strong>USD 500.000</strong></div>
+      <div class="ins-cov">COVID-19: <strong>USD 30.000</strong></div>
+      <div class="ins-cov">Medicamentos: <strong>USD 1.500</strong></div>
+      <div class="ins-cov">Bagagem (96h): <strong>USD 2.000</strong></div>
+      <div class="ins-cov">Atraso bagagem (+8h): <strong>USD 300</strong></div>
+      <div class="ins-cov">Regresso Sanitário: <strong>USD 150.000</strong></div>
+      <div class="ins-cov">Traslado Médico: <strong>USD 15.000</strong></div>
+      <div class="ins-cov">Odontológico: <strong>USD 700</strong></div>
+    </div>
+  </div>
+  <div class="ins-emergency">
+    <div class="em-title">🚨 Contatos de Emergência 24h — Salvar na agenda AGORA</div>
+    <div class="em-content">
+      📱 WhatsApp: <strong>+54 9 11 2703 9665</strong><br>
+      📞 EUA Toll Free: <strong>1-800-874-2223</strong> · <strong>1-866-701-8962</strong><br>
+      📞 EUA Direto: <strong>+1 (305) 424-1250</strong><br>
+      📞 Brasil: <strong>+55 11 3191-8699</strong> · 0800: <strong>0800 170 6133</strong>
+    </div>
+  </div>
+  <div style="margin-top:12px;padding:10px 14px;background:rgba(255,255,255,.10);border-radius:8px;font-size:12.5px;color:rgba(255,255,255,.75);">
+    ⚠️ <strong>REGRA DE OURO nos EUA:</strong> Nunca ir a hospital sem contatar a Assist Card primeiro. Obter Garantia de Pagamento (GOP) antes do atendimento.<br><br>
+    💊 <strong>Medicamentos:</strong> Pague na farmácia · Guarde receipt original + receita médica · Reembolso via app após a viagem.
+  </div>
+</div>
+
+<div class="card" style="margin-top:20px;">
+  <div class="card-title"><span class="dot"></span>Locação AVIS — Pontos Críticos</div>
+  <table class="info-table">
+    <tr><td>Localizador</td><td><strong>BC2M2S-52845833-13607625</strong></td></tr>
+    <tr><td>Veículo</td><td>Mazda CX-50 AWD · SUV · Automático · Ar-condicionado</td></tr>
+    <tr><td>Cobertura</td><td>ALL INCLUSIVE LIGHT: LDW + TPL + Taxas + 1º Condutor Adicional + Milhas Livres</td></tr>
+    <tr><td>Documentos</td><td>CNH <strong>física</strong> + Passaporte + Cartão de crédito <strong>físico</strong> em nome de Gabriel</td></tr>
+    <tr><td>Caução</td><td>Bloqueio temporário ~USD 300+ — liberado após devolução sem avarias</td></tr>
+    <tr><td>Agência</td><td>Orange Viagens · daniella@orangeviagens.com.br · (15) 3042-2089</td></tr>
+  </table>
+</div>
+
+<div class="card">
+  <div class="card-title"><span class="dot"></span>Documentos Essenciais — Imprimir e no Celular</div>
+  <ul class="checklist">
+    <li><strong>Passaportes</strong> — Gabriel (10791179621) e Patricia (10497468646) — validade mínima maio/2027</li>
+    <li><strong>CNH física</strong> — Gabriel — obrigatória para retirada do carro</li>
+    <li><strong>Cartão de crédito físico</strong> — em nome de Gabriel — para caução</li>
+    <li><strong>Apólices do seguro</strong> — PDF nos dois celulares — compartilhar com familiar no Brasil</li>
+    <li><strong>Vouchers RCI</strong> — YVE #00017 · Holiday Inn #00011 · Sheraton #00013</li>
+    <li><strong>Voucher AVIS</strong> — BC2M2S-52845833-13607625</li>
+    <li><strong>Confirmações de voo</strong> — GLUBWW (ida) · JQWRXX (volta)</li>
+    <li><strong>Ingressos</strong> — App MDE ✅ + App Universal ✅ Ambos vinculados</li>
+    <li class="warn">Visto americano vigente — verificar data de validade</li>
+  </ul>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     TAB: COMPRAS (FIREBASE DINÂMICO)
+═══════════════════════════════════════ -->
+<div id="tab-compras" class="tab-panel">
+<div class="day-header compras-hdr">
+  <div class="day-header-left">
+    <h2>🛒 Lista de Compras</h2>
+    <p>Planejamento de compras · Sincronizado entre dispositivos via Firebase</p>
+  </div>
+  <div class="weather-badge">💾 <span>Salvo automaticamente</span></div>
+</div>
+
+<div class="shop-subtabs">
+  <button class="shop-subtab active" data-tab="adulto" onclick="switchShopTab('adulto')">👔 Adulto <span id="count-adulto" style="font-size:11px;opacity:.7;"></span></button>
+  <button class="shop-subtab" data-tab="bebe" onclick="switchShopTab('bebe')">👶 Bebê <span id="count-bebe" style="font-size:11px;opacity:.7;"></span></button>
+</div>
+
+<!-- PAINEL ADULTO -->
+<div class="shop-panel active" data-panel="adulto">
+  <div class="shop-form">
+    <h4>➕ Adicionar Item — Adulto</h4>
+    <div class="shop-form-grid">
+      <div class="shop-form-group">
+        <label>Nome do Item</label>
+        <input type="text" id="nome-adulto" class="shop-input" placeholder="Ex: Nike Air Max, Perfume...">
+      </div>
+      <div class="shop-form-group">
+        <label>Local</label>
+        <select id="local-adulto" class="shop-input">
+          <option value="">📍 Selecione</option>
+          <option>Premium Outlets International</option>
+          <option>Florida Mall</option>
+          <option>Disney Springs</option>
+          <option>Magic Kingdom (loja)</option>
+          <option>EPCOT (loja)</option>
+          <option>Hollywood Studios (loja)</option>
+          <option>Animal Kingdom (loja)</option>
+          <option>Universal CityWalk</option>
+          <option>Epic Universe (loja)</option>
+          <option>Target</option>
+          <option>Walmart</option>
+          <option>South Beach / Miami</option>
+          <option>Wynwood / Brickell</option>
+          <option>Amazon US</option>
+          <option>Outros</option>
+        </select>
+      </div>
+      <div class="shop-form-group">
+        <label>Data Prevista</label>
+        <select id="data-adulto" class="shop-input">
+          <option value="">📅 Selecione</option>
+          <option>08/11 (Dom) - Miami Chegada</option>
+          <option>09/11 (Seg) - Miami</option>
+          <option>10/11 (Ter) - Miami</option>
+          <option>11/11 (Qua) - Transfer</option>
+          <option>12/11 (Qui) - Hollywood Studios</option>
+          <option>13/11 (Sex) - EPCOT</option>
+          <option>14/11 (Sáb) - Animal Kingdom</option>
+          <option>15/11 (Dom) - Compras</option>
+          <option>16/11 (Seg) - Magic Kingdom</option>
+          <option>17/11 (Ter) - Islands of Adventure</option>
+          <option>18/11 (Qua) - Universal Studios</option>
+          <option>19/11 (Qui) - Compras + Malas</option>
+          <option>20/11 (Sex) - Epic Universe</option>
+          <option>21/11 (Sáb) - Universal Flex</option>
+          <option>22/11 (Dom) - Retorno</option>
+        </select>
+      </div>
+      <div class="shop-form-group">
+        <label>Preço Est. (USD)</label>
+        <input type="number" id="estimado-adulto" class="shop-input" placeholder="0.00" min="0" step="0.01">
+      </div>
+    </div>
+    <button class="shop-add-btn" onclick="addItem('adulto')">➕ Adicionar à Lista</button>
+  </div>
+  <div class="shop-items-wrap" id="list-adulto">
+    <div class="shop-empty">Nenhum item ainda. Adicione acima! 👆</div>
+  </div>
+  <div class="shop-totals">
+    <div class="shop-tot-item"><div class="shop-tot-label">📋 Itens</div><div class="shop-tot-val" id="count-items-adulto">0</div></div>
+    <div class="shop-tot-item"><div class="shop-tot-label">🎯 Est. Total</div><div class="shop-tot-val" id="total-est-adulto">USD 0,00</div></div>
+    <div class="shop-tot-item"><div class="shop-tot-label">✅ Já Comprado</div><div class="shop-tot-val hl" id="total-comprado-adulto">USD 0,00</div></div>
+    <div class="shop-tot-item"><div class="shop-tot-label">⏳ Pendente</div><div class="shop-tot-val" id="total-pendente-adulto">USD 0,00</div></div>
+  </div>
+</div>
+
+<!-- PAINEL BEBÊ -->
+<div class="shop-panel" data-panel="bebe">
+  <div class="shop-form">
+    <h4>➕ Adicionar Item — Bebê</h4>
+    <div class="shop-form-grid">
+      <div class="shop-form-group">
+        <label>Nome do Item</label>
+        <input type="text" id="nome-bebe" class="shop-input" placeholder="Ex: Carrinho, Body, Mamadeira...">
+      </div>
+      <div class="shop-form-group">
+        <label>Local</label>
+        <select id="local-bebe" class="shop-input">
+          <option value="">📍 Selecione</option>
+          <option>Buy Buy Baby</option>
+          <option>Target</option>
+          <option>Walmart</option>
+          <option>Amazon US</option>
+          <option>Premium Outlets International</option>
+          <option>Florida Mall</option>
+          <option>Disney Springs</option>
+          <option>Magic Kingdom (loja)</option>
+          <option>EPCOT (loja)</option>
+          <option>Hollywood Studios (loja)</option>
+          <option>Animal Kingdom (loja)</option>
+          <option>Universal CityWalk</option>
+          <option>Epic Universe (loja)</option>
+          <option>Outros</option>
+        </select>
+      </div>
+      <div class="shop-form-group">
+        <label>Data Prevista</label>
+        <select id="data-bebe" class="shop-input">
+          <option value="">📅 Selecione</option>
+          <option>08/11 (Dom) - Miami Chegada</option>
+          <option>09/11 (Seg) - Miami</option>
+          <option>10/11 (Ter) - Miami</option>
+          <option>11/11 (Qua) - Transfer</option>
+          <option>12/11 (Qui) - Hollywood Studios</option>
+          <option>13/11 (Sex) - EPCOT</option>
+          <option>14/11 (Sáb) - Animal Kingdom</option>
+          <option>15/11 (Dom) - Compras</option>
+          <option>16/11 (Seg) - Magic Kingdom</option>
+          <option>17/11 (Ter) - Islands of Adventure</option>
+          <option>18/11 (Qua) - Universal Studios</option>
+          <option>19/11 (Qui) - Compras + Malas</option>
+          <option>20/11 (Sex) - Epic Universe</option>
+          <option>21/11 (Sáb) - Universal Flex</option>
+          <option>22/11 (Dom) - Retorno</option>
+        </select>
+      </div>
+      <div class="shop-form-group">
+        <label>Preço Est. (USD)</label>
+        <input type="number" id="estimado-bebe" class="shop-input" placeholder="0.00" min="0" step="0.01">
+      </div>
+    </div>
+    <button class="shop-add-btn" onclick="addItem('bebe')">➕ Adicionar à Lista</button>
+  </div>
+  <div class="shop-items-wrap" id="list-bebe">
+    <div class="shop-empty">Nenhum item ainda. Adicione acima! 👆</div>
+  </div>
+  <div class="shop-totals">
+    <div class="shop-tot-item"><div class="shop-tot-label">📋 Itens</div><div class="shop-tot-val" id="count-items-bebe">0</div></div>
+    <div class="shop-tot-item"><div class="shop-tot-label">🎯 Est. Total</div><div class="shop-tot-val" id="total-est-bebe">USD 0,00</div></div>
+    <div class="shop-tot-item"><div class="shop-tot-label">✅ Já Comprado</div><div class="shop-tot-val hl" id="total-comprado-bebe">USD 0,00</div></div>
+    <div class="shop-tot-item"><div class="shop-tot-label">⏳ Pendente</div><div class="shop-tot-val" id="total-pendente-bebe">USD 0,00</div></div>
+  </div>
+</div>
+</div><!-- /tab-compras -->
+
+
+<!-- ═══════════════════════════════════════
+     TAB: PENDÊNCIAS (CHECKBOXES FIREBASE)
+═══════════════════════════════════════ -->
+<div id="tab-pendencias" class="tab-panel">
+<div class="day-header pendencias">
+  <div class="day-header-left">
+    <h2>⏳ Lista de Pendências</h2>
+    <p id="pend-resumo">Sincronizado entre todos os dispositivos</p>
+    <div class="pend-progress-bar-wrap"><div class="pend-progress-bar" id="pend-progress" style="width:0%"></div></div>
+    <div class="pend-counter" id="pend-counter">Carregando...</div>
+  </div>
+  <div class="weather-badge">📋 <span>Marque como concluído!</span></div>
+</div>
+
+<div style="color:var(--coral);font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin:0 0 10px;display:flex;align-items:center;gap:8px;">🔴 Alta Prioridade</div>
+<div class="pending-list" id="pend-list-red"></div>
+
+<div style="color:#8a6d0a;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin:20px 0 10px;display:flex;align-items:center;gap:8px;">🟡 Média Prioridade</div>
+<div class="pending-list" id="pend-list-yellow"></div>
+
+<div style="color:var(--gray-500);font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin:20px 0 10px;display:flex;align-items:center;gap:8px;">🔵 Em Construção / Baixa</div>
+<div class="pending-list" id="pend-list-blue"></div>
+
+<div style="color:var(--green);font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin:20px 0 10px;display:flex;align-items:center;gap:8px;">✅ Concluídos</div>
+<div class="pending-list" id="pend-list-green"></div>
+</div>
+
+</main>
+
+<footer style="background:var(--ocean);color:rgba(255,255,255,.40);text-align:center;font-size:12px;padding:20px;margin-top:20px;">
+  🌴 Férias em Casal · Miami &amp; Orlando · Novembro 2026 &nbsp;|&nbsp; Gabriel Stigert &amp; Patricia Trindade &nbsp;|&nbsp; Azul GLUBWW / JQWRXX · Assist Card AC 500 &nbsp;|&nbsp; <span id="fb-footer">🔴 Firebase</span>
+</footer>
+
+<script>
+// ═══════════════════════════════════════════
+//  FIREBASE INIT
+// ═══════════════════════════════════════════
+const firebaseConfig = {
+  apiKey: "AIzaSyA5HuaA7HMJOwP2UMFsDZkkZA6cTXVLORE",
+  authDomain: "miami-orlando-2026.firebaseapp.com",
+  databaseURL: "https://miami-orlando-2026-default-rtdb.firebaseio.com",
+  projectId: "miami-orlando-2026",
+  storageBucket: "miami-orlando-2026.firebasestorage.app",
+  messagingSenderId: "963309173722",
+  appId: "1:963309173722:web:bdaa358d175f7fd0349ee3"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+// Indicador de conexão
+db.ref('.info/connected').on('value', snap => {
+  const on = snap.val() === true;
+  const dot = document.getElementById('fb-dot');
+  const txt = document.getElementById('fb-txt');
+  const footer = document.getElementById('fb-footer');
+  if(dot){ dot.className = 'fb-dot' + (on ? ' on' : ''); }
+  if(txt){ txt.textContent = on ? '🟢 Firebase sincronizado' : '🔴 Sem conexão — aguardando...'; }
+  if(footer){ footer.textContent = on ? '🟢 Firebase' : '🔴 Firebase'; }
+});
+
+// ═══════════════════════════════════════════
+//  PENDÊNCIAS — DEFINIÇÃO E CHECKBOXES
+// ═══════════════════════════════════════════
+const PENDENCIAS = [
+  // Alta
+  { id:'assentos-vcp-fll', grp:'red', badge:'🔴 Urgente', badgeCls:'pib-red',
+    titulo:'Selecionar assentos VCP → FLL (Voo AD 8704)',
+    sub:'App Azul · GLUBWW · A330-200 · ~9h · Sugestão: D+E fileiras 20–30', done:false },
+  { id:'assentos-mco-cnf', grp:'red', badge:'🔴 Urgente', badgeCls:'pib-red',
+    titulo:'Selecionar assentos MCO → CNF (Voo AD 8731)',
+    sub:'App Azul · JQWRXX · A330-200 · ~10h30 · Sugestão: D+E fileiras 20–30', done:false },
+  { id:'yve-ligar', grp:'red', badge:'🔴 Alta', badgeCls:'pib-red',
+    titulo:'Ligar para YVE Hotel Miami — Guardar Bagagem / Early Check-in',
+    sub:'Chegada 05:55 · Check-in 16:00 · Telefone: (305) 358-4555', done:false },
+  { id:'onibus-ida', grp:'red', badge:'🔴 Alta', badgeCls:'pib-red',
+    titulo:'Comprar ônibus JF → IZA (Aeroporto de Juiz de Fora)',
+    sub:'Saída 07/11 · Chegar IZA até 11h05 (4h antes do voo 15:05)', done:false },
+  { id:'onibus-volta', grp:'red', badge:'🔴 Alta', badgeCls:'pib-red',
+    titulo:'Comprar ônibus CNF → Juiz de Fora',
+    sub:'Chegada CNF 23/11 às 08:05 · Comprar com antecedência', done:false },
+  { id:'assist-card-app', grp:'red', badge:'🔴 Alta', badgeCls:'pib-red',
+    titulo:'Baixar app Assist Card + salvar contatos nos dois celulares',
+    sub:'WhatsApp +54 9 11 2703 9665 · EUA: 1-800-874-2223 · App: "Assist Card"', done:false },
+  // Média
+  { id:'lightning-disney', grp:'yellow', badge:'🟡 Média', badgeCls:'pib-yellow',
+    titulo:'Decidir sobre fura-filas na Disney (Lightning Lane)',
+    sub:'Multi Pass ~USD 15–35/dia · Single Pass · Premier · Mais útil: Magic Kingdom e Hollywood Studios', done:false },
+  { id:'express-universal', grp:'yellow', badge:'🟡 Média', badgeCls:'pib-yellow',
+    titulo:'Decidir sobre fura-filas na Universal (Express Pass)',
+    sub:'~USD 80–200/dia · Novembro = baixa temporada · Hagrid\'s não é coberto', done:false },
+  { id:'pedagio', grp:'yellow', badge:'🟡 Média', badgeCls:'pib-yellow',
+    titulo:'Decidir sistema de pedágio na Flórida',
+    sub:'SunPass via AVIS (na retirada) vs. Toll-by-Plate (foto da placa + taxa extra)', done:false },
+  { id:'pid', grp:'yellow', badge:'🟡 Média', badgeCls:'pib-yellow',
+    titulo:'Verificar necessidade de PID (Permissão Internacional de Dirigir)',
+    sub:'Confirmar se AVIS/Flórida exige PID para brasileiros além da CNH física', done:false },
+  { id:'usd-especie', grp:'yellow', badge:'🟡 Média', badgeCls:'pib-yellow',
+    titulo:'Pegar USD 150 em espécie',
+    sub:'Casa de câmbio ou banco · Gorjetas, emergências e pequenas compras', done:false },
+  { id:'vip-mco', grp:'yellow', badge:'🟡 Média', badgeCls:'pib-yellow',
+    titulo:'Verificar Salas VIP em MCO Terminal C',
+    sub:'Confirmar nos apps Priority Pass (Caixa Elo) e LoungeKey (C6 Carbon)', done:false },
+  // Blue / Construção
+  { id:'roteiro-miami', grp:'blue', badge:'🔵 Em construção', badgeCls:'pib-blue',
+    titulo:'Roteiro diário Miami — Atividades a definir',
+    sub:'Dias 08, 09 e 10/11 · South Beach · Wynwood · Little Havana · Brickell', done:false },
+  { id:'roteiro-parques', grp:'blue', badge:'🔵 Em construção', badgeCls:'pib-blue',
+    titulo:'Roteiro dentro dos parques Disney e Universal',
+    sub:'Ordem das atrações · Horários de shows · Estratégia de filas', done:false },
+  { id:'lista-compras-pend', grp:'blue', badge:'⚪ Baixa', badgeCls:'pib-gray',
+    titulo:'Listas de compras Adulto e Bebê',
+    sub:'Use a aba 🛒 Compras para adicionar itens com local, data e preço!', done:false },
+  // Concluídos
+  { id:'disney-mde', grp:'green', badge:'✅ Concluído', badgeCls:'pib-green',
+    titulo:'Ingressos Disney — Vincular ao My Disney Experience',
+    sub:'PGPF87221952 · App My Disney Experience · ✅ CONCLUÍDO', done:true },
+  { id:'universal-app', grp:'green', badge:'✅ Concluído', badgeCls:'pib-green',
+    titulo:'Ingressos Universal — Vincular ao app Universal',
+    sub:'17465599909-2TRDC · App Universal Orlando · ✅ CONCLUÍDO', done:true },
+];
+
+// Renderizar itens de pendência
+function renderPendencias() {
+  const groups = { red:[], yellow:[], blue:[], green:[] };
+  PENDENCIAS.forEach(p => groups[p.grp].push(p));
+  Object.keys(groups).forEach(grp => {
+    const el = document.getElementById('pend-list-' + grp);
+    if(!el) return;
+    el.innerHTML = groups[grp].map(p => `
+      <div class="pending-item" id="pi-${p.id}" data-default="${p.done}">
+        <div class="pi-cb-wrap">
+          <input type="checkbox" data-id="${p.id}" onchange="togglePendencia(this)">
+        </div>
+        <div class="pi-content">
+          <div class="pi-title">${p.titulo}</div>
+          <div class="pi-sub">${p.sub}</div>
+        </div>
+        <span class="pi-badge ${p.badgeCls}">${p.badge}</span>
+      </div>
+    `).join('');
+  });
+}
+renderPendencias();
+
+// Atualizar contador e barra de progresso
+function updatePendCounter() {
+  const all = document.querySelectorAll('.pi-cb-wrap input[type="checkbox"]');
+  const done = document.querySelectorAll('.pi-cb-wrap input[type="checkbox"]:checked');
+  const total = all.length;
+  const doneCount = done.length;
+  const pct = total > 0 ? (doneCount/total*100) : 0;
+  const counter = document.getElementById('pend-counter');
+  const bar = document.getElementById('pend-progress');
+  const tab = document.getElementById('pend-tab-btn');
+  if(counter) counter.textContent = `${doneCount} de ${total} itens concluídos`;
+  if(bar) bar.style.width = pct.toFixed(0) + '%';
+  if(tab) tab.textContent = `⏳ Pendências (${doneCount}/${total})`;
+}
+
+// Ouvir mudanças no Firebase (tempo real)
+db.ref('pendencias').on('value', snap => {
+  const data = snap.val() || {};
+  document.querySelectorAll('.pi-cb-wrap input[type="checkbox"]').forEach(cb => {
+    const id = cb.dataset.id;
+    const defVal = cb.closest('.pending-item').dataset.default === 'true';
+    const isDone = id in data ? data[id] : defVal;
+    cb.checked = isDone;
+    cb.closest('.pending-item').classList.toggle('checked', isDone);
+  });
+  updatePendCounter();
+});
+
+// Toggle ao clicar no checkbox
+function togglePendencia(cb) {
+  db.ref('pendencias/' + cb.dataset.id).set(cb.checked);
+}
+
+// ═══════════════════════════════════════════
+//  COMPRAS — FIREBASE REALTIME
+// ═══════════════════════════════════════════
+function switchShopTab(tab) {
+  document.querySelectorAll('.shop-subtab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
+  document.querySelectorAll('.shop-panel').forEach(p => p.classList.toggle('active', p.dataset.panel === tab));
+}
+
+function addItem(cat) {
+  const nomeEl = document.getElementById('nome-' + cat);
+  const nome = nomeEl ? nomeEl.value.trim() : '';
+  if(!nome){ nomeEl && nomeEl.focus(); return; }
+  const local = document.getElementById('local-' + cat).value;
+  const data  = document.getElementById('data-' + cat).value;
+  const est   = parseFloat(document.getElementById('estimado-' + cat).value) || 0;
+  db.ref('compras/' + cat).push({ nome, local, data, estimado:est, real:null, comprado:false, ts:Date.now() });
+  nomeEl.value = '';
+  document.getElementById('estimado-' + cat).value = '';
+  document.getElementById('local-' + cat).value = '';
+  document.getElementById('data-' + cat).value = '';
+  nomeEl.focus();
+}
+
+function toggleComprado(cat, id, val) {
+  db.ref('compras/' + cat + '/' + id + '/comprado').set(val);
+}
+function updateReal(cat, id, val) {
+  const v = val === '' ? null : (parseFloat(val) || 0);
+  db.ref('compras/' + cat + '/' + id + '/real').set(v);
+}
+function removeItem(cat, id) {
+  if(confirm('Remover este item?')) db.ref('compras/' + cat + '/' + id).remove();
+}
+
+function fmtUSD(v) {
+  return 'USD ' + (v || 0).toFixed(2).replace('.', ',');
+}
+
+function renderList(cat, data) {
+  const container = document.getElementById('list-' + cat);
+  const countTab  = document.getElementById('count-' + cat);
+  const entries = Object.entries(data || {});
+
+  // Atualizar contador da sub-aba
+  if(countTab) countTab.textContent = entries.length > 0 ? '(' + entries.length + ')' : '';
+
+  if(entries.length === 0){
+    container.innerHTML = '<div class="shop-empty">Nenhum item ainda. Adicione acima! 👆</div>';
+    updateTotals(cat, {});
+    return;
+  }
+
+  // Ordenar por timestamp
+  entries.sort((a,b) => (a[1].ts||0) - (b[1].ts||0));
+
+  container.innerHTML = entries.map(([id, item]) => `
+    <div class="shop-item ${item.comprado ? 'comprado' : ''}">
+      <div class="shop-check-box">
+        <input type="checkbox" ${item.comprado ? 'checked' : ''}
+               onchange="toggleComprado('${cat}','${id}',this.checked)">
+      </div>
+      <div class="shop-item-info">
+        <div class="shop-item-nome ${item.comprado ? 'riscado' : ''}">${item.nome}</div>
+        <div class="shop-item-meta">${item.local ? '📍 ' + item.local : ''}${item.data ? ' &nbsp;·&nbsp; 📅 ' + item.data : ''}</div>
+      </div>
+      <div class="shop-item-prices">
+        <div>
+          <div class="shop-price-label">Estimado</div>
+          <div class="shop-price-est">USD ${(item.estimado||0).toFixed(2)}</div>
+        </div>
+        <div>
+          <div class="shop-price-label">Pago</div>
+          <div class="shop-real-wrap">
+            <span>USD</span>
+            <input type="number" class="real-input" value="${item.real !== null && item.real !== undefined ? item.real : ''}"
+                   placeholder="0,00" min="0" step="0.01"
+                   onchange="updateReal('${cat}','${id}',this.value)">
+          </div>
+        </div>
+      </div>
+      <button class="shop-del" onclick="removeItem('${cat}','${id}')" title="Remover">🗑️</button>
+    </div>
+  `).join('');
+
+  updateTotals(cat, data);
+}
+
+function updateTotals(cat, data) {
+  const items = Object.values(data || {});
+  const countItems = items.length;
+  const totalEst   = items.reduce((s,i) => s + (i.estimado||0), 0);
+  const totalComp  = items.filter(i=>i.comprado).reduce((s,i) => s + (i.real!==null&&i.real!==undefined ? i.real : (i.estimado||0)), 0);
+  const totalPend  = items.filter(i=>!i.comprado).reduce((s,i) => s + (i.estimado||0), 0);
+
+  const set = (id, val) => { const el = document.getElementById(id); if(el) el.textContent = val; };
+  set('count-items-' + cat, countItems);
+  set('total-est-' + cat,      fmtUSD(totalEst));
+  set('total-comprado-' + cat, fmtUSD(totalComp));
+  set('total-pendente-' + cat, fmtUSD(totalPend));
+}
+
+// Ouvir compras em tempo real
+db.ref('compras/adulto').on('value', snap => renderList('adulto', snap.val() || {}));
+db.ref('compras/bebe').on('value',   snap => renderList('bebe',   snap.val() || {}));
+
+// ═══════════════════════════════════════════
+//  TAB SWITCHING
+// ═══════════════════════════════════════════
+function switchTab(id, btn){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  btn.classList.add('active');
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.getElementById('mobileMenuBtn').classList.remove('open-state');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function switchTabMobile(id){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.getElementById('mobileMenuBtn').classList.remove('open-state');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function toggleMobileMenu(e){
+  e.stopPropagation();
+  const m=document.getElementById('mobileMenu');
+  const b=document.getElementById('mobileMenuBtn');
+  m.classList.toggle('open');
+  b.classList.toggle('open-state');
+}
+document.addEventListener('click', e => {
+  const m=document.getElementById('mobileMenu');
+  const b=document.getElementById('mobileMenuBtn');
+  if(!m.contains(e.target)&&!b.contains(e.target)){ m.classList.remove('open'); b.classList.remove('open-state'); }
+});
+
+// ═══════════════════════════════════════════
+//  EXPORT PDF
+// ═══════════════════════════════════════════
+function exportPDF(){
+  const btn=document.querySelector('.btn-export');
+  btn.textContent='⏳ Gerando PDF...';btn.disabled=true;
+  const fullTab=document.getElementById('tab-full');
+  const el=document.getElementById('pdf-content');
+  const prevDisplay=fullTab.style.display;
+  fullTab.style.display='block';fullTab.style.visibility='visible';
+  setTimeout(()=>{
+    html2pdf().set({
+      margin:[10,10,10,10],
+      filename:'Roteiro_Miami_Orlando_2026_Gabriel_Patricia.pdf',
+      image:{type:'jpeg',quality:0.95},
+      html2canvas:{scale:2,useCORS:true,logging:false,allowTaint:true,scrollX:0,scrollY:0,width:el.scrollWidth,windowWidth:document.documentElement.scrollWidth},
+      jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}
+    }).from(el).save().then(()=>{
+      fullTab.style.display=prevDisplay;fullTab.style.visibility='';
+      btn.textContent='📄 Exportar PDF';btn.disabled=false;
+    }).catch(()=>{
+      fullTab.style.display=prevDisplay;fullTab.style.visibility='';
+      btn.textContent='📄 Exportar PDF';btn.disabled=false;
+    });
+  },300);
+}
+
+// Suporte a Enter no campo nome para adicionar item
+['adulto','bebe'].forEach(cat => {
+  const el = document.getElementById('nome-' + cat);
+  if(el) el.addEventListener('keypress', e => { if(e.key === 'Enter') addItem(cat); });
+});
+</script>
+</body>
+</html>
