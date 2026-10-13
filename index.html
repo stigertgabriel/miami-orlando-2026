@@ -310,6 +310,40 @@ header::after{content:'';position:absolute;right:-10px;bottom:0;width:260px;heig
 .pib-gray{background:rgba(91,127,166,.12);color:var(--gray-500);}
 .pi-del{background:none;border:none;cursor:pointer;font-size:12px;opacity:.32;padding:3px 5px;border-radius:4px;transition:opacity .18s;flex-shrink:0;}
 .pi-del:hover{opacity:.88;background:rgba(192,57,43,.09);}
+.pi-edit{background:none;border:none;cursor:pointer;font-size:12px;opacity:.32;padding:3px 5px;border-radius:4px;transition:opacity .18s;flex-shrink:0;}
+.pi-edit:hover{opacity:.88;background:rgba(0,119,182,.10);}
+/* Inline edit panel — Pendências */
+.pi-edit-panel{display:none;background:var(--off-white);border-top:1px solid var(--gray-100);padding:10px 12px;margin-top:8px;border-radius:0 0 8px 8px;}
+.pi-edit-panel.open{display:block;}
+.pi-edit-grid{display:grid;grid-template-columns:2fr 2fr 1fr 1fr;gap:7px;margin-bottom:7px;align-items:end;}
+.pi-edit-group{display:flex;flex-direction:column;gap:3px;}
+.pi-edit-group label{font-size:9.5px;font-weight:700;color:var(--gray-500);text-transform:uppercase;letter-spacing:.5px;}
+.pi-edit-input{width:100%;padding:6px 8px;border:1.5px solid var(--gray-200);border-radius:7px;font-size:12px;font-family:inherit;color:#0a2540;transition:border-color .18s;}
+.pi-edit-input:focus{outline:none;border-color:var(--ocean-mid);}
+.pi-edit-actions{display:flex;gap:5px;}
+.pi-save-btn{background:var(--ocean);color:white;border:none;padding:6px 14px;border-radius:6px;font-size:11.5px;font-weight:800;cursor:pointer;flex:1;}
+.pi-save-btn:hover{background:var(--ocean-mid);}
+.pi-cancel-btn{background:white;color:var(--gray-500);border:1.5px solid var(--gray-200);padding:6px 14px;border-radius:6px;font-size:11.5px;font-weight:700;cursor:pointer;}
+.pi-cancel-btn:hover{border-color:var(--gray-500);}
+.pi-resp-badge{display:inline-block;font-size:10px;font-weight:700;padding:1px 7px;border-radius:50px;margin-left:5px;}
+.resp-gabriel{background:rgba(0,119,182,.12);color:var(--ocean-mid);}
+.resp-patricia{background:rgba(224,92,62,.12);color:var(--coral);}
+.resp-todos{background:rgba(26,122,74,.12);color:var(--green);}
+/* Inline edit panel — Compras */
+.shop-edit-panel{display:none;background:var(--off-white);border-top:1px solid var(--gray-100);padding:10px 12px;margin-top:8px;border-radius:0 0 8px 8px;grid-column:1/-1;}
+.shop-edit-panel.open{display:block;}
+.shop-edit-grid{display:grid;grid-template-columns:2fr 1.5fr 1fr 1fr 0.7fr 1fr;gap:7px;margin-bottom:7px;align-items:end;}
+.shop-edit-group{display:flex;flex-direction:column;gap:3px;}
+.shop-edit-group label{font-size:9.5px;font-weight:700;color:var(--gray-500);text-transform:uppercase;letter-spacing:.5px;}
+.shop-edit-input{width:100%;padding:6px 8px;border:1.5px solid var(--gray-200);border-radius:7px;font-size:12px;font-family:inherit;color:#0a2540;transition:border-color .18s;}
+.shop-edit-input:focus{outline:none;border-color:var(--ocean-mid);}
+.shop-item.editing{border-left-color:var(--gold);background:rgba(244,168,37,.03);flex-wrap:wrap;}
+.shop-edit-btn{background:none;border:none;cursor:pointer;font-size:13px;opacity:.32;padding:4px;border-radius:4px;transition:all .18s;flex-shrink:0;}
+.shop-edit-btn:hover{opacity:.88;background:rgba(0,119,182,.10);}
+@media(max-width:768px){
+  .pi-edit-grid{grid-template-columns:1fr 1fr;}
+  .shop-edit-grid{grid-template-columns:1fr 1fr 1fr;}
+}
 .add-pend-form{background:white;border-radius:var(--radius);box-shadow:var(--shadow);padding:12px;margin-bottom:12px;border-left:3px solid var(--ocean-mid);}
 .add-pend-form h4{font-size:11px;font-weight:800;color:var(--ocean);text-transform:uppercase;letter-spacing:.8px;margin-bottom:9px;}
 .apf-grid{display:grid;grid-template-columns:2fr 2fr 1fr;gap:8px;margin-bottom:8px;align-items:end;}
@@ -1435,7 +1469,7 @@ header::after{content:'';position:absolute;right:-10px;bottom:0;width:260px;heig
   <div class="weather-badge">📋 <span>Clique para marcar!</span></div>
 </div>
 <div class="add-pend-form"><h4>➕ Adicionar Nova Pendência</h4>
-  <div class="apf-grid">
+  <div class="apf-grid" style="grid-template-columns:2fr 2fr 1fr 1fr;">
     <div class="apf-group"><label>Nome (campo principal)</label><input type="text" id="apf-nome" class="apf-input" placeholder="Ex: Comprar protetor solar 50+..."></div>
     <div class="apf-group"><label>Detalhe (aparece em cinza)</label><input type="text" id="apf-detalhe" class="apf-input" placeholder="Ex: Target ou Walgreens..."></div>
     <div class="apf-group"><label>Prioridade</label>
@@ -1445,6 +1479,13 @@ header::after{content:'';position:absolute;right:-10px;bottom:0;width:260px;heig
         <option value="yellow" selected>🟡 Média</option>
         <option value="blue">🔵 Baixa</option>
         <option value="green">✅ Concluído</option>
+      </select>
+    </div>
+    <div class="apf-group"><label>Responsável</label>
+      <select id="apf-responsavel" class="apf-input">
+        <option value="Todos">👫 Todos</option>
+        <option value="Gabriel">👨 Gabriel</option>
+        <option value="Patricia">👩 Patricia</option>
       </select>
     </div>
   </div>
@@ -1507,18 +1548,109 @@ const PENDENCIAS_FIXAS=[
 ];
 const PRIO_MAP={'red-urgente':{grp:'red',badge:'🔴 Urgente',badgeCls:'pib-red'},'red-alta':{grp:'red',badge:'🔴 Alta',badgeCls:'pib-red'},'yellow':{grp:'yellow',badge:'🟡 Média',badgeCls:'pib-yellow'},'blue':{grp:'blue',badge:'🔵 Baixa',badgeCls:'pib-blue'},'green':{grp:'green',badge:'✅ Concluído',badgeCls:'pib-green'}};
 let cachedCbData={},cachedCustomData={};
-function renderPendencias(cbData,customData){
+function renderPendencias(cbData,customData,editData){
+  editData=editData||{};
   const groups={red:[],yellow:[],blue:[],green:[]};
-  PENDENCIAS_FIXAS.forEach(p=>{const isDone=p.id in cbData?cbData[p.id]:p.done;groups[p.grp].push({...p,isDone,isCustom:false});});
-  Object.entries(customData||{}).forEach(([id,p])=>{const prio=PRIO_MAP[p.prioridade]||PRIO_MAP['yellow'];const isDone=id in cbData?cbData[id]:false;groups[prio.grp].push({id,titulo:p.nome,sub:p.detalhe||'',isDone,badge:prio.badge,badgeCls:prio.badgeCls,isCustom:true});});
-  Object.keys(groups).forEach(grp=>{const el=document.getElementById('pend-list-'+grp);if(!el)return;el.innerHTML=groups[grp].map(p=>`<div class="pending-item ${p.isDone?'checked':''}" id="pi-${p.id}"><div class="pi-cb-wrap"><input type="checkbox" data-id="${p.id}" ${p.isDone?'checked':''} onchange="togglePend(this)"></div><div class="pi-content"><div class="pi-title">${p.titulo}</div>${p.sub?`<div class="pi-sub">${p.sub}</div>`:''}</div><span class="pi-badge ${p.badgeCls}">${p.badge}</span>${p.isCustom?`<button class="pi-del" onclick="delCustomPend('${p.id}')" title="Remover">🗑️</button>`:''}</div>`).join('');});
+  const respCls={'Gabriel':'resp-gabriel','Patricia':'resp-patricia','Todos':'resp-todos'};
+  // Apply edits to fixed items
+  PENDENCIAS_FIXAS.forEach(p=>{
+    const isDone=p.id in cbData?cbData[p.id]:p.done;
+    const ed=editData[p.id]||{};
+    const item={...p, isDone, isCustom:false,
+      titulo:ed.nome||p.titulo, sub:ed.sub!==undefined?ed.sub:p.sub,
+      responsavel:ed.responsavel||p.responsavel||'Todos',
+      badge:ed.prioridade?(PRIO_MAP[ed.prioridade]||PRIO_MAP['yellow']).badge:p.badge,
+      badgeCls:ed.prioridade?(PRIO_MAP[ed.prioridade]||PRIO_MAP['yellow']).badgeCls:p.badgeCls,
+      grp:ed.prioridade?(PRIO_MAP[ed.prioridade]||PRIO_MAP['yellow']).grp:p.grp,
+    };
+    groups[item.grp].push(item);
+  });
+  Object.entries(customData||{}).forEach(([id,p])=>{
+    const prio=PRIO_MAP[p.prioridade]||PRIO_MAP['yellow'];
+    const isDone=id in cbData?cbData[id]:false;
+    groups[prio.grp].push({id,titulo:p.nome,sub:p.detalhe||'',isDone,badge:prio.badge,badgeCls:prio.badgeCls,isCustom:true,responsavel:p.responsavel||'Todos'});
+  });
+  Object.keys(groups).forEach(grp=>{
+    const el=document.getElementById('pend-list-'+grp);if(!el)return;
+    el.innerHTML=groups[grp].map(p=>{
+      const resp=p.responsavel||'Todos';
+      const respHtml=`<span class="pi-resp-badge ${respCls[resp]||'resp-todos'}">👤 ${resp}</span>`;
+      const prioKey=Object.entries(PRIO_MAP).find(([k,v])=>v.badge===p.badge)?.[0]||'yellow';
+      return `<div class="pending-item ${p.isDone?'checked':''}" id="pi-wrap-${p.id}" style="flex-wrap:wrap;">
+        <div style="display:flex;align-items:center;gap:9px;width:100%;">
+          <div class="pi-cb-wrap"><input type="checkbox" data-id="${p.id}" ${p.isDone?'checked':''} onchange="togglePend(this)"></div>
+          <div class="pi-content">
+            <div class="pi-title">${p.titulo}${respHtml}</div>
+            ${p.sub?`<div class="pi-sub">${p.sub}</div>`:''}
+          </div>
+          <span class="pi-badge ${p.badgeCls}">${p.badge}</span>
+          <button class="pi-edit" onclick="togglePiEdit('${p.id}')" title="Editar">✏️</button>
+          ${p.isCustom?`<button class="pi-del" onclick="delCustomPend('${p.id}')" title="Remover">🗑️</button>`:''}
+        </div>
+        <div class="pi-edit-panel" id="pi-edit-${p.id}">
+          <div class="pi-edit-grid">
+            <div class="pi-edit-group"><label>Nome</label><input type="text" id="pie-nome-${p.id}" class="pi-edit-input" value="${p.titulo.replace(/"/g,'&quot;').replace(/'/g,"&#39;")}"></div>
+            <div class="pi-edit-group"><label>Detalhe</label><input type="text" id="pie-sub-${p.id}" class="pi-edit-input" value="${(p.sub||'').replace(/"/g,'&quot;').replace(/'/g,"&#39;")}"></div>
+            <div class="pi-edit-group"><label>Prioridade</label>
+              <select id="pie-prio-${p.id}" class="pi-edit-input">
+                <option value="red-urgente" ${p.badge.includes('Urgente')?'selected':''}>🔴 Urgente</option>
+                <option value="red-alta" ${p.badge.includes('Alta')?'selected':''}>🔴 Alta</option>
+                <option value="yellow" ${p.badge.includes('Média')?'selected':''}>🟡 Média</option>
+                <option value="blue" ${p.badge.includes('Baixa')?'selected':''}>🔵 Baixa</option>
+                <option value="green" ${p.badge.includes('Concluído')?'selected':''}>✅ Concluído</option>
+              </select>
+            </div>
+            <div class="pi-edit-group"><label>Responsável</label>
+              <select id="pie-resp-${p.id}" class="pi-edit-input">
+                <option value="Todos" ${resp==='Todos'?'selected':''}>👫 Todos</option>
+                <option value="Gabriel" ${resp==='Gabriel'?'selected':''}>👨 Gabriel</option>
+                <option value="Patricia" ${resp==='Patricia'?'selected':''}>👩 Patricia</option>
+              </select>
+            </div>
+          </div>
+          <div class="pi-edit-actions">
+            <button class="pi-save-btn" onclick="savePiEdit('${p.id}',${p.isCustom})">💾 Salvar alterações</button>
+            <button class="pi-cancel-btn" onclick="togglePiEdit('${p.id}')">✕ Cancelar</button>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+  });
   updatePendCounter();
 }
 function updatePendCounter(){const all=document.querySelectorAll('.pi-cb-wrap input[type="checkbox"]');const done=document.querySelectorAll('.pi-cb-wrap input[type="checkbox"]:checked').length;const total=all.length;const pct=total>0?(done/total*100):0;const counter=document.getElementById('pend-counter'),bar=document.getElementById('pend-progress'),tab=document.getElementById('pend-tab-btn');if(counter)counter.textContent=`${done} de ${total} itens concluídos`;if(bar)bar.style.width=pct.toFixed(0)+'%';if(tab)tab.textContent=`⏳ Pendências (${done}/${total})`;}
-db.ref('pendencias').on('value',snap=>{cachedCbData=snap.val()||{};renderPendencias(cachedCbData,cachedCustomData);});
-db.ref('pendencias_custom').on('value',snap=>{cachedCustomData=snap.val()||{};renderPendencias(cachedCbData,cachedCustomData);});
+let cachedEditData={};
+db.ref('pendencias').on('value',snap=>{cachedCbData=snap.val()||{};renderPendencias(cachedCbData,cachedCustomData,cachedEditData);});
+db.ref('pendencias_custom').on('value',snap=>{cachedCustomData=snap.val()||{};renderPendencias(cachedCbData,cachedCustomData,cachedEditData);});
+db.ref('pendencias_edits').on('value',snap=>{cachedEditData=snap.val()||{};renderPendencias(cachedCbData,cachedCustomData,cachedEditData);});
 function togglePend(cb){db.ref('pendencias/'+cb.dataset.id).set(cb.checked);}
-function addCustomPendencia(){const nome=document.getElementById('apf-nome').value.trim();if(!nome){document.getElementById('apf-nome').focus();return;}const detalhe=document.getElementById('apf-detalhe').value.trim();const prioridade=document.getElementById('apf-prioridade').value;db.ref('pendencias_custom').push({nome,detalhe,prioridade,ts:Date.now()});document.getElementById('apf-nome').value='';document.getElementById('apf-detalhe').value='';document.getElementById('apf-prioridade').value='yellow';document.getElementById('apf-nome').focus();}
+function togglePiEdit(id){const panel=document.getElementById('pi-edit-'+id);if(panel)panel.classList.toggle('open');}
+function savePiEdit(id,isCustom){
+  const nome=document.getElementById('pie-nome-'+id)?.value.trim();
+  const sub=document.getElementById('pie-sub-'+id)?.value.trim();
+  const prio=document.getElementById('pie-prio-'+id)?.value;
+  const resp=document.getElementById('pie-resp-'+id)?.value;
+  if(!nome)return;
+  if(isCustom){
+    db.ref('pendencias_custom/'+id).update({nome,detalhe:sub,prioridade:prio,responsavel:resp});
+  } else {
+    db.ref('pendencias_edits/'+id).set({nome,sub,prioridade:prio,responsavel:resp});
+  }
+  togglePiEdit(id);
+}
+function addCustomPendencia(){
+  const nome=document.getElementById('apf-nome').value.trim();
+  if(!nome){document.getElementById('apf-nome').focus();return;}
+  const detalhe=document.getElementById('apf-detalhe').value.trim();
+  const prioridade=document.getElementById('apf-prioridade').value;
+  const responsavel=document.getElementById('apf-responsavel')?.value||'Todos';
+  db.ref('pendencias_custom').push({nome,detalhe,prioridade,responsavel,ts:Date.now()});
+  document.getElementById('apf-nome').value='';
+  document.getElementById('apf-detalhe').value='';
+  document.getElementById('apf-prioridade').value='yellow';
+  if(document.getElementById('apf-responsavel'))document.getElementById('apf-responsavel').value='Todos';
+  document.getElementById('apf-nome').focus();
+}
 function delCustomPend(id){if(confirm('Remover?'))db.ref('pendencias_custom/'+id).remove();}
 
 // ── ATRAÇÕES ──
@@ -1583,8 +1715,91 @@ function renderList(cat,data){
   if(entries.length===0){container.innerHTML='<div class="shop-empty">Nenhum item ainda. Adicione acima! 👆</div>';updateTotals(cat,{});return;}
   entries=sortEntries(entries,shopSortState[cat]||'ts');
   const quemClass={'Gabriel':'quem-gabriel','Patricia':'quem-patricia','Todos':'quem-todos'};
-  container.innerHTML=entries.map(([id,item])=>`<div class="shop-item ${item.comprado?'comprado':''}"><div class="shop-check-box"><input type="checkbox" ${item.comprado?'checked':''} onchange="toggleComprado('${cat}','${id}',this.checked)"></div><div class="shop-item-info"><div class="shop-item-nome ${item.comprado?'riscado':''}">${item.nome}${item.quem?`<span class="shop-quem-badge ${quemClass[item.quem]||'quem-todos'}">👤 ${item.quem}</span>`:''}</div><div class="shop-item-meta">${item.loja?'🏪 '+item.loja+' &nbsp;·&nbsp; ':''}${item.cidade?'🌆 '+item.cidade:''}${item.outlet&&item.outlet!=='Não é outlet'?' &nbsp;·&nbsp; 🛍️ '+item.outlet:''}${item.data?' &nbsp;·&nbsp; 📅 '+item.data:''}</div></div><div class="shop-item-prices"><div><div class="shop-price-label">Estimado</div><div class="shop-price-est">USD ${(item.estimado||0).toFixed(0)}</div></div><div><div class="shop-price-label">Pago</div><div class="shop-real-wrap"><span>USD</span><input type="number" class="real-input" value="${item.real!=null?item.real:''}" placeholder="0" min="0" step="1" onchange="updateReal('${cat}','${id}',this.value)"></div></div></div><button class="shop-del" onclick="removeItem('${cat}','${id}')" title="Remover">🗑️</button></div>`).join('');
+  const DATE_OPTS=['08/11 - Miami Chegada','09/11 - Miami','10/11 - Miami','11/11 - Transfer','12/11 - Hollywood Studios','13/11 - EPCOT','14/11 - Animal Kingdom','15/11 - Compras','16/11 - Magic Kingdom','17/11 - Islands of Adventure','18/11 - Universal Studios','19/11 - Dia de Compras','20/11 - Epic Universe','21/11 - Flex','22/11 - Retorno'];
+  const OUTLET_OPTS=['Não é outlet','Sawgrass Mills (Miami/FLL)','Premium Outlets International Drive (Orlando)','Premium Outlets Vineland (Orlando)'];
+  const CIDADE_OPTS=['Miami','Orlando','Fort Lauderdale'];
+  container.innerHTML=entries.map(([id,item])=>`
+    <div class="shop-item ${item.comprado?'comprado':''}" id="shop-wrap-${cat}-${id}" style="flex-wrap:wrap;">
+      <div style="display:flex;align-items:center;gap:8px;width:100%;">
+        <div class="shop-check-box"><input type="checkbox" ${item.comprado?'checked':''} onchange="toggleComprado('${cat}','${id}',this.checked)"></div>
+        <div class="shop-item-info">
+          <div class="shop-item-nome ${item.comprado?'riscado':''}">${item.nome}${item.quem?`<span class="shop-quem-badge ${quemClass[item.quem]||'quem-todos'}">👤 ${item.quem}</span>`:''}</div>
+          <div class="shop-item-meta">${item.loja?'🏪 '+item.loja+' &nbsp;·&nbsp; ':''}${item.cidade?'🌆 '+item.cidade:''}${item.outlet&&item.outlet!=='Não é outlet'?' &nbsp;·&nbsp; 🛍️ '+item.outlet:''}${item.data?' &nbsp;·&nbsp; 📅 '+item.data:''}</div>
+        </div>
+        <div class="shop-item-prices">
+          <div><div class="shop-price-label">Estimado</div><div class="shop-price-est">USD ${(item.estimado||0).toFixed(0)}</div></div>
+          <div><div class="shop-price-label">Pago</div><div class="shop-real-wrap"><span>USD</span><input type="number" class="real-input" value="${item.real!=null?item.real:''}" placeholder="0" min="0" step="1" onchange="updateReal('${cat}','${id}',this.value)"></div></div>
+        </div>
+        <button class="shop-edit-btn" onclick="toggleShopEdit('${cat}','${id}')" title="Editar">✏️</button>
+        <button class="shop-del" onclick="removeItem('${cat}','${id}')" title="Remover">🗑️</button>
+      </div>
+      <div class="shop-edit-panel" id="shop-edit-${cat}-${id}">
+        <div class="shop-edit-grid">
+          <div class="shop-edit-group"><label>Nome do Item</label><input type="text" id="se-nome-${cat}-${id}" class="shop-edit-input" value="${(item.nome||'').replace(/"/g,'&quot;').replace(/'/g,"&#39;")}"></div>
+          <div class="shop-edit-group"><label>Loja</label><input type="text" id="se-loja-${cat}-${id}" class="shop-edit-input" value="${(item.loja||'').replace(/"/g,'&quot;').replace(/'/g,"&#39;")}"></div>
+          <div class="shop-edit-group"><label>Cidade</label>
+            <select id="se-cidade-${cat}-${id}" class="shop-edit-input">
+              ${CIDADE_OPTS.map(c=>`<option value="${c}" ${item.cidade===c?'selected':''}>${c}</option>`).join('')}
+              <option value="${item.cidade&&!CIDADE_OPTS.includes(item.cidade)?item.cidade:''}" ${item.cidade&&!CIDADE_OPTS.includes(item.cidade)?'selected':''}>✏️ ${item.cidade&&!CIDADE_OPTS.includes(item.cidade)?item.cidade:'Outra...'}</option>
+            </select>
+          </div>
+          <div class="shop-edit-group"><label>Data</label>
+            <select id="se-data-${cat}-${id}" class="shop-edit-input">
+              <option value="">📅 Data</option>
+              ${DATE_OPTS.map(d=>`<option value="${d}" ${item.data===d?'selected':''}>${d}</option>`).join('')}
+            </select>
+          </div>
+          <div class="shop-edit-group"><label>Preço Est. (USD)</label><input type="number" id="se-est-${cat}-${id}" class="shop-edit-input" value="${item.estimado||0}" min="0" step="1"></div>
+          <div class="shop-edit-group"><label>Outlet</label>
+            <select id="se-outlet-${cat}-${id}" class="shop-edit-input">
+              ${OUTLET_OPTS.map(o=>`<option value="${o}" ${item.outlet===o?'selected':''}>${o}</option>`).join('')}
+            </select>
+          </div>
+        </div>
+        <div class="shop-edit-group" style="margin-bottom:7px;"><label style="font-size:9.5px;font-weight:700;color:var(--gray-500);text-transform:uppercase;letter-spacing:.5px;">Quem compra</label>
+          <div style="display:flex;gap:5px;margin-top:3px;">
+            <button type="button" class="quem-btn ${(item.quem||'Todos')==='Todos'?'active':''}" onclick="setShopEditQuem('${cat}','${id}','Todos',this)">👫 Todos</button>
+            <button type="button" class="quem-btn ${item.quem==='Gabriel'?'active':''}" onclick="setShopEditQuem('${cat}','${id}','Gabriel',this)">👨 Gabriel</button>
+            <button type="button" class="quem-btn ${item.quem==='Patricia'?'active':''}" onclick="setShopEditQuem('${cat}','${id}','Patricia',this)">👩 Patricia</button>
+          </div>
+        </div>
+        <div class="pi-edit-actions">
+          <button class="pi-save-btn" onclick="saveShopEdit('${cat}','${id}')">💾 Salvar alterações</button>
+          <button class="pi-cancel-btn" onclick="toggleShopEdit('${cat}','${id}')">✕ Cancelar</button>
+        </div>
+      </div>
+    </div>`).join('');
   updateTotals(cat,data);
+}
+// Track quem during shop edit
+const shopEditQuem={};
+function setShopEditQuem(cat,id,val,btn){
+  shopEditQuem[cat+'-'+id]=val;
+  const wrap=document.getElementById('shop-edit-'+cat+'-'+id);
+  if(wrap)wrap.querySelectorAll('.quem-btn').forEach(b=>b.classList.toggle('active',b.textContent.includes(val)));
+}
+function toggleShopEdit(cat,id){
+  const panel=document.getElementById('shop-edit-'+cat+'-'+id);
+  if(!panel)return;
+  const wrap=document.getElementById('shop-wrap-'+cat+'-'+id);
+  const isOpen=panel.classList.toggle('open');
+  if(wrap)wrap.classList.toggle('editing',isOpen);
+  // Init quem state from current data
+  if(isOpen&&shopCacheData[cat]&&shopCacheData[cat][id]){
+    shopEditQuem[cat+'-'+id]=shopCacheData[cat][id].quem||'Todos';
+  }
+}
+function saveShopEdit(cat,id){
+  const nome=document.getElementById('se-nome-'+cat+'-'+id)?.value.trim();
+  if(!nome)return;
+  const loja=document.getElementById('se-loja-'+cat+'-'+id)?.value.trim();
+  const cidade=document.getElementById('se-cidade-'+cat+'-'+id)?.value;
+  const data=document.getElementById('se-data-'+cat+'-'+id)?.value;
+  const est=parseFloat(document.getElementById('se-est-'+cat+'-'+id)?.value)||0;
+  const outlet=document.getElementById('se-outlet-'+cat+'-'+id)?.value;
+  const quem=shopEditQuem[cat+'-'+id]||'Todos';
+  db.ref('compras/'+cat+'/'+id).update({nome,loja,cidade,data,estimado:est,outlet,quem});
+  toggleShopEdit(cat,id);
 }
 function updateTotals(cat,data){
   const items=Object.values(data||{});
