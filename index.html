@@ -305,7 +305,7 @@ header::after{content:'';position:absolute;right:-20px;bottom:0;width:380px;heig
 .shop-item-nome{font-weight:700;font-size:13.5px;color:#0a2540;}
 .shop-item-nome.riscado{text-decoration:line-through;color:var(--gray-500);}
 .shop-item-meta{font-size:11.5px;color:var(--gray-500);margin-top:3px;}
-.shop-item-prices{display:flex;flex-direction:column;gap:4px;min-width:140px;}
+.shop-item-prices{display:flex;flex-direction:row;flex-wrap:wrap;gap:12px;min-width:140px;align-items:flex-start;}
 .shop-price-label{font-size:10px;color:var(--gray-500);text-transform:uppercase;letter-spacing:.5px;}
 .shop-price-est{font-size:13px;font-weight:700;color:var(--ocean-mid);}
 .shop-real-wrap{display:flex;align-items:center;gap:4px;}
@@ -462,6 +462,16 @@ header::after{content:'';position:absolute;right:-20px;bottom:0;width:380px;heig
 .sort-btn.active{background:var(--ocean);border-color:var(--ocean);color:white;}
 /* SHOP CUSTOM INPUT */
 .shop-custom-input{margin-top:4px;display:none;}
+.fx-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:white;border-radius:10px;box-shadow:var(--shadow);padding:10px 14px;margin-bottom:10px;border-left:4px solid var(--green);}
+.fx-lbl{font-size:11px;font-weight:800;color:var(--ocean);text-transform:uppercase;letter-spacing:.5px;}
+.fx-input{width:100px;padding:6px 9px;border:1.5px solid var(--gray-200);border-radius:7px;font-size:13px;font-weight:700;font-family:inherit;color:#0a2540;}
+.fx-input:focus{outline:none;border-color:var(--green);}
+.fx-live{font-size:12px;color:var(--gray-700);}
+.fx-live strong{color:var(--green);}
+.fx-use{background:none;border:1.5px solid var(--green);color:var(--green);font-size:11px;font-weight:700;padding:4px 10px;border-radius:14px;cursor:pointer;}
+.fx-use:hover{background:var(--green);color:white;}
+.shop-price-brl{font-size:13px;font-weight:700;color:var(--green);}
+.brl-input{width:84px;}
 @media(max-width:768px){
   .pi-edit-grid{grid-template-columns:1fr 1fr;}
   .apf-grid{grid-template-columns:1fr;}
@@ -1546,13 +1556,14 @@ header::after{content:'';position:absolute;right:-20px;bottom:0;width:380px;heig
 <div class="shop-subtabs">
   <button class="shop-subtab active" data-tab="adulto" onclick="switchShopTab('adulto')">👔 Adulto <span id="count-adulto" style="font-size:11px;opacity:.7;"></span></button>
   <button class="shop-subtab" data-tab="bebe" onclick="switchShopTab('bebe')">👶 Bebê <span id="count-bebe" style="font-size:11px;opacity:.7;"></span></button>
+  <button class="shop-subtab" data-tab="maes" onclick="switchShopTab('maes')">💐 Mães <span id="count-maes" style="font-size:11px;opacity:.7;"></span></button>
 </div>
 
 <!-- PAINEL ADULTO -->
 <div class="shop-panel active" data-panel="adulto">
   <div class="shop-form">
     <h4>➕ Adicionar Item — Adulto</h4>
-    <div style="display:grid;grid-template-columns:2fr 1.5fr 1fr 1fr 0.8fr 1fr;gap:8px;margin-bottom:8px;align-items:end;">
+    <div style="display:grid;grid-template-columns:2fr 1.5fr 1fr 1fr 0.8fr 0.9fr 1fr;gap:8px;margin-bottom:8px;align-items:end;">
       <div class="shop-form-group"><label>Nome do Item</label><input type="text" id="nome-adulto" class="shop-input" placeholder="Ex: Nike Air Max, Perfume..."></div>
       <div class="shop-form-group"><label>Loja</label>
         <input type="text" id="loja-adulto" class="shop-input" placeholder="Nome da loja..." list="loja-adulto-dl">
@@ -1573,7 +1584,8 @@ header::after{content:'';position:absolute;right:-20px;bottom:0;width:380px;heig
           <option>08/11 - Miami Chegada</option><option>09/11 - Miami</option><option>10/11 - Miami</option><option>11/11 - Transfer</option><option>12/11 - Hollywood Studios</option><option>13/11 - EPCOT</option><option>14/11 - Animal Kingdom</option><option>15/11 - Compras</option><option>16/11 - Magic Kingdom</option><option>17/11 - Islands of Adventure</option><option>18/11 - Universal Studios</option><option>19/11 - Compras + Malas</option><option>20/11 - Epic Universe</option><option>21/11 - Flex</option><option>22/11 - Retorno</option>
         </select>
       </div>
-      <div class="shop-form-group"><label>Preço (USD)</label><input type="number" id="estimado-adulto" class="shop-input" placeholder="0.00" min="0" step="0.01"></div>
+      <div class="shop-form-group"><label>Preço USD</label><input type="number" id="estimado-adulto" class="shop-input" placeholder="0.00" min="0" step="0.01"></div>
+      <div class="shop-form-group"><label>Preço Brasil R$</label><input type="number" id="brl-adulto" class="shop-input" placeholder="0,00" min="0" step="0.01"></div>
       <div class="shop-form-group"><label>Outlet</label>
         <select id="outlet-adulto" class="shop-input" onchange="handleOutletChange('adulto')">
           <option value="Não é outlet">Não é outlet</option>
@@ -1594,6 +1606,12 @@ header::after{content:'';position:absolute;right:-20px;bottom:0;width:380px;heig
     </div>
     <button class="shop-add-btn" onclick="addItem('adulto')">➕ Adicionar à Lista</button>
   </div>
+  <div class="fx-bar">
+    <span class="fx-lbl">💵 Preço do Dólar R$</span>
+    <input type="number" class="fx-input dolar-input" placeholder="5,30" min="0" step="0.01" onchange="setDolar(this.value)">
+    <span class="fx-live">📈 Dólar hoje: <strong class="dolar-live">carregando...</strong></span>
+    <button type="button" class="fx-use" onclick="useLiveDolar()">Usar cotação atual</button>
+  </div>
   <div class="sort-bar">
     <span class="sort-bar-lbl">Ordenar:</span>
     <button class="sort-btn active" id="sort-adulto-ts" onclick="setSort('adulto','ts')">📅 Adição</button>
@@ -1605,11 +1623,13 @@ header::after{content:'';position:absolute;right:-20px;bottom:0;width:380px;heig
     <button class="sort-btn" id="sort-adulto-status" onclick="setSort('adulto','status')">✅ Status</button>
   </div>
   <div class="shop-items-wrap" id="list-adulto"><div class="shop-empty">Nenhum item ainda. Adicione acima! 👆</div></div>
-  <div class="shop-totals" style="grid-template-columns:repeat(5,1fr);">
+  <div class="shop-totals" style="grid-template-columns:repeat(7,1fr);">
     <div class="shop-tot-item"><div class="shop-tot-label">📋 Itens</div><div class="shop-tot-val" id="count-items-adulto">0</div></div>
     <div class="shop-tot-item"><div class="shop-tot-label">🎯 Est. Total</div><div class="shop-tot-val" id="total-est-adulto">USD 0</div></div>
     <div class="shop-tot-item"><div class="shop-tot-label">✅ Comprado</div><div class="shop-tot-val hl" id="total-comprado-adulto">USD 0</div></div>
     <div class="shop-tot-item"><div class="shop-tot-label">⏳ Pendente</div><div class="shop-tot-val" id="total-pendente-adulto">USD 0</div></div>
+    <div class="shop-tot-item"><div class="shop-tot-label">🇺🇸 Total USA R$</div><div class="shop-tot-val" id="total-usabrl-adulto">R$ 0</div></div>
+    <div class="shop-tot-item"><div class="shop-tot-label">🇧🇷 Total Brasil R$</div><div class="shop-tot-val" id="total-brbrl-adulto">R$ 0</div></div>
     <div class="shop-tot-item"><div class="shop-tot-label">👨 Gabriel</div><div class="shop-tot-val" id="total-gabriel-adulto">USD 0</div></div>
   </div>
 </div>
@@ -1618,7 +1638,7 @@ header::after{content:'';position:absolute;right:-20px;bottom:0;width:380px;heig
 <div class="shop-panel" data-panel="bebe">
   <div class="shop-form">
     <h4>➕ Adicionar Item — Bebê</h4>
-    <div style="display:grid;grid-template-columns:2fr 1.5fr 1fr 1fr 0.8fr 1fr;gap:8px;margin-bottom:8px;align-items:end;">
+    <div style="display:grid;grid-template-columns:2fr 1.5fr 1fr 1fr 0.8fr 0.9fr 1fr;gap:8px;margin-bottom:8px;align-items:end;">
       <div class="shop-form-group"><label>Nome do Item</label><input type="text" id="nome-bebe" class="shop-input" placeholder="Ex: Carrinho, Body, Mamadeira..."></div>
       <div class="shop-form-group"><label>Loja</label>
         <input type="text" id="loja-bebe" class="shop-input" placeholder="Nome da loja..." list="loja-bebe-dl">
@@ -1639,7 +1659,8 @@ header::after{content:'';position:absolute;right:-20px;bottom:0;width:380px;heig
           <option>08/11 - Miami Chegada</option><option>09/11 - Miami</option><option>10/11 - Miami</option><option>11/11 - Transfer</option><option>12/11 - Hollywood Studios</option><option>13/11 - EPCOT</option><option>14/11 - Animal Kingdom</option><option>15/11 - Compras</option><option>16/11 - Magic Kingdom</option><option>17/11 - Islands of Adventure</option><option>18/11 - Universal Studios</option><option>19/11 - Compras + Malas</option><option>20/11 - Epic Universe</option><option>21/11 - Flex</option><option>22/11 - Retorno</option>
         </select>
       </div>
-      <div class="shop-form-group"><label>Preço (USD)</label><input type="number" id="estimado-bebe" class="shop-input" placeholder="0.00" min="0" step="0.01"></div>
+      <div class="shop-form-group"><label>Preço USD</label><input type="number" id="estimado-bebe" class="shop-input" placeholder="0.00" min="0" step="0.01"></div>
+      <div class="shop-form-group"><label>Preço Brasil R$</label><input type="number" id="brl-bebe" class="shop-input" placeholder="0,00" min="0" step="0.01"></div>
       <div class="shop-form-group"><label>Outlet</label>
         <select id="outlet-bebe" class="shop-input" onchange="handleOutletChange('bebe')">
           <option value="Não é outlet">Não é outlet</option>
@@ -1660,6 +1681,12 @@ header::after{content:'';position:absolute;right:-20px;bottom:0;width:380px;heig
     </div>
     <button class="shop-add-btn" onclick="addItem('bebe')">➕ Adicionar à Lista</button>
   </div>
+  <div class="fx-bar">
+    <span class="fx-lbl">💵 Preço do Dólar R$</span>
+    <input type="number" class="fx-input dolar-input" placeholder="5,30" min="0" step="0.01" onchange="setDolar(this.value)">
+    <span class="fx-live">📈 Dólar hoje: <strong class="dolar-live">carregando...</strong></span>
+    <button type="button" class="fx-use" onclick="useLiveDolar()">Usar cotação atual</button>
+  </div>
   <div class="sort-bar">
     <span class="sort-bar-lbl">Ordenar:</span>
     <button class="sort-btn active" id="sort-bebe-ts" onclick="setSort('bebe','ts')">📅 Adição</button>
@@ -1670,12 +1697,87 @@ header::after{content:'';position:absolute;right:-20px;bottom:0;width:380px;heig
     <button class="sort-btn" id="sort-bebe-status" onclick="setSort('bebe','status')">✅ Status</button>
   </div>
   <div class="shop-items-wrap" id="list-bebe"><div class="shop-empty">Nenhum item ainda. Adicione acima! 👆</div></div>
-  <div class="shop-totals" style="grid-template-columns:repeat(5,1fr);">
+  <div class="shop-totals" style="grid-template-columns:repeat(7,1fr);">
     <div class="shop-tot-item"><div class="shop-tot-label">📋 Itens</div><div class="shop-tot-val" id="count-items-bebe">0</div></div>
     <div class="shop-tot-item"><div class="shop-tot-label">🎯 Est. Total</div><div class="shop-tot-val" id="total-est-bebe">USD 0</div></div>
     <div class="shop-tot-item"><div class="shop-tot-label">✅ Comprado</div><div class="shop-tot-val hl" id="total-comprado-bebe">USD 0</div></div>
     <div class="shop-tot-item"><div class="shop-tot-label">⏳ Pendente</div><div class="shop-tot-val" id="total-pendente-bebe">USD 0</div></div>
+    <div class="shop-tot-item"><div class="shop-tot-label">🇺🇸 Total USA R$</div><div class="shop-tot-val" id="total-usabrl-bebe">R$ 0</div></div>
+    <div class="shop-tot-item"><div class="shop-tot-label">🇧🇷 Total Brasil R$</div><div class="shop-tot-val" id="total-brbrl-bebe">R$ 0</div></div>
     <div class="shop-tot-item"><div class="shop-tot-label">👩 Patricia</div><div class="shop-tot-val" id="total-patricia-bebe">USD 0</div></div>
+  </div>
+</div>
+<!-- PAINEL MÃES -->
+<div class="shop-panel" data-panel="maes">
+  <div class="shop-form">
+    <h4>➕ Adicionar Item — Mães</h4>
+    <div style="display:grid;grid-template-columns:2fr 1.5fr 1fr 1fr 0.8fr 0.9fr 1fr;gap:8px;margin-bottom:8px;align-items:end;">
+      <div class="shop-form-group"><label>Nome do Item</label><input type="text" id="nome-maes" class="shop-input" placeholder="Ex: Perfume, Bolsa, Creme..."></div>
+      <div class="shop-form-group"><label>Loja</label>
+        <input type="text" id="loja-maes" class="shop-input" placeholder="Nome da loja..." list="loja-maes-dl">
+        <datalist id="loja-maes-dl"><option value="Bath &amp; Body Works"><option value="Victoria's Secret"><option value="Sephora"><option value="Kate Spade"><option value="Coach"><option value="Michael Kors"><option value="Marshalls"><option value="Ross"><option value="Target"></datalist>
+      </div>
+      <div class="shop-form-group"><label>Cidade</label>
+        <select id="cidade-maes" class="shop-input" onchange="handleCidadeChange('maes')">
+          <option value="">🌆 Cidade</option>
+          <option value="Miami">🌴 Miami</option>
+          <option value="Orlando">🏰 Orlando</option>
+          <option value="outros-cidade">✏️ Outra...</option>
+        </select>
+        <input type="text" id="cidade-maes-custom" class="shop-input shop-custom-input" placeholder="Digite a cidade...">
+      </div>
+      <div class="shop-form-group"><label>Data</label>
+        <select id="data-maes" class="shop-input">
+          <option value="">📅 Selecione</option>
+          <option>08/11 - Miami Chegada</option><option>09/11 - Miami</option><option>10/11 - Miami</option><option>11/11 - Transfer</option><option>12/11 - Hollywood Studios</option><option>13/11 - EPCOT</option><option>14/11 - Animal Kingdom</option><option>15/11 - Compras</option><option>16/11 - Magic Kingdom</option><option>17/11 - Islands of Adventure</option><option>18/11 - Universal Studios</option><option>19/11 - Compras + Malas</option><option>20/11 - Epic Universe</option><option>21/11 - Flex</option><option>22/11 - Retorno</option>
+        </select>
+      </div>
+      <div class="shop-form-group"><label>Preço USD</label><input type="number" id="estimado-maes" class="shop-input" placeholder="0.00" min="0" step="0.01"></div>
+      <div class="shop-form-group"><label>Preço Brasil R$</label><input type="number" id="brl-maes" class="shop-input" placeholder="0,00" min="0" step="0.01"></div>
+      <div class="shop-form-group"><label>Outlet</label>
+        <select id="outlet-maes" class="shop-input" onchange="handleOutletChange('maes')">
+          <option value="Não é outlet">Não é outlet</option>
+          <option value="Sawgrass Mills — Miami/FLL">Sawgrass Mills — Miami</option>
+          <option value="Premium Outlets Int'l Drive — Orlando">Premium Outlets Int'l Dr</option>
+          <option value="Premium Outlets Vineland — Orlando">Premium Outlets Vineland</option>
+          <option value="outros-outlet">✏️ Outro outlet...</option>
+        </select>
+        <input type="text" id="outlet-maes-custom" class="shop-input shop-custom-input" placeholder="Nome do outlet...">
+      </div>
+    </div>
+    <div class="shop-form-group" style="margin-bottom:8px;"><label style="font-size:10px;font-weight:700;color:var(--gray-500);text-transform:uppercase;letter-spacing:.5px;">Quem compra</label>
+      <div style="display:flex;gap:5px;margin-top:3px;">
+        <button type="button" class="quem-btn active" data-cat="maes" data-val="Todos" onclick="setQuem('maes','Todos',this)">👫 Todos</button>
+        <button type="button" class="quem-btn" data-cat="maes" data-val="Gabriel" onclick="setQuem('maes','Gabriel',this)">👨 Gabriel</button>
+        <button type="button" class="quem-btn" data-cat="maes" data-val="Patricia" onclick="setQuem('maes','Patricia',this)">👩 Patricia</button>
+      </div>
+    </div>
+    <button class="shop-add-btn" onclick="addItem('maes')">➕ Adicionar à Lista</button>
+  </div>
+  <div class="fx-bar">
+    <span class="fx-lbl">💵 Preço do Dólar R$</span>
+    <input type="number" class="fx-input dolar-input" placeholder="5,30" min="0" step="0.01" onchange="setDolar(this.value)">
+    <span class="fx-live">📈 Dólar hoje: <strong class="dolar-live">carregando...</strong></span>
+    <button type="button" class="fx-use" onclick="useLiveDolar()">Usar cotação atual</button>
+  </div>
+  <div class="sort-bar">
+    <span class="sort-bar-lbl">Ordenar:</span>
+    <button class="sort-btn active" id="sort-maes-ts" onclick="setSort('maes','ts')">📅 Adição</button>
+    <button class="sort-btn" id="sort-maes-nome" onclick="setSort('maes','nome')">📝 Nome</button>
+    <button class="sort-btn" id="sort-maes-data" onclick="setSort('maes','data')">🗓️ Data</button>
+    <button class="sort-btn" id="sort-maes-preco" onclick="setSort('maes','preco')">💵 ↑</button>
+    <button class="sort-btn" id="sort-maes-preco-desc" onclick="setSort('maes','preco-desc')">💵 ↓</button>
+    <button class="sort-btn" id="sort-maes-status" onclick="setSort('maes','status')">✅ Status</button>
+  </div>
+  <div class="shop-items-wrap" id="list-maes"><div class="shop-empty">Nenhum item ainda. Adicione acima! 👆</div></div>
+  <div class="shop-totals" style="grid-template-columns:repeat(7,1fr);">
+    <div class="shop-tot-item"><div class="shop-tot-label">📋 Itens</div><div class="shop-tot-val" id="count-items-maes">0</div></div>
+    <div class="shop-tot-item"><div class="shop-tot-label">🎯 Est. Total</div><div class="shop-tot-val" id="total-est-maes">USD 0</div></div>
+    <div class="shop-tot-item"><div class="shop-tot-label">✅ Comprado</div><div class="shop-tot-val hl" id="total-comprado-maes">USD 0</div></div>
+    <div class="shop-tot-item"><div class="shop-tot-label">⏳ Pendente</div><div class="shop-tot-val" id="total-pendente-maes">USD 0</div></div>
+    <div class="shop-tot-item"><div class="shop-tot-label">🇺🇸 Total USA R$</div><div class="shop-tot-val" id="total-usabrl-maes">R$ 0</div></div>
+    <div class="shop-tot-item"><div class="shop-tot-label">🇧🇷 Total Brasil R$</div><div class="shop-tot-val" id="total-brbrl-maes">R$ 0</div></div>
+    <div class="shop-tot-item"><div class="shop-tot-label">👩 Patricia</div><div class="shop-tot-val" id="total-patricia-maes">USD 0</div></div>
   </div>
 </div>
 </div><!-- /tab-compras -->
@@ -1757,15 +1859,19 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
 // Indicador de conexão
-db.ref('.info/connected').on('value', snap => {
-  const on = snap.val() === true;
-  const dot = document.getElementById('fb-dot');
-  const txt = document.getElementById('fb-txt');
-  const footer = document.getElementById('fb-footer');
-  if(dot){ dot.className = 'fb-dot' + (on ? ' on' : ''); }
-  if(txt){ txt.textContent = on ? '🟢 Firebase sincronizado' : '🔴 Sem conexão — aguardando...'; }
-  if(footer){ footer.textContent = on ? '🟢 Firebase' : '🔴 Firebase'; }
+db.ref('.info/connected').on('value', function(snap) {
+  var connected = snap.val() === true;
+  var dot = document.getElementById('fb-dot');
+  var txt = document.getElementById('fb-txt');
+  var footer = document.getElementById('fb-footer');
+  if(dot){ dot.className = connected ? 'fb-dot on' : 'fb-dot'; }
+  if(txt){ txt.textContent = connected ? '🟢 Firebase sincronizado' : '🔴 Sem conexão — aguardando...'; }
+  if(footer){ footer.textContent = connected ? '🟢 Firebase' : '🔴 Firebase'; }
 });
+setTimeout(function() {
+  var txt = document.getElementById('fb-txt');
+  if(txt && txt.textContent === 'Conectando ao Firebase...') { txt.textContent = '🔴 Sem conexão — aguardando...'; }
+}, 8000);
 
 // ═══════════════════════════════════════════
 //  PENDÊNCIAS — DEFINIÇÃO E CHECKBOXES
@@ -1964,9 +2070,9 @@ function addCustomPendencia(){
 function delCustomPend(id){if(confirm('Remover?'))db.ref('pendencias_custom/'+id).remove();}
 
 // ─── COMPRAS (completo: loja/cidade/outlet/quem + ordenação + edição) ───
-const shopSortState={adulto:'ts',bebe:'ts'};
-const shopCacheData={adulto:{},bebe:{}};
-const quemState={adulto:'Todos',bebe:'Todos'};
+const shopSortState={adulto:'ts',bebe:'ts',maes:'ts'};
+const shopCacheData={adulto:{},bebe:{},maes:{}};
+const quemState={adulto:'Todos',bebe:'Todos',maes:'Todos'};
 const shopEditQuem={};
 
 function setQuem(cat,val,btn){
@@ -1994,7 +2100,7 @@ function getOutletVal(cat){
   return sel&&sel.value==='outros-outlet'?(cust&&cust.value.trim()||'Outro outlet'):sel?sel.value:'Não é outlet';
 }
 function updateLojaDL(loja){
-  ['adulto','bebe'].forEach(cat=>{
+  ['adulto','bebe','maes'].forEach(cat=>{
     const dl=document.getElementById('loja-'+cat+'-dl');
     if(dl&&loja&&![...dl.options].some(o=>o.value===loja)){const opt=document.createElement('option');opt.value=loja;dl.appendChild(opt);}
   });
@@ -2010,12 +2116,15 @@ function addItem(cat){
   const cidade=getCidadeVal(cat);
   const data=document.getElementById('data-'+cat)?.value||'';
   const est=parseFloat(document.getElementById('estimado-'+cat)?.value)||0;
+  const brlVal=document.getElementById('brl-'+cat)?.value;
+  const brl=brlVal===''||brlVal==null?null:(parseFloat(brlVal)||0);
   const outlet=getOutletVal(cat);
   const quem=quemState[cat];
   if(loja){db.ref('custom_opts/lojas').once('value').then(snap=>{const arr=snap.val()||[];if(!arr.includes(loja)){arr.push(loja);db.ref('custom_opts/lojas').set(arr);}});updateLojaDL(loja);}
-  db.ref('compras/'+cat).push({nome,loja,cidade,data,estimado:est,real:null,outlet,quem,comprado:false,ts:Date.now()});
+  db.ref('compras/'+cat).push({nome,loja,cidade,data,estimado:est,brl:brl,real:null,outlet,quem,comprado:false,ts:Date.now()});
   nomeEl.value='';if(lojaEl)lojaEl.value='';
   document.getElementById('estimado-'+cat).value='';
+  const brlEl=document.getElementById('brl-'+cat);if(brlEl)brlEl.value='';
   const cdEl=document.getElementById('cidade-'+cat);if(cdEl)cdEl.value='';
   const cdCust=document.getElementById('cidade-'+cat+'-custom');if(cdCust){cdCust.style.display='none';cdCust.value='';}
   const otEl=document.getElementById('outlet-'+cat);if(otEl)otEl.value='Não é outlet';
@@ -2028,6 +2137,35 @@ function toggleComprado(cat,id,val){db.ref(`compras/${cat}/${id}/comprado`).set(
 function updateReal(cat,id,val){db.ref(`compras/${cat}/${id}/real`).set(val===''?null:(parseFloat(val)||0));}
 function removeItem(cat,id){if(confirm('Remover este item?'))db.ref(`compras/${cat}/${id}`).remove();}
 function fmtUSD(v){return'USD '+(v||0).toFixed(0);}
+var SHOP_CATS = ['adulto','bebe','maes'];
+var dolarRate = 5.30;
+var dolarLive = null;
+function fmtBRL(v){ return 'R$ ' + (v||0).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+function updateBrl(cat,id,val){ db.ref('compras/'+cat+'/'+id+'/brl').set(val===''?null:(parseFloat(val)||0)); }
+function setDolar(val){ var v=parseFloat(String(val).replace(',','.')); if(!v||v<=0) return; db.ref('custom_opts/dolar').set(v); }
+function useLiveDolar(){ if(dolarLive) setDolar(dolarLive.toFixed(2)); }
+function refreshDolarUI(){
+  var inputs=document.querySelectorAll('.dolar-input');
+  for(var i=0;i<inputs.length;i++){ if(document.activeElement!==inputs[i]) inputs[i].value=dolarRate.toFixed(2); }
+  for(var k=0;k<SHOP_CATS.length;k++){ var ct=SHOP_CATS[k]; if(shopCacheData[ct]) renderList(ct, shopCacheData[ct]); }
+}
+db.ref('custom_opts/dolar').on('value', function(snap){ var v=snap.val(); if(v&&v>0){dolarRate=v;} refreshDolarUI(); });
+function loadLiveDolar(){
+  fetch('https://economia.awesomeapi.com.br/json/last/USD-BRL')
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      var bid=parseFloat(d&&d.USDBRL?d.USDBRL.bid:0);
+      var els=document.querySelectorAll('.dolar-live');
+      if(bid>0){
+        dolarLive=bid;
+        var hora=d.USDBRL.create_date?d.USDBRL.create_date.substring(11,16):'';
+        for(var i=0;i<els.length;i++){ els[i].textContent='R$ '+bid.toFixed(2).replace('.',',')+(hora?' ('+hora+')':''); }
+      } else { for(var j=0;j<els.length;j++){ els[j].textContent='indisponível'; } }
+    })
+    .catch(function(){ var els=document.querySelectorAll('.dolar-live'); for(var i=0;i<els.length;i++){ els[i].textContent='indisponível'; } });
+}
+loadLiveDolar();
+setInterval(loadLiveDolar, 600000);
 
 const DATE_ORDER=['08/11','09/11','10/11','11/11','12/11','13/11','14/11','15/11','16/11','17/11','18/11','19/11','20/11','21/11','22/11'];
 function dateRank(d){if(!d)return 99;const dd=d.substring(0,5);const i=DATE_ORDER.indexOf(dd);return i>=0?i:99;}
@@ -2072,14 +2210,16 @@ function renderList(cat,data){
           <div class="shop-item-meta">${item.loja?'🏪 '+item.loja+' &nbsp;·&nbsp; ':''}${item.cidade?'🌆 '+item.cidade:''}${item.outlet&&item.outlet!=='Não é outlet'?' &nbsp;·&nbsp; 🛍️ '+item.outlet:''}${item.data?' &nbsp;·&nbsp; 📅 '+item.data:''}</div>
         </div>
         <div class="shop-item-prices">
-          <div><div class="shop-price-label">Est.</div><div class="shop-price-est">USD ${(item.estimado||0).toFixed(0)}</div></div>
+          <div><div class="shop-price-label">Preço USD</div><div class="shop-price-est">USD ${(item.estimado||0).toFixed(0)}</div></div>
+          <div><div class="shop-price-label">Preço USA R$</div><div class="shop-price-brl">${fmtBRL((item.estimado||0)*dolarRate)}</div></div>
+          <div><div class="shop-price-label">Preço Brasil R$</div><div class="shop-real-wrap"><span>R$</span><input type="number" class="real-input brl-input" value="${item.brl!=null?item.brl:''}" placeholder="0" min="0" step="0.01" onchange="updateBrl('${cat}','${id}',this.value)"></div></div>
           <div><div class="shop-price-label">Pago</div><div class="shop-real-wrap"><span>USD</span><input type="number" class="real-input" value="${item.real!=null?item.real:''}" placeholder="0" min="0" step="1" onchange="updateReal('${cat}','${id}',this.value)"></div></div>
         </div>
         <button class="shop-edit-btn" onclick="toggleShopEdit('${cat}','${id}')" title="Editar">✏️</button>
         <button class="shop-del" onclick="removeItem('${cat}','${id}')" title="Remover">🗑️</button>
       </div>
       <div class="shop-edit-panel" id="shop-edit-${cat}-${id}">
-        <div style="display:grid;grid-template-columns:2fr 1.5fr 1fr 1fr 0.7fr 1fr;gap:6px;margin-bottom:6px;align-items:end;">
+        <div style="display:grid;grid-template-columns:2fr 1.5fr 1fr 1fr 0.7fr 0.8fr 1fr;gap:6px;margin-bottom:6px;align-items:end;">
           <div class="shop-edit-group"><label>Nome</label><input type="text" id="se-nome-${cat}-${id}" class="shop-edit-input" value="${(item.nome||'').replace(/"/g,'&quot;').replace(/'/g,"&#39;")}"></div>
           <div class="shop-edit-group"><label>Loja</label><input type="text" id="se-loja-${cat}-${id}" class="shop-edit-input" value="${(item.loja||'').replace(/"/g,'&quot;').replace(/'/g,"&#39;")}"></div>
           <div class="shop-edit-group"><label>Cidade</label>
@@ -2094,7 +2234,8 @@ function renderList(cat,data){
               ${DATE_OPTS.map(d=>`<option value="${d}" ${item.data===d?'selected':''}>${d}</option>`).join('')}
             </select>
           </div>
-          <div class="shop-edit-group"><label>USD Est.</label><input type="number" id="se-est-${cat}-${id}" class="shop-edit-input" value="${item.estimado||0}" min="0" step="1"></div>
+          <div class="shop-edit-group"><label>Preço USD</label><input type="number" id="se-est-${cat}-${id}" class="shop-edit-input" value="${item.estimado||0}" min="0" step="0.01"></div>
+          <div class="shop-edit-group"><label>Brasil R$</label><input type="number" id="se-brl-${cat}-${id}" class="shop-edit-input" value="${item.brl!=null?item.brl:''}" min="0" step="0.01"></div>
           <div class="shop-edit-group"><label>Outlet</label>
             <select id="se-outlet-${cat}-${id}" class="shop-edit-input">
               ${OUTLET_OPTS.map(o=>`<option value="${o}" ${item.outlet===o?'selected':''}>${o}</option>`).join('')}
@@ -2139,8 +2280,10 @@ function saveShopEdit(cat,id){
   const data=document.getElementById('se-data-'+cat+'-'+id)?.value;
   const est=parseFloat(document.getElementById('se-est-'+cat+'-'+id)?.value)||0;
   const outlet=document.getElementById('se-outlet-'+cat+'-'+id)?.value;
+  const brlV=document.getElementById('se-brl-'+cat+'-'+id)?.value;
+  const brl=brlV===''||brlV==null?null:(parseFloat(brlV)||0);
   const quem=shopEditQuem[cat+'-'+id]||'Todos';
-  db.ref('compras/'+cat+'/'+id).update({nome,loja,cidade,data,estimado:est,outlet,quem});
+  db.ref('compras/'+cat+'/'+id).update({nome,loja,cidade,data,estimado:est,brl:brl,outlet,quem});
   toggleShopEdit(cat,id);
 }
 
@@ -2151,11 +2294,15 @@ function updateTotals(cat,data){
   set('total-est-'+cat,fmtUSD(items.reduce((s,i)=>s+(i.estimado||0),0)));
   set('total-comprado-'+cat,fmtUSD(items.filter(i=>i.comprado).reduce((s,i)=>s+(i.real!=null?i.real:(i.estimado||0)),0)));
   set('total-pendente-'+cat,fmtUSD(items.filter(i=>!i.comprado).reduce((s,i)=>s+(i.estimado||0),0)));
+  set('total-usabrl-'+cat,fmtBRL(items.reduce((s,i)=>s+(i.estimado||0),0)*dolarRate));
+  set('total-brbrl-'+cat,fmtBRL(items.reduce((s,i)=>s+(i.brl||0),0)));
   if(cat==='adulto')set('total-gabriel-adulto',fmtUSD(items.filter(i=>i.quem==='Gabriel').reduce((s,i)=>s+(i.estimado||0),0)));
+  if(cat==='maes')set('total-patricia-maes',fmtUSD(items.filter(i=>i.quem==='Patricia').reduce((s,i)=>s+(i.estimado||0),0)));
   if(cat==='bebe')set('total-patricia-bebe',fmtUSD(items.filter(i=>i.quem==='Patricia').reduce((s,i)=>s+(i.estimado||0),0)));
 }
 db.ref('compras/adulto').on('value',snap=>renderList('adulto',snap.val()||{}));
 db.ref('compras/bebe').on('value',snap=>renderList('bebe',snap.val()||{}));
+db.ref('compras/maes').on('value',snap=>renderList('maes',snap.val()||{}));
 
 // ═══════════════════════════════════════════
 //  TAB SWITCHING
@@ -2217,7 +2364,7 @@ function exportPDF(){
 }
 
 // Suporte a Enter no campo nome para adicionar item
-['adulto','bebe'].forEach(cat => {
+['adulto','bebe','maes'].forEach(cat => {
   const el = document.getElementById('nome-' + cat);
   if(el) el.addEventListener('keypress', e => { if(e.key === 'Enter') addItem(cat); });
 });
@@ -2362,7 +2509,7 @@ function switchDocTab(id){
   document.querySelectorAll('.doc-panel').forEach(p=>p.classList.toggle('active',p.id==='doc-panel-'+id));
 }
 // Enter nos campos
-['adulto','bebe'].forEach(cat=>{
+['adulto','bebe','maes'].forEach(cat=>{
   const el=document.getElementById('nome-'+cat);
   if(el)el.addEventListener('keypress',e=>{if(e.key==='Enter')addItem(cat);});
   const cl=document.getElementById('loja-'+cat);
