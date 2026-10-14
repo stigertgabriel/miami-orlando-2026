@@ -571,10 +571,8 @@ header::after{content:'';position:absolute;right:-20px;bottom:0;width:380px;heig
   .inner-tab{flex-shrink:0;min-width:auto;}
 }
 
-/* ═════════ AJUSTES MOBILE (≤768px) ═════════ */
 @media(max-width:768px){
   body{font-size:13px;}
-  /* Header compacto */
   .header-inner{padding:12px 14px 10px;}
   .header-top{margin-bottom:6px;gap:8px;}
   .header-brand{font-size:12px;}
@@ -586,7 +584,6 @@ header::after{content:'';position:absolute;right:-20px;bottom:0;width:380px;heig
   .header-chips::-webkit-scrollbar{display:none;}
   .chip{flex-shrink:0;font-size:11px;padding:3px 10px;}
   .tab-btn{padding:11px 9px;font-size:12px;}
-  /* Grid e cards */
   .main{padding:12px 10px 40px;}
   .overview-grid{grid-template-columns:minmax(0,1fr)!important;gap:12px;}
   .card{padding:14px;margin-bottom:12px;min-width:0;}
@@ -600,13 +597,10 @@ header::after{content:'';position:absolute;right:-20px;bottom:0;width:380px;heig
   .day-header-left h2{font-size:18px;}
   .day-header-left p{font-size:12.5px;}
   .weather-badge{font-size:12px;padding:5px 12px;}
-  /* Alertas: texto corrido (sem colunas espremidas) */
   .alert-box{display:block;font-size:12.5px;padding:10px 12px;line-height:1.45;}
   .alert-box strong{display:inline;}
-  /* Tabelas info */
   .info-table td{font-size:12.5px;padding:7px 0;}
   .info-table td:first-child{width:38%;}
-  /* Linha do Tempo (Visão Geral) — vira cartões */
   #tab-overview table thead{display:none;}
   #tab-overview table tbody tr{display:grid;grid-template-columns:58px minmax(0,1fr);border-bottom:1px solid var(--gray-200)!important;padding:6px 0;}
   #tab-overview table tbody td{display:block;padding:2px 8px!important;width:auto!important;}
@@ -616,7 +610,6 @@ header::after{content:'';position:absolute;right:-20px;bottom:0;width:380px;heig
   #tab-overview table tbody td:nth-child(4){grid-column:2;color:var(--gray-500)!important;font-size:11.5px!important;}
   #tab-overview .info-table tbody tr{display:table-row;padding:0;}
   #tab-overview .info-table tbody td{display:table-cell;padding:7px 0!important;}
-  /* Voos — tabela vira cartões */
   .flight-table thead{display:none;}
   .flight-table tbody tr{display:grid;grid-template-columns:1fr 1fr;gap:4px 10px;padding:10px 4px;}
   .flight-table tbody td{padding:2px 6px!important;}
@@ -627,19 +620,16 @@ header::after{content:'';position:absolute;right:-20px;bottom:0;width:380px;heig
   .flight-table .transport-name{display:inline;}
   .hotel-info-grid{grid-template-columns:1fr!important;}
   .hotel-dt-lbl{min-width:78px;}
-  /* Roteiro completo */
   .sched-wrap{overflow-x:auto;}
   .sched-table th:nth-child(2),.sched-table td:nth-child(2){display:none;}
   .sched-table th,.sched-row td{padding:7px 8px!important;font-size:11.5px!important;}
   .sched-table td:nth-child(1){width:44px;}
   .day-group-header td{padding:8px!important;}
   .export-bar{padding:12px 14px;}
-  /* Salas VIP */
   .lounge-label{width:82px;font-size:10px;padding:10px;}
   .lounge-content{padding:10px 12px;font-size:12.5px;}
   .lounge-hdr{padding:10px 14px;}
   .lounge-hdr h3{font-size:13.5px;}
-  /* Timeline (Miami/Disney/Universal) */
   .timeline{padding-left:22px;}
   .timeline-item{padding:10px 12px;margin-bottom:8px;}
   .timeline-item::before{left:-25px;}
@@ -652,7 +642,6 @@ header::after{content:'';position:absolute;right:-20px;bottom:0;width:380px;heig
   .festa-grid{grid-template-columns:1fr!important;}
   .ll-table tbody td:first-child{width:80px;}
   .ins-card{padding:16px;}
-  /* ── COMPRAS ── */
   .shop-subtab{padding:8px 10px;font-size:12.5px;flex:1;justify-content:center;}
   .shop-form{padding:12px;}
   .shop-add-grid,.shop-edit-grid2{grid-template-columns:1fr 1fr!important;gap:6px!important;}
@@ -675,14 +664,12 @@ header::after{content:'';position:absolute;right:-20px;bottom:0;width:380px;heig
   .shop-items-wrap .shop-edit-btn,.shop-items-wrap .shop-del{opacity:.6;font-size:15px;padding:2px 6px;}
   .shop-totals{grid-template-columns:repeat(2,minmax(0,1fr))!important;padding:12px;gap:10px;}
   .shop-tot-val{font-size:14.5px;}
-  /* Pendências */
   .pending-item{padding:10px 12px;gap:8px;}
   .pi-title{font-size:13px;}
   .pi-sub{font-size:11.5px;}
   .pi-badge{font-size:10px;padding:2px 8px;}
   .apf-grid,.pi-edit-grid{grid-template-columns:1fr 1fr!important;}
   .apf-grid > div:nth-child(-n+2),.pi-edit-grid > div:nth-child(-n+2){grid-column:1 / -1;}
-  /* Evitar zoom automático no iPhone em inputs */
   input,select{font-size:16px!important;}
   .real-input,.fx-input{font-size:14px!important;}
 }
@@ -810,8 +797,8 @@ header::after{content:'';position:absolute;right:-20px;bottom:0;width:380px;heig
       <tr style="background:rgba(244,168,37,.03);border-bottom:1px solid rgba(0,0,0,.05);">
         <td style="padding:8px 10px;"><div style="font-size:16px;font-weight:900;color:var(--ocean);">11/11</div><div style="font-size:9.5px;font-weight:700;color:var(--gray-500);text-transform:uppercase;">Quarta</div></td>
         <td style="padding:8px 10px;"><div style="font-weight:700;font-size:12px;">Holiday Inn Orange Lake</div><div style="font-size:11px;color:var(--gray-500);">Kissimmee, Orlando</div></td>
-        <td style="padding:8px 10px;"><span style="display:inline-block;font-size:9.5px;font-weight:700;padding:1px 6px;border-radius:50px;background:rgba(91,127,166,.12);color:var(--gray-500);margin-bottom:3px;">🚗 Transfer + 🏡 Check-in</span><div style="font-weight:700;font-size:12px;">AVIS 08:30 → Drive Miami→Orlando ~4h → Check-in 16h</div><div style="font-size:11.5px;color:var(--gray-700);">Florida Turnpike · Parada almoço na estrada</div></td>
-        <td style="padding:8px 10px;font-size:11.5px;color:var(--gray-700);"><span style="color:var(--coral);font-weight:700;">⚠️</span> CNH física + cartão físico p/ caução AVIS. Depósito USD 115 no check-in.</td>
+        <td style="padding:8px 10px;"><span style="display:inline-block;font-size:9.5px;font-weight:700;padding:1px 6px;border-radius:50px;background:rgba(91,127,166,.12);color:var(--gray-500);margin-bottom:3px;">🚗 Transfer + 🏡 Check-in</span><div style="font-weight:700;font-size:12px;">AVIS 08:30 → Drive Miami→Orlando ~4h → Check-in 16h</div><div style="font-size:11.5px;color:var(--gray-700);">Florida Turnpike · Parada almoço na estrada</div><div style="margin-top:4px;font-size:11.5px;font-weight:700;color:#7a5d00;background:rgba(244,168,37,.14);border:1px solid rgba(244,168,37,.4);border-radius:6px;padding:3px 7px;display:inline-block;">📦 Retirar iPhone 18 Pro Max na Resort Services (até 17h)</div></td>
+        <td style="padding:8px 10px;font-size:11.5px;color:var(--gray-700);"><span style="color:var(--coral);font-weight:700;">⚠️</span> CNH física + cartão físico p/ caução AVIS. Depósito USD 115 no check-in. <b style="color:#7a5d00;">📦 iPhone: retirar logo após o check-in — Clubhouse 10h–17h · levar passaporte do Gabriel · taxa ~USD 10.</b></td>
       </tr>
       <tr style="background:rgba(74,26,122,.03);border-bottom:1px solid rgba(0,0,0,.05);">
         <td style="padding:8px 10px;"><div style="font-size:16px;font-weight:900;color:var(--ocean);">12/11</div><div style="font-size:9.5px;font-weight:700;color:var(--gray-500);text-transform:uppercase;">Quinta</div></td>
@@ -1144,6 +1131,15 @@ header::after{content:'';position:absolute;right:-20px;bottom:0;width:380px;heig
     <div class="tl-row"><span class="tl-label">Endereço:</span><span class="tl-val">8505 W Irlo Bronson Mem Hwy, Kissimmee, FL 34747</span></div>
     <div class="tl-row"><span class="tl-label">Check-in:</span><span class="tl-val">A partir das 16:00 · Depósito USD 115 (cartão físico)</span></div>
   </div></div>
+  <div class="timeline-item hotel" style="border-left-color:var(--coral);background:#fffaf0;"><div class="tl-time">16:15 · logo após o check-in</div><div class="tl-title">📦 LEMBRETE: Retirar o iPhone 18 Pro Max</div><div class="tl-body">
+    <div class="tl-row"><span class="tl-label">Item:</span><span class="tl-val">iPhone 18 Pro Max 256GB Black · Pedido Apple W15•••9697 · Entrega prevista 30/10–06/11</span></div>
+    <div class="tl-row"><span class="tl-label">Onde:</span><span class="tl-val">Resort Services Lobby — prédio do Clubhouse (Holiday Inn Orange Lake)</span></div>
+    <div class="tl-row"><span class="tl-label">Horário:</span><span class="tl-val"><strong>10h às 17h</strong> — chegada prevista ~15:30, ir direto após o check-in</span></div>
+    <div class="tl-row"><span class="tl-label">Levar:</span><span class="tl-val">Passaporte do <strong>Gabriel</strong> (nome no ID = nome no pacote) + cartão de crédito/débito</span></div>
+    <div class="tl-row"><span class="tl-label">Taxa:</span><span class="tl-val">~USD 10 (pacotes até 10 lb) · resort cashless (cartão ou conta do quarto)</span></div>
+    <div class="tl-row"><span class="tl-label">Plano B:</span><span class="tl-val">Se não der até 17h: retirar em outro dia entre 10h–17h (ex.: 15/11 às 10h, no check-out). Pacote fica guardado 30 dias.</span></div>
+    <div class="tl-row"><span class="tl-label">Antes:</span><span class="tl-val">Acompanhar o rastreio no app Apple Store e conferir status "Delivered" antes de 11/11. Ligar (407) 477-7025 se houver dúvida.</span></div>
+  </div></div>
 </div>
 </div><!-- /d11 -->
 </div><!-- /tab-miami -->
@@ -1438,6 +1434,7 @@ header::after{content:'';position:absolute;right:-20px;bottom:0;width:380px;heig
 <tr class="sched-row" style="background:#fef3db;border-left:3px solid #F4A825;"><td></td><td></td><td class="sched-time">11:00</td><td>🏨 Check-out YVE Hotel Miami</td><td style="font-size:12px;color:#555;">Prazo até 11:00</td></tr>
 <tr class="sched-row" style="background:#f0f3f8;border-left:3px solid #5B7FA6;"><td></td><td></td><td class="sched-time">11:15</td><td>🛣️ Drive Miami → Kissimmee (~4h · Florida Turnpike)</td><td style="font-size:12px;color:#555;">~360 km · Parada para almoço</td></tr>
 <tr class="sched-row" style="background:#fef3db;border-left:3px solid #F4A825;"><td></td><td></td><td class="sched-time">16:00</td><td>🏡 Check-in Holiday Inn Orange Lake East Village</td><td style="font-size:12px;color:#555;">Kissimmee · RCI #00011 · Depósito USD 115</td></tr>
+<tr class="sched-row" style="background:#fff4d6;border-left:3px solid #E05C3E;"><td></td><td></td><td class="sched-time">16:15</td><td>📦 <strong>Retirar iPhone 18 Pro Max (pedido Apple)</strong> · Resort Services Lobby (Clubhouse)</td><td style="font-size:12px;color:#555;">Aberto 10h–17h · Passaporte do Gabriel (nome do pacote) · Taxa ~USD 10 no cartão</td></tr>
 <tr class="day-group-header"><td colspan="5"><span class="dgh-date">12/11</span><span class="dgh-day">QUINTA</span><span class="dgh-title">🎬 Disney Hollywood Studios · Parque 1/4</span></td></tr>
 <tr class="sched-row" style="background:#f0e6fb;border-left:3px solid #7B2D8B;"><td>12/11</td><td>Quinta</td><td class="sched-time">Todo o dia</td><td>🎬 Disney Hollywood Studios</td><td style="font-size:12px;color:#555;">Star Wars Galaxy's Edge · Tower of Terror · Fantasmic!</td></tr>
 <tr class="day-group-header"><td colspan="5"><span class="dgh-date">13/11</span><span class="dgh-day">SEXTA</span><span class="dgh-title">🌍 Disney EPCOT · Gastronomia · Parque 2/4</span></td></tr>
