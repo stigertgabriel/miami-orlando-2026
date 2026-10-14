@@ -277,7 +277,7 @@ header::after{content:'';position:absolute;right:-20px;bottom:0;width:380px;heig
 /* ═══════════════════════════
    COMPRAS — SHOPPING LIST
 ═══════════════════════════ */
-.shop-subtabs{display:flex;gap:10px;margin-bottom:20px;}
+.shop-subtabs{display:flex;gap:8px;margin-bottom:12px;}
 .shop-subtab{padding:10px 28px;border-radius:10px;border:2px solid var(--gray-200);background:white;cursor:pointer;font-weight:700;font-size:14px;transition:var(--transition);color:var(--gray-500);display:flex;align-items:center;gap:8px;}
 .shop-subtab.active{background:var(--ocean);color:white;border-color:var(--ocean);}
 .shop-subtab:not(.active):hover{border-color:var(--ocean-mid);color:var(--ocean-mid);}
@@ -462,16 +462,36 @@ header::after{content:'';position:absolute;right:-20px;bottom:0;width:380px;heig
 .sort-btn.active{background:var(--ocean);border-color:var(--ocean);color:white;}
 /* SHOP CUSTOM INPUT */
 .shop-custom-input{margin-top:4px;display:none;}
-.fx-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:white;border-radius:10px;box-shadow:var(--shadow);padding:10px 14px;margin-bottom:10px;border-left:4px solid var(--green);}
+.fx-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:white;border-radius:10px;box-shadow:var(--shadow);padding:8px 14px;margin-bottom:8px;border-left:4px solid var(--green);}
 .fx-lbl{font-size:11px;font-weight:800;color:var(--ocean);text-transform:uppercase;letter-spacing:.5px;}
-.fx-input{width:100px;padding:6px 9px;border:1.5px solid var(--gray-200);border-radius:7px;font-size:13px;font-weight:700;font-family:inherit;color:#0a2540;}
+.fx-input{width:100px;padding:5px 9px;border:1.5px solid var(--gray-200);border-radius:7px;font-size:13px;font-weight:700;font-family:inherit;color:#0a2540;}
 .fx-input:focus{outline:none;border-color:var(--green);}
 .fx-live{font-size:12px;color:var(--gray-700);}
 .fx-live strong{color:var(--green);}
 .fx-use{background:none;border:1.5px solid var(--green);color:var(--green);font-size:11px;font-weight:700;padding:4px 10px;border-radius:14px;cursor:pointer;}
 .fx-use:hover{background:var(--green);color:white;}
-.shop-price-brl{font-size:13px;font-weight:700;color:var(--green);}
-.brl-input{width:84px;}
+.shop-price-brl{font-size:12px;font-weight:700;color:var(--green);}
+.brl-input{width:74px;}
+/* Filtro por pessoa */
+.filt-btn{background:white;border:1.5px solid var(--gray-200);color:var(--gray-500);font-size:10.5px;font-weight:700;padding:4px 10px;border-radius:18px;cursor:pointer;transition:all .18s;}
+.filt-btn:hover{border-color:var(--purple);color:var(--purple);}
+.filt-btn.active{background:var(--purple);border-color:var(--purple);color:white;}
+.filt-clear{background:none;border:none;color:var(--gray-500);font-size:10.5px;font-weight:700;cursor:pointer;padding:4px 6px;}
+.filt-clear:hover{color:var(--coral);}
+.filt-info{font-size:10.5px;color:var(--gray-500);margin-left:4px;}
+/* Compactação vertical dos itens de compra */
+.shop-items-wrap .shop-item{padding:6px 10px;margin-bottom:4px;gap:8px;border-radius:8px;}
+.shop-items-wrap .shop-item > div:first-child{gap:8px!important;}
+.shop-items-wrap .shop-item-nome{font-size:12.5px;line-height:1.25;}
+.shop-items-wrap .shop-item-meta{font-size:10.5px;margin-top:1px;line-height:1.25;}
+.shop-items-wrap .shop-quem-badge{font-size:9px;padding:0 6px;}
+.shop-items-wrap .shop-item-prices{gap:10px;min-width:0;}
+.shop-items-wrap .shop-price-label{font-size:8.5px;line-height:1.1;}
+.shop-items-wrap .shop-price-est{font-size:12px;}
+.shop-items-wrap .real-input{padding:2px 6px;font-size:11.5px;width:66px;}
+.shop-items-wrap .shop-check-box input[type="checkbox"]{width:17px;height:17px;}
+.shop-items-wrap .shop-del,.shop-items-wrap .shop-edit-btn{padding:2px 4px;font-size:13px;}
+.sort-bar{margin-bottom:6px;}
 @media(max-width:768px){
   .pi-edit-grid{grid-template-columns:1fr 1fr;}
   .apf-grid{grid-template-columns:1fr;}
@@ -1613,6 +1633,14 @@ header::after{content:'';position:absolute;right:-20px;bottom:0;width:380px;heig
     <button type="button" class="fx-use" onclick="useLiveDolar()">Usar cotação atual</button>
   </div>
   <div class="sort-bar">
+    <span class="sort-bar-lbl">Filtrar:</span>
+    <button type="button" class="filt-btn" data-fcat="adulto" data-fval="Gabriel" onclick="toggleFilter('adulto','Gabriel')">👨 Gabriel</button>
+    <button type="button" class="filt-btn" data-fcat="adulto" data-fval="Patricia" onclick="toggleFilter('adulto','Patricia')">👩 Patricia</button>
+    <button type="button" class="filt-btn" data-fcat="adulto" data-fval="Todos" onclick="toggleFilter('adulto','Todos')">👫 Todos</button>
+    <button type="button" class="filt-clear" data-fcat="adulto" onclick="clearFilter('adulto')">✕ Limpar</button>
+    <span class="filt-info" id="filt-info-adulto"></span>
+  </div>
+  <div class="sort-bar">
     <span class="sort-bar-lbl">Ordenar:</span>
     <button class="sort-btn active" id="sort-adulto-ts" onclick="setSort('adulto','ts')">📅 Adição</button>
     <button class="sort-btn" id="sort-adulto-nome" onclick="setSort('adulto','nome')">📝 Nome</button>
@@ -1688,6 +1716,14 @@ header::after{content:'';position:absolute;right:-20px;bottom:0;width:380px;heig
     <button type="button" class="fx-use" onclick="useLiveDolar()">Usar cotação atual</button>
   </div>
   <div class="sort-bar">
+    <span class="sort-bar-lbl">Filtrar:</span>
+    <button type="button" class="filt-btn" data-fcat="bebe" data-fval="Gabriel" onclick="toggleFilter('bebe','Gabriel')">👨 Gabriel</button>
+    <button type="button" class="filt-btn" data-fcat="bebe" data-fval="Patricia" onclick="toggleFilter('bebe','Patricia')">👩 Patricia</button>
+    <button type="button" class="filt-btn" data-fcat="bebe" data-fval="Todos" onclick="toggleFilter('bebe','Todos')">👫 Todos</button>
+    <button type="button" class="filt-clear" data-fcat="bebe" onclick="clearFilter('bebe')">✕ Limpar</button>
+    <span class="filt-info" id="filt-info-bebe"></span>
+  </div>
+  <div class="sort-bar">
     <span class="sort-bar-lbl">Ordenar:</span>
     <button class="sort-btn active" id="sort-bebe-ts" onclick="setSort('bebe','ts')">📅 Adição</button>
     <button class="sort-btn" id="sort-bebe-nome" onclick="setSort('bebe','nome')">📝 Nome</button>
@@ -1759,6 +1795,14 @@ header::after{content:'';position:absolute;right:-20px;bottom:0;width:380px;heig
     <input type="number" class="fx-input dolar-input" placeholder="5,30" min="0" step="0.01" onchange="setDolar(this.value)">
     <span class="fx-live">📈 Dólar hoje: <strong class="dolar-live">carregando...</strong></span>
     <button type="button" class="fx-use" onclick="useLiveDolar()">Usar cotação atual</button>
+  </div>
+  <div class="sort-bar">
+    <span class="sort-bar-lbl">Filtrar:</span>
+    <button type="button" class="filt-btn" data-fcat="maes" data-fval="Gabriel" onclick="toggleFilter('maes','Gabriel')">👨 Gabriel</button>
+    <button type="button" class="filt-btn" data-fcat="maes" data-fval="Patricia" onclick="toggleFilter('maes','Patricia')">👩 Patricia</button>
+    <button type="button" class="filt-btn" data-fcat="maes" data-fval="Todos" onclick="toggleFilter('maes','Todos')">👫 Todos</button>
+    <button type="button" class="filt-clear" data-fcat="maes" onclick="clearFilter('maes')">✕ Limpar</button>
+    <span class="filt-info" id="filt-info-maes"></span>
   </div>
   <div class="sort-bar">
     <span class="sort-bar-lbl">Ordenar:</span>
@@ -2166,6 +2210,34 @@ function loadLiveDolar(){
 }
 loadLiveDolar();
 setInterval(loadLiveDolar, 600000);
+// ── FILTRO POR PESSOA (multi-seleção) ──
+var shopFilter = {adulto:[], bebe:[], maes:[]};
+function toggleFilter(cat, val){
+  var arr = shopFilter[cat] || [];
+  var idx = arr.indexOf(val);
+  if(idx >= 0) arr.splice(idx,1); else arr.push(val);
+  shopFilter[cat] = arr;
+  var btns = document.querySelectorAll('.filt-btn[data-fcat="'+cat+'"]');
+  for(var i=0;i<btns.length;i++){ btns[i].classList.toggle('active', arr.indexOf(btns[i].dataset.fval) >= 0); }
+  if(shopCacheData[cat]) renderList(cat, shopCacheData[cat]);
+}
+function clearFilter(cat){
+  shopFilter[cat] = [];
+  var btns = document.querySelectorAll('.filt-btn[data-fcat="'+cat+'"]');
+  for(var i=0;i<btns.length;i++){ btns[i].classList.remove('active'); }
+  if(shopCacheData[cat]) renderList(cat, shopCacheData[cat]);
+}
+function applyFilter(cat, data){
+  var f = shopFilter[cat] || [];
+  if(f.length === 0) return data || {};
+  var out = {};
+  var keys = Object.keys(data || {});
+  for(var i=0;i<keys.length;i++){
+    var q = data[keys[i]].quem || 'Todos';
+    if(f.indexOf(q) >= 0) out[keys[i]] = data[keys[i]];
+  }
+  return out;
+}
 
 const DATE_ORDER=['08/11','09/11','10/11','11/11','12/11','13/11','14/11','15/11','16/11','17/11','18/11','19/11','20/11','21/11','22/11'];
 function dateRank(d){if(!d)return 99;const dd=d.substring(0,5);const i=DATE_ORDER.indexOf(dd);return i>=0?i:99;}
@@ -2192,8 +2264,13 @@ function renderList(cat,data){
   shopCacheData[cat]=data;
   const container=document.getElementById('list-'+cat);
   const countTab=document.getElementById('count-'+cat);
+  const totalAll=Object.keys(data||{}).length;
+  if(countTab)countTab.textContent=totalAll>0?'('+totalAll+')':'';
+  data=applyFilter(cat,data);
   let entries=Object.entries(data||{});
-  if(countTab)countTab.textContent=entries.length>0?'('+entries.length+')':'';
+  const fInfo=document.getElementById('filt-info-'+cat);
+  if(fInfo)fInfo.textContent=(shopFilter[cat]&&shopFilter[cat].length)?('Mostrando '+entries.length+' de '+totalAll):'';
+  if(entries.length===0&&totalAll>0){container.innerHTML='<div class="shop-empty">Nenhum item para o filtro selecionado.</div>';updateTotals(cat,{});return;}
   if(entries.length===0){container.innerHTML='<div class="shop-empty">Nenhum item ainda. Adicione acima! 👆</div>';updateTotals(cat,{});return;}
   entries=sortEntries(entries,shopSortState[cat]||'ts');
   const qcls={'Gabriel':'quem-gabriel','Patricia':'quem-patricia','Todos':'quem-todos'};
@@ -2293,9 +2370,9 @@ function updateTotals(cat,data){
   set('count-items-'+cat,items.length);
   set('total-est-'+cat,fmtUSD(items.reduce((s,i)=>s+(i.estimado||0),0)));
   set('total-comprado-'+cat,fmtUSD(items.filter(i=>i.comprado).reduce((s,i)=>s+(i.real!=null?i.real:(i.estimado||0)),0)));
-  set('total-pendente-'+cat,fmtUSD(items.filter(i=>!i.comprado).reduce((s,i)=>s+(i.estimado||0),0)));
   set('total-usabrl-'+cat,fmtBRL(items.reduce((s,i)=>s+(i.estimado||0),0)*dolarRate));
   set('total-brbrl-'+cat,fmtBRL(items.reduce((s,i)=>s+(i.brl||0),0)));
+  set('total-pendente-'+cat,fmtUSD(items.filter(i=>!i.comprado).reduce((s,i)=>s+(i.estimado||0),0)));
   if(cat==='adulto')set('total-gabriel-adulto',fmtUSD(items.filter(i=>i.quem==='Gabriel').reduce((s,i)=>s+(i.estimado||0),0)));
   if(cat==='maes')set('total-patricia-maes',fmtUSD(items.filter(i=>i.quem==='Patricia').reduce((s,i)=>s+(i.estimado||0),0)));
   if(cat==='bebe')set('total-patricia-bebe',fmtUSD(items.filter(i=>i.quem==='Patricia').reduce((s,i)=>s+(i.estimado||0),0)));
