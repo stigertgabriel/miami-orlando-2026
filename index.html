@@ -900,7 +900,7 @@ header::after{content:'';position:absolute;right:-20px;bottom:0;width:380px;heig
     <li class="warn">Seguro Assist Card cobre <strong>07/11 a 23/11</strong> — vigência correta para toda a viagem. ✅</li>
     <li class="warn">Ingressos Disney válidos até <strong>17/11</strong> — 4 parques devem ser usados entre 11–17/11. Último planejado: 16/11. ✅</li>
     <li class="warn">Check-out Sheraton às <strong>10h00 em 22/11</strong> — voo às 21:30. ~11h30 de janela. Planejar o dia.</li>
-    <li>Holiday Inn: Depósito <strong>USD 115</strong> + se atentar a cobrança indevida de taxa limpeza <strong>USD 134,06</strong> no check-in para reservas menores que 7 dias.</li>
+    <li>Holiday Inn: Depósito <strong>USD 115</strong>. Reserva de 7 noites (08–15/11, late check-in 11/11) → taxa de limpeza <strong>USD 134,06 não se aplica</strong>; contestar se cobrada. Avisar o resort do late check-in.</li>
     <li>YVE Hotel: Resort fee <strong>USD 25/noite</strong> → USD 75 total por 3 noites.</li>
     <li>Nos EUA: <strong>nunca ir a hospital sem contatar Assist Card antes.</strong> WhatsApp: <strong>+54 9 11 2703 9665</strong></li>
     <li class="warn">Check-in Azul: apresentar-se com <strong>4h de antecedência</strong> em todos os voos internacionais.</li>
@@ -972,7 +972,7 @@ header::after{content:'';position:absolute;right:-20px;bottom:0;width:380px;heig
 </div>
 
 <div class="hotel-card">
-  <div class="hotel-card-hdr holiday"><div class="hi">🏡</div><div><h3>Holiday Inn Club Vacations — Orange Lake</h3><p>11/11 Check-in 16h → 15/11 Check-out 10h · 4 noites · RCI #00011</p></div></div>
+  <div class="hotel-card-hdr holiday"><div class="hi">🏡</div><div><h3>Holiday Inn Club Vacations — Orange Lake</h3><p>Reserva 08–15/11 (7 noites) · Late check-in 11/11 16h → Check-out 15/11 10h · RCI #00011</p></div></div>
   <div class="hotel-card-body"><div class="hotel-info-grid">
     <div>
       <div class="hotel-dt"><span class="hotel-dt-lbl">📍 Endereço</span><span class="hotel-dt-val">8505 W Irlo Bronson Mem Hwy, Kissimmee, FL 34747</span></div>
@@ -981,8 +981,9 @@ header::after{content:'';position:absolute;right:-20px;bottom:0;width:380px;heig
       <div class="hotel-dt"><span class="hotel-dt-lbl">🚪 Check-out</span><span class="hotel-dt-val"><strong>15/11 até 10:00</strong></span></div>
     </div>
     <div>
+      <div class="hotel-dt"><span class="hotel-dt-lbl">📞 Late check-in</span><span class="hotel-dt-val"><strong>Avisar o resort</strong> que a chegada será em 11/11, para a reserva não ser cancelada por no-show</span></div>
       <div class="hotel-dt"><span class="hotel-dt-lbl">💰 Depósito</span><span class="hotel-dt-val">USD 115 · cartão crédito físico no check-in</span></div>
-      <div class="hotel-dt"><span class="hotel-dt-lbl">🧹 Taxa limpeza</span><span class="hotel-dt-val">USD 134,06 pode ser cobrada indevidamente em estadias &lt;7 dias (são 4 noites) — <strong>contestar no check-in</strong></span></div>
+      <div class="hotel-dt"><span class="hotel-dt-lbl">🧹 Taxa limpeza</span><span class="hotel-dt-val">USD 134,06 só para reservas &lt;7 noites — <strong>NÃO se aplica</strong> (reserva RCI de 7 noites a partir de 08/11, com late check-in em 11/11) · se cobrada, contestar no check-in</span></div>
     </div>
   </div>
   <div class="policy-box">
@@ -2073,6 +2074,9 @@ const PENDENCIAS = [
   { id:'rockn-roller-status', grp:'green', badge:'✅ Concluído', badgeCls:'pib-green',
     titulo:'Status Rock \'n\' Roller Coaster (12/11 Hollywood Studios)',
     sub:'Reaberta em 26/05/2026 como Rock \'n\' Roller Coaster Starring The Muppets · ✅ CONCLUÍDO', done:true },
+  { id:'holiday-late-checkin', grp:'red', badge:'🔴 Alta', badgeCls:'pib-red',
+    titulo:'Avisar Holiday Inn Orange Lake do late check-in em 11/11',
+    sub:'Reserva RCI #00011 começa 08/11 · confirmar que não será cancelada por no-show · (407) 477-7025', done:false },
   { id:'horarios-parques', grp:'yellow', badge:'🟡 Média', badgeCls:'pib-yellow',
     titulo:'Confirmar horários dos parques e shows no app MDE (~60 dias antes)',
     sub:'Abertura HS/EPCOT/MK (9h?) e AK (8h?) · Fantasmic! (não ocorre todas as noites) · Festival of Fantasy · Luminous · Happily Ever After', done:false },
